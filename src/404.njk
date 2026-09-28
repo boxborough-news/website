@@ -1,0 +1,12 @@
+---
+layout: layouts/base.njk
+permalink: /404.html
+title: Page not found
+noindex: true
+---
+<header class="section-head">
+  <h1>Page not found</h1>
+  <p>Sorry, we couldn't find that page. It may have moved when we launched our new website.</p>
+  <p><a href="/">Go to the home page</a>, <a href="/search/">search the site</a>, or <a href="/archive/">browse the archive</a>.</p>
+  {%- if site.old_site_url %}<p>Older articles are on <a href="{{ site.old_site_url }}">our previous website</a>.</p>{% endif %}
+</header>

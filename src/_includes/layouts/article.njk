@@ -1,0 +1,62 @@
+---
+layout: layouts/base.njk
+---
+{%- set sec = section | sectionInfo(sections) %}
+<article class="article" data-pagefind-body>
+  <header class="article-head">
+    <p class="kicker" data-pagefind-ignore><a href="{{ sec.path }}">{{ sec.name }}</a></p>
+    <h1 class="article-title" data-pagefind-meta="title">{{ title | smart }}</h1>
+    {%- if summary %}<p class="deck">{{ summary }}</p>{% endif %}
+    <p class="byline" data-pagefind-ignore>
+      {%- if byline %}<span class="author">{{ byline }}</span>{% endif %}
+      <time datetime="{{ date | ymd }}" data-pagefind-meta="date">{{ date | date }}</time>
+      {%- if readMinutes %}<span>{{ readMinutes }} min read</span>{% endif %}
+    </p>
+  </header>
+
+  {%- if image %}
+  <figure class="article-figure{% if image_fit == 'full' %} is-full{% endif %}">
+    <img src="{{ image }}" alt="{{ image_alt }}" loading="eager" sizes="{% if image_fit == 'full' %}600px{% else %}(min-width: 900px) 860px, 100vw{% endif %}">
+    {%- if image_caption or image_credit %}
+    <figcaption>{{ image_caption }}{% if image_credit %} <span class="credit">{{ "Photo: " if not ("photo" in image_credit | lower) }}{{ image_credit }}</span>{% endif %}</figcaption>
+    {%- endif %}
+  </figure>
+  {%- endif %}
+
+  {%- if event_date %}
+  <dl class="event-facts" data-pagefind-ignore>
+    <div><dt>When</dt><dd>{{ event_date | date("weekday") }}{% if event_time %}, {{ event_time }}{% endif %}</dd></div>
+    {%- if location %}<div><dt>Where</dt><dd>{{ location }}</dd></div>{% endif %}
+    {%- if link %}<div><dt>More info</dt><dd><a href="{{ link }}">{{ link | replace("https://", "") | truncate(48) }}</a></dd></div>{% endif %}
+  </dl>
+  {%- endif %}
+
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+
+  <footer class="article-foot" data-pagefind-ignore>
+    <div class="share">
+      <span>Share:</span>
+      <a href="mailto:?subject={{ title | encode }}&body={{ page.url | absolute | encode }}">Email</a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute | encode }}">Facebook</a>
+      <button type="button" data-copy-link="{{ page.url | absolute }}">Copy link</button>
+    </div>
+    <p class="correction">See an error? <a href="mailto:{{ site.email }}?subject=Correction:%20{{ title | encode }}">Let us know</a>.</p>
+  </footer>
+</article>
+
+<div class="after-article">
+  {% include "partials/subscribe-box.njk" %}
+  {%- set more = (collections.announcements if section == "announcements" else collections[section]) | exclude(page.url) | limit(4) %}
+  {%- if more.length %}
+  <section class="more-from">
+    <h2 class="label">More {{ sec.name }}</h2>
+    <ul class="headline-list">
+      {%- for item in more %}
+      <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ item.data.date | date }}</span></li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+</div>

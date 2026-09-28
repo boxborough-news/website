@@ -1,0 +1,24 @@
+---
+layout: layouts/base.njk
+permalink: /archive/
+title: Archive
+---
+<header class="section-head">
+  <h1>Archive</h1>
+  <p>Every article on this site, newest first. Looking for something specific? <a href="/search/">Search the site</a>.</p>
+  {%- if site.old_site_url %}
+  <p>Articles published before this website launched are on <a href="{{ site.old_site_url }}">our previous website</a>.</p>
+  {%- endif %}
+</header>
+<div class="archive">
+  {%- for m in collections.archiveMonths %}
+  <section class="archive-month">
+    <h2>{{ m.label }} <span class="count">{{ m.items.length }}</span></h2>
+    <ul>
+      {%- for item in m.items %}
+      <li><span class="archive-date">{{ item.data.date | date("short") }}</span> <a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="archive-sec">{{ (item.data.section | sectionInfo(sections)).name }}</span></li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endfor %}
+</div>

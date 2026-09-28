@@ -1,0 +1,62 @@
+---
+permalink: /
+layout: layouts/base.njk
+---
+{%- set news = collections.news | topStoryFirst %}
+{%- set lead = news[0] %}
+{% include "partials/townhall.njk" %}
+
+<div class="home-grid">
+  <div class="home-main">
+    <section aria-labelledby="latest-news">
+      <h2 class="label" id="latest-news"><a href="/news/">Latest News</a></h2>
+      {%- if lead %}
+      {%- set item = lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = false %}{% set thumb = false %}
+      {% include "partials/story.njk" %}
+      {%- endif %}
+      <div class="story-grid">
+        {%- for item in news | offset(1) | limit(6) %}
+        {%- set size = "medium" %}{% set showImage = false %}{% set thumb = true %}{% set teaserWords = 24 %}
+        {% include "partials/story.njk" %}
+        {%- endfor %}
+      </div>
+      <p class="more"><a href="/news/">More news →</a></p>
+    </section>
+
+    <div class="mobile-only">{% include "partials/subscribe-box.njk" %}</div>
+
+    <section aria-labelledby="latest-features">
+      <h2 class="label" id="latest-features"><a href="/features/">Features</a></h2>
+      <div class="story-grid story-grid-3">
+        {%- for item in collections.features | limit(3) %}
+        {%- set size = "medium" %}{% set showImage = true %}{% set thumb = false %}{% set teaserWords = 32 %}
+        {% include "partials/story.njk" %}
+        {%- endfor %}
+      </div>
+      <p class="more"><a href="/features/">More features →</a></p>
+    </section>
+
+    <section aria-labelledby="earlier">
+      <h2 class="label" id="earlier">Recently in Boxborough News</h2>
+      <ul class="headline-list">
+        {%- for item in collections.articles | excludeAll(news | limit(7), collections.features | limit(3)) | limit(8) %}
+        <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }} · {{ item.data.date | date }}</span></li>
+        {%- endfor %}
+      </ul>
+      <p class="more"><a href="/archive/">Browse the archive →</a></p>
+    </section>
+  </div>
+
+  <aside class="home-side">
+    <div class="desktop-only">{% include "partials/subscribe-box.njk" %}</div>
+    {% include "partials/events-box.njk" %}
+    <section class="box">
+      <h2 class="box-title">Got a news tip?</h2>
+      <p>Story ideas, corrections and questions are always welcome. Email <a href="mailto:{{ site.tips_email or site.email }}?subject=News%20tip">{{ site.tips_email or site.email }}</a>.</p>
+    </section>
+    <section class="box">
+      <h2 class="box-title">Outside the Box</h2>
+      <p>News from our neighbors in Acton, Harvard, Stow, Littleton and beyond. <a href="/outside-the-box/">See the list →</a></p>
+    </section>
+  </aside>
+</div>

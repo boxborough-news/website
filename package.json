@@ -1,0 +1,25 @@
+{
+  "name": "boxborough-news",
+  "version": "1.0.0",
+  "description": "Boxborough News website and weekly newsletter",
+  "scripts": {
+    "build": "eleventy --quiet && pagefind --site _site --silent",
+    "start": "eleventy --serve",
+    "newsletter-draft": "node scripts/create-newsletter-draft.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-img": "^7.0.0",
+    "@11ty/eleventy-plugin-rss": "^3.0.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^15.0.2",
+    "node-ical": "^0.27.2",
+    "pagefind": "^1.5.2"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

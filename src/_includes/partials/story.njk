@@ -1,0 +1,21 @@
+{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection -#}
+{%- set d = item.data %}
+<article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% endif %}{% if thumb and d.image %} has-thumb{% endif %}">
+  {%- if (showImage or thumb) and d.image %}
+  <a class="story-image{% if d.image_fit == 'full' %} is-full{% endif %}" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ d.image }}" alt="{{ d.image_alt }}" {% if size == 'lead' %}sizes="(min-width: 1000px) 760px, 100vw" loading="eager"{% elif thumb %}sizes="120px"{% else %}sizes="(min-width: 1000px) 380px, 100vw"{% endif %}>
+  </a>
+  {%- endif %}
+  <div class="story-text">
+    {%- if showSection %}
+    <p class="kicker">{{ (d.section | sectionInfo(sections)).name }}</p>
+    {%- endif %}
+    <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
+    {%- if size == 'lead' %}<p class="story-teaser">{{ d.teaser }}</p>
+    {%- elif size != 'small' %}<p class="story-teaser">{{ d.teaser | words(teaserWords or 32) }}</p>{% endif %}
+    <p class="meta">
+      {%- if d.event_date %}<span class="event-when">{{ d.event_date | date("eventday") }}{% if d.event_time %} · {{ d.event_time }}{% endif %}</span>
+      {%- else %}<time datetime="{{ d.date | ymd }}">{{ d.date | date }}</time>{% if d.byline %} · {{ d.byline }}{% endif %}{% endif %}
+    </p>
+  </div>
+</article>

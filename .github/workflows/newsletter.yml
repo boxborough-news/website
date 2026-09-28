@@ -1,0 +1,42 @@
+# Every Friday morning: build this week's newsletter and save it as a DRAFT in Kit.
+# An editor then reviews it in Kit and presses Send. Nothing is sent automatically.
+# Editors can also run this any time with the "Create this week's email draft now"
+# button in Pages CMS.
+name: Weekly newsletter draft
+
+on:
+  schedule:
+    - cron: "0 10 * * 5" # Fridays, 6:00 a.m. Boston time (5:00 a.m. in winter)
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS payload (filled in automatically)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Reuse resized photos from earlier builds
+        uses: actions/cache@v4
+        with:
+          path: _site/img
+          key: img-${{ hashFiles('src/media/**') }}
+          restore-keys: img-
+      - run: npx eleventy --quiet
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+      - run: node scripts/create-newsletter-draft.js
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}

@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+permalink: /subscribe/
+title: Subscribe
+---
+<article class="article page-article">
+  <header class="article-head">
+    <h1 class="article-title">Get Boxborough News every Friday</h1>
+  </header>
+  <div class="prose">
+    <p>Our free email newsletter arrives every Friday with the week's town news, features, and upcoming events. You can unsubscribe at any time, and we never share your email address.</p>
+  </div>
+  <div class="subscribe-panel">
+    {%- if site.subscribe_embed_code %}
+    {{ site.subscribe_embed_code | safe }}
+    {%- else %}
+    <a class="button button-large" href="{{ site.subscribe_url }}">Sign up for the free newsletter</a>
+    {%- endif %}
+  </div>
+  <div class="prose">
+    <p>Prefer a feed reader? Follow our <a href="/feed.xml">RSS feed</a>. You can also find us on {% if site.facebook_url %}<a href="{{ site.facebook_url }}">Facebook</a>{% endif %}{% if site.instagram_url %} and <a href="{{ site.instagram_url }}">Instagram</a>{% endif %}.</p>
+  </div>
+</article>

@@ -1,0 +1,21 @@
+{%- set upcoming = collections.upcomingEvents | limit(5) %}
+<section class="box box-events">
+  <h2 class="box-title">Coming up</h2>
+  {%- if upcoming.length %}
+  <ul class="event-list">
+    {%- for ev in upcoming %}
+    <li>
+      <span class="datebadge" aria-hidden="true"><span>{{ ev.data.event_date | date("monthshort") }}</span><strong>{{ ev.data.event_date | date("daynum") }}</strong></span>
+      <span>
+        <a href="{{ ev.url }}">{{ ev.data.title | smart }}</a>
+        <span class="meta">{{ ev.data.event_date | date("eventday") }}{% if ev.data.event_time %} · {{ ev.data.event_time }}{% endif %}</span>
+      </span>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="small">No upcoming events listed right now.</p>
+  {%- endif %}
+  <p class="small"><a href="/announcements/">All announcements &amp; events →</a><br>
+  Have an event to share? Email <a href="mailto:{{ site.email }}?subject=Announcement">{{ site.email }}</a>.</p>
+</section>

@@ -1,0 +1,5 @@
+[
+  { "key": "news", "name": "News", "path": "/news/", "blurb": "Reporting on town government, schools, public safety and the decisions that shape Boxborough." },
+  { "key": "features", "name": "Features", "path": "/features/", "blurb": "People, places, history and community life in Boxborough." },
+  { "key": "announcements", "name": "Announcements & Events", "path": "/announcements/", "blurb": "Community events and announcements from Boxborough and neighboring towns. To submit one, email us." }
+]

@@ -1,0 +1,330 @@
+# Pages CMS configuration: this file defines the forms editors see at app.pagescms.org.
+# Docs: https://pagescms.org/docs/configuration/
+
+media:
+  input: src/media
+  output: /media
+  rename: safe
+  categories: [image, document]
+
+content:
+  # ---------------------------------------------------------------- Articles
+  - name: articles
+    label: Articles (News & Features)
+    type: collection
+    path: src/articles
+    format: yaml-frontmatter
+    exclude: [articles.11tydata.js]
+    filename:
+      template: "{year}-{month}-{day}-{title}.md"
+      field: false
+    view:
+      fields: [title, section, date, draft]
+      primary: title
+      sort: [date, title]
+      search: [title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Headline
+        type: string
+        required: true
+      - name: section
+        label: Section
+        type: select
+        required: true
+        default: news
+        options:
+          values:
+            - name: news
+              label: News
+            - name: features
+              label: Features
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+        description: "The article goes live on this date. Pick a future date to schedule it; it appears early that morning."
+        options:
+          format: yyyy-MM-dd
+      - name: byline
+        label: Byline (optional)
+        type: string
+        description: "For example: By Jane Smith"
+      - name: summary
+        label: Summary (optional)
+        type: text
+        description: "One or two sentences for the home page and the weekly email. Leave blank to use the article's opening lines."
+      - name: image
+        label: Main photo (optional)
+        type: image
+        description: "Shown at the top of the article, on the home page, in the weekly email and when shared on Facebook."
+      - name: image_alt
+        label: Photo description for screen readers
+        type: string
+        description: "Briefly describe what the photo shows, e.g. 'Children on the new swings at Flerra Meadows'."
+      - name: image_fit
+        label: How to show the main image
+        type: select
+        default: photo
+        options:
+          values:
+            - name: photo
+              label: Photo (may be trimmed to fit on the home page)
+            - name: full
+              label: Flyer, chart or logo (always shown whole)
+      - name: image_caption
+        label: Photo caption
+        type: string
+      - name: image_credit
+        label: Photo credit
+        type: string
+        description: "Who took the photo."
+      - name: top_story
+        label: Top story
+        type: boolean
+        description: "Tick to put this article first on the home page and in the email."
+      - name: draft
+        label: Draft (hide from website)
+        type: boolean
+        description: "While ticked, the article is saved but not published."
+      - name: body
+        label: Article text
+        type: rich-text
+
+  # ---------------------------------------------------- Announcements & events
+  - name: announcements
+    label: Announcements & Events
+    type: collection
+    path: src/announcements
+    format: yaml-frontmatter
+    exclude: [announcements.11tydata.js]
+    filename:
+      template: "{year}-{month}-{day}-{title}.md"
+      field: false
+    view:
+      fields: [title, event_date, date, draft]
+      primary: title
+      sort: [date, event_date, title]
+      search: [title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date posted
+        type: date
+        required: true
+        description: "The announcement goes live on this date and is included in that week's email."
+        options:
+          format: yyyy-MM-dd
+      - name: event_date
+        label: Event date (optional)
+        type: date
+        default: ""
+        description: "If this is an event, when it happens. Events appear under 'Coming up' until the day has passed."
+        options:
+          format: yyyy-MM-dd
+      - name: event_time
+        label: Event time (optional)
+        type: string
+        description: "For example: 7:00 – 8:30 p.m."
+      - name: location
+        label: Location (optional)
+        type: string
+      - name: link
+        label: Link for more information (optional)
+        type: string
+      - name: summary
+        label: Summary (optional)
+        type: text
+      - name: image
+        label: Flyer or photo (optional)
+        type: image
+      - name: image_alt
+        label: Image description for screen readers
+        type: string
+      - name: image_fit
+        label: How to show the main image
+        type: select
+        default: photo
+        options:
+          values:
+            - name: photo
+              label: Photo (may be trimmed to fit on the home page)
+            - name: full
+              label: Flyer, chart or logo (always shown whole)
+      - name: draft
+        label: Draft (hide from website)
+        type: boolean
+      - name: body
+        label: Details
+        type: rich-text
+
+  # ------------------------------------------------------------ Town Hall box
+  - name: townhall
+    label: Town Hall notice (home page box)
+    type: file
+    path: src/_data/townhall.json
+    format: json
+    fields:
+      - name: show
+        label: Show this box
+        type: boolean
+      - name: heading
+        label: Heading
+        type: string
+        default: Next Week at Town Hall
+      - name: body
+        label: Text
+        type: rich-text
+        options:
+          media: false
+      - name: image
+        label: Photo (optional)
+        type: image
+      - name: image_alt
+        label: Photo description for screen readers
+        type: string
+      - name: calendar_feed
+        label: Town calendar feed (set up once; leave as is)
+        type: string
+        description: "The iCal link for the Town of Boxborough's meetings calendar. Upcoming meetings from it are listed under the notice and in the weekly email. Clear it to hide the list."
+      - name: calendar_link
+        label: Link to the full town calendar
+        type: string
+      - name: hide_after
+        label: Hide automatically after
+        type: date
+        default: ""
+        description: "The notice text disappears the day after this date, so it never goes stale (the photo, heading and meetings list stay). Leave blank to keep it up until you untick 'Show this box'."
+        options:
+          format: yyyy-MM-dd
+
+  # --------------------------------------------------------- Weekly newsletter
+  - name: newsletter
+    label: Weekly email settings
+    type: file
+    path: src/_data/newsletter.json
+    format: json
+    fields:
+      - name: subject
+        label: Subject line
+        type: string
+        description: "{date} is replaced with the issue date, e.g. 'Boxborough News – {date}'."
+      - name: intro
+        label: Note at the top of this week's email (optional)
+        type: text
+        description: "Clear this after the email goes out, or it will appear again next week."
+      - name: closing
+        label: Closing line
+        type: text
+      - name: include_townhall
+        label: Include the Town Hall notice
+        type: boolean
+      - name: include_events
+        label: Include upcoming events
+        type: boolean
+      - name: kit_email_template_id
+        label: Kit email template ID (set up once; leave as is)
+        type: string
+
+  # --------------------------------------------------------------- Pages
+  - name: pages
+    label: Pages (About, Contact …)
+    type: collection
+    path: src/pages
+    format: yaml-frontmatter
+    exclude: [pages.11tydata.js]
+    filename:
+      template: "{title}.md"
+      field: create
+    view:
+      fields: [title, show_in_menu]
+      primary: title
+    fields:
+      - name: title
+        label: Page title
+        type: string
+        required: true
+      - name: show_in_menu
+        label: Show in the menu bar
+        type: boolean
+      - name: menu_order
+        label: Position in menu
+        type: number
+        description: "Lower numbers appear further left."
+      - name: body
+        label: Page text
+        type: rich-text
+
+  # --------------------------------------------------------------- Settings
+  - name: site
+    label: Site settings
+    type: file
+    path: src/_data/site.json
+    format: json
+    fields:
+      - name: title
+        label: Site name
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: description
+        label: Short description (used by Google and in the footer)
+        type: text
+      - name: url
+        label: Website address
+        type: string
+        description: "The full address, e.g. https://www.boxboroughnews.org. Links in the weekly email use this."
+      - name: email
+        label: Contact email
+        type: string
+      - name: tips_email
+        label: News tips email
+        type: string
+      - name: facebook_url
+        label: Facebook page link
+        type: string
+      - name: instagram_url
+        label: Instagram link
+        type: string
+      - name: subscribe_url
+        label: Newsletter sign-up link
+        type: string
+        description: "Where the 'Subscribe' buttons go (your email service's sign-up page)."
+      - name: subscribe_embed_code
+        label: Newsletter sign-up form code (optional)
+        type: code
+        description: "Paste the 'embed' HTML from your email service to show a sign-up form right on the site instead of a button."
+      - name: old_site_url
+        label: Old website address (for older articles)
+        type: string
+      - name: print_partner_note
+        label: Print partner note
+        type: string
+      - name: print_partner_url
+        label: Print partner link
+        type: string
+
+actions:
+  - name: newsletter-draft
+    label: Create this week's email draft now
+    workflow: newsletter.yml
+    ref: current
+    confirm:
+      title: Create email draft?
+      message: This builds this week's newsletter and saves it as a draft in Kit. Nothing is sent.
+      button: Create draft
+  - name: rebuild
+    label: Rebuild the website
+    workflow: publish.yml
+    ref: current
+    confirm: false

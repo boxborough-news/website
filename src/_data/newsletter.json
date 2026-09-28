@@ -1,0 +1,8 @@
+{
+  "subject": "Boxborough News – {date}",
+  "intro": "",
+  "closing": "Boxborough News is written and edited by volunteers. Have a news tip or story idea? Just reply to this email.",
+  "include_townhall": true,
+  "include_events": true,
+  "kit_email_template_id": ""
+}

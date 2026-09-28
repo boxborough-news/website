@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+permalink: /search/
+title: Search
+---
+<header class="section-head">
+  <h1>Search</h1>
+  <p>Search every article and announcement on Boxborough News.</p>
+</header>
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<div id="search" class="search-ui"></div>
+<noscript><p>Search needs JavaScript turned on. You can also <a href="/archive/">browse the archive</a>.</p></noscript>
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var ui = new PagefindUI({ element: "#search", showSubResults: false, showImages: false, resetStyles: false, autofocus: true });
+    var q = new URLSearchParams(location.search).get("q");
+    if (q) ui.triggerSearch(q);
+  });
+</script>

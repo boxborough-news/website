@@ -1,0 +1,9 @@
+<section class="box box-subscribe">
+  <h2 class="box-title">Boxborough News in your inbox</h2>
+  <p>Every Friday: this week's town news and features, and what's coming up. Free, and you can unsubscribe at any time.</p>
+  {%- if site.subscribe_embed_code %}
+  <div class="embed">{{ site.subscribe_embed_code | safe }}</div>
+  {%- else %}
+  <a class="button" href="{{ site.subscribe_url or '/subscribe/' }}">Subscribe free</a>
+  {%- endif %}
+</section>

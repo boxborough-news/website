@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- set pageTitle = (title + " | " + site.title) if title else (site.title + " – " + site.tagline) %}
+  {%- set pageDescription = (teaser or summary or site.description) | plain %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDescription }}">
+  <link rel="canonical" href="{{ page.url | absolute }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ title or site.title }}">
+  <meta property="og:description" content="{{ pageDescription }}">
+  <meta property="og:url" content="{{ page.url | absolute }}">
+  <meta property="og:type" content="{{ 'article' if section else 'website' }}">
+  <meta property="og:image" content="{{ (shareImage or '/assets/brand/share-default.jpg') | absolute }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {%- if noindex %}<meta name="robots" content="noindex">{% endif %}
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed.xml">
+  <link rel="preload" href="/assets/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/public-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#1e2a4d">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="topbar">
+      <div class="wrap topbar-inner">
+        <span>{{ "" | longDate }}</span>
+        <span class="topbar-links">
+          <a href="/subscribe/">Free weekly newsletter</a>
+          <a href="mailto:{{ site.tips_email or site.email }}?subject=News%20tip">Send a news tip</a>
+        </span>
+      </div>
+    </div>
+    <div class="wrap brand">
+      <a class="brand-link" href="/">
+        <img class="brand-logo" src="/assets/brand/logo.png" width="360" height="360" alt="" eleventy:ignore>
+        <img class="brand-wordmark" src="/assets/brand/wordmark.png" width="1303" height="271" alt="{{ site.title }}: {{ site.tagline }}" eleventy:ignore>
+      </a>
+    </div>
+    <nav class="mainnav" aria-label="Main">
+      <div class="wrap nav-inner">
+        <ul>
+          <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
+          {%- for s in sections %}
+          <li><a href="{{ s.path }}" {% if page.url.startsWith(s.path) or section == s.key %}aria-current="page"{% endif %}>{{ s.name }}</a></li>
+          {%- endfor %}
+          {%- for p in collections.menuPages %}
+          <li><a href="{{ p.url }}" {% if page.url == p.url %}aria-current="page"{% endif %}>{{ p.data.title }}</a></li>
+          {%- endfor %}
+        </ul>
+        <a class="nav-search" href="/search/" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>
+          <span>Search</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <p class="footer-brand"><img src="/assets/brand/logo.png" width="360" height="360" alt="" eleventy:ignore><img src="/assets/brand/wordmark-white.png" width="1303" height="271" alt="{{ site.title }}" eleventy:ignore></p>
+        <p>{{ site.description }}</p>
+        {%- if site.print_partner_note %}
+        <p class="small">{% if site.print_partner_url %}<a href="{{ site.print_partner_url }}">{{ site.print_partner_note }}</a>{% else %}{{ site.print_partner_note }}{% endif %}</p>
+        {%- endif %}
+      </div>
+      <div>
+        <p class="footer-head">Sections</p>
+        <ul>
+          {%- for s in sections %}<li><a href="{{ s.path }}">{{ s.name }}</a></li>{% endfor %}
+          <li><a href="/archive/">Archive</a></li>
+          <li><a href="/search/">Search</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-head">Boxborough News</p>
+        <ul>
+          {%- for p in collections.menuPages %}<li><a href="{{ p.url }}">{{ p.data.title }}</a></li>{% endfor %}
+          <li><a href="/subscribe/">Subscribe</a></li>
+          <li><a href="/feed.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-head">Get in touch</p>
+        <ul>
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          {%- if site.facebook_url %}<li><a href="{{ site.facebook_url }}">Facebook</a></li>{% endif %}
+          {%- if site.instagram_url %}<li><a href="{{ site.instagram_url }}">Instagram</a></li>{% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-base">
+      <span>© {{ today | truncate(4, true, "") }} {{ site.title }}. All rights reserved.</span>
+      {%- if site.old_site_url %}<span><a href="{{ site.old_site_url }}">Articles from 2023 to 2026 are on our previous website</a></span>{% endif %}
+    </div>
+  </footer>
+  <script>
+    document.querySelectorAll("[data-copy-link]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(btn.getAttribute("data-copy-link")).then(function () {
+          var old = btn.textContent; btn.textContent = "Link copied";
+          setTimeout(function () { btn.textContent = old; }, 2000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

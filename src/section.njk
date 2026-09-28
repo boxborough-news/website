@@ -1,0 +1,52 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.sectionPages
+  size: 1
+  alias: sp
+permalink: "{{ sp.url }}"
+eleventyComputed:
+  title: "{{ sp.section.name }}"
+---
+<header class="section-head">
+  <h1>{{ sp.section.name }}</h1>
+  <p>{{ sp.section.blurb }}</p>
+</header>
+
+{%- if sp.section.key == "announcements" and sp.number == 1 %}
+{%- set upcoming = collections.upcomingEvents %}
+{%- if upcoming.length %}
+<section class="upcoming-strip" aria-labelledby="upcoming">
+  <h2 class="label" id="upcoming">Coming up</h2>
+  <ul class="event-list event-list-wide">
+    {%- for ev in upcoming %}
+    <li>
+      <span class="datebadge" aria-hidden="true"><span>{{ ev.data.event_date | date("monthshort") }}</span><strong>{{ ev.data.event_date | date("daynum") }}</strong></span>
+      <span>
+        <a href="{{ ev.url }}">{{ ev.data.title | smart }}</a>
+        <span class="meta">{{ ev.data.event_date | date("eventday") }}{% if ev.data.event_time %} · {{ ev.data.event_time }}{% endif %}{% if ev.data.location %} · {{ ev.data.location }}{% endif %}</span>
+      </span>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endif %}
+<h2 class="label">All announcements</h2>
+{%- endif %}
+
+<div class="river">
+  {%- for item in sp.items %}
+  {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 50 %}
+  {% include "partials/story.njk" %}
+  {%- else %}
+  <p>Nothing here yet.</p>
+  {%- endfor %}
+</div>
+
+{%- if sp.prev or sp.next %}
+<nav class="pager" aria-label="More stories">
+  {%- if sp.prev %}<a href="{{ sp.prev }}">← Newer</a>{% else %}<span></span>{% endif %}
+  <span>Page {{ sp.number }} of {{ sp.total }}</span>
+  {%- if sp.next %}<a href="{{ sp.next }}">Older →</a>{% else %}<span></span>{% endif %}
+</nav>
+{%- endif %}

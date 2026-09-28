@@ -1,0 +1,35 @@
+{%- set thText = townhall.show and townhall.body and (townhall.hide_after | afterToday) %}
+{%- set thCal = townCalendar.ok and townCalendar.days.length %}
+{%- if thText or thCal %}
+<section class="townhall{% if townhall.image %} has-image{% endif %}" id="town-hall" aria-label="{{ townhall.heading }}">
+  <div class="townhall-top">
+    {%- if townhall.image %}
+    <img class="townhall-photo" src="{{ townhall.image }}" alt="{{ townhall.image_alt }}" sizes="200px">
+    {%- endif %}
+    <div>
+      <h2 class="townhall-label">{{ townhall.heading }}</h2>
+      {%- if thText %}
+      <div class="townhall-body">{{ townhall.body | markdown | safe }}</div>
+      {%- endif %}
+    </div>
+  </div>
+  {%- if thCal %}
+  <div class="agenda">
+    <h3 class="agenda-head">Upcoming town meetings</h3>
+    <ol class="agenda-days">
+      {%- for day in townCalendar.days %}
+      <li class="agenda-day">
+        <span class="agenda-date" aria-label="{{ day.long }}"><span>{{ day.weekday }}</span><strong>{{ day.day }}</strong><span>{{ day.month }}</span></span>
+        <ul class="agenda-events">
+          {%- for ev in day.events %}
+          <li><span class="agenda-time">{{ ev.time }}</span> <span class="agenda-title">{{ ev.title }}</span>{% if ev.location %} <span class="agenda-loc">{{ ev.location }}</span>{% endif %}</li>
+          {%- endfor %}
+        </ul>
+      </li>
+      {%- endfor %}
+    </ol>
+    <p class="agenda-foot">From the Town of Boxborough calendar, updated twice a day.{% if townCalendar.link %} <a href="{{ townCalendar.link }}">Full town calendar{% if townCalendar.more %} (more meetings){% endif %} →</a>{% endif %}</p>
+  </div>
+  {%- endif %}
+</section>
+{%- endif %}

@@ -1,0 +1,10 @@
+{
+  "show": true,
+  "heading": "Next Week at Town Hall",
+  "body": "On Monday, September 28, the Select Board will hold a hybrid meeting at 7:00 p.m. featuring presentations on the Boxborough Climate Action Plan adoption, Abatement Fee increases, and State Election and Fall Town Meeting warrants.\n\n[Click here](https://www.boxborough-ma.gov/AgendaCenter/Search/?term=&CIDs=all&startDate=09/24/2026&endDate=10/02/2026&dateRange=&dateSelector=) for a list of all agendas for the upcoming week, including Zoom links. Visit [boxborough-ma.gov](https://www.boxborough-ma.gov) for other calendar and agenda items.",
+  "hide_after": "2026-10-02",
+  "image": "/media/town-hall.jpg",
+  "image_alt": "Boxborough Town Hall",
+  "calendar_feed": "https://www.boxborough-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "calendar_link": "https://www.boxborough-ma.gov/Calendar.aspx"
+}

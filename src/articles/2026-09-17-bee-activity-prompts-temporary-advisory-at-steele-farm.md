@@ -18,6 +18,6 @@ Christopher Hydak, chair of the Steele Farm Committee, said there was an infesta
 
 DPW Director Ed Kukkula said crews treated the area with an over-the-counter bee spray. Hydak said DPW used the spray for several days without resolving the problem and was preparing to call an exterminator, but "the bees ended up leaving on their own, so no additional action was taken."
 
-Both Hydak and Kukkula said they were unaware of a previous problem of this kind at Steele Farm. The Town's webpage for the property separately cautions visitors about underground yellowjacket nests.
+Both Hydak and Kukkula said they were unaware of a previous problem of this kind at Steele Farm. The [Town's webpage for the property](https://www.boxborough-ma.gov/352/Beaver-Brook-Meadow-Steele-Farm) separately cautions visitors about underground yellowjacket nests.
 
 "We do encourage bees to pollinate," Hydak said. "They just ended up forming a nest in a bad spot for the community."

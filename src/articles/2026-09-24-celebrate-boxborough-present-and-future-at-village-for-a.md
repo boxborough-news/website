@@ -26,8 +26,8 @@ Reip hopes that the event will move the "town center" project forward by "help[i
 
 This year, the event will also include a 9-hole mini-golf course behind Town Hall, with each hole sponsored by a local business. The activity is free and open to the public, with prizes for kids. The mini-golf course will be open throughout the event, from 11:30 a.m. to 4 p.m.
 
-There is still an opportunity to sponsor one of the holes on the mini-golf course. Sponsorships are $105 and sponsors' names and logos will be prominently displayed at each tee. To sponsor, contact Town Planner Alec Wade at awade@boxborough-ma.gov (or fill out the Village for a Day Application Form at https://bit.ly/4xNazJJ).
+There is still an opportunity to sponsor one of the holes on the mini-golf course. Sponsorships are $105 and sponsors' names and logos will be prominently displayed at each tee. To sponsor, contact Town Planner Alec Wade at <awade@boxborough-ma.gov> (or fill out the Village for a Day Application Form at <https://bit.ly/4xNazJJ>).
 
 "I am very excited to be a part of the EDC's Village for a Day," said Megan Connor, EDC Clerk. "It's a great opportunity for residents to come together to support our local businesses and organizations and experience our community in a whole new way. On behalf of the Economic Development Committee, I hope that people will stop by for the food, the music, the mini golf and other fun activities, but stay for the chance to connect with their neighbors and imagine what a vibrant village center could mean for Boxborough's future."
 
-Local businesses or organizations interested in learning more about "Village for a Day" or getting involved in the event can contact Associate Town Planner Ian Gilson at igilson@boxborough-ma.gov or 978-264-1723.
+Local businesses or organizations interested in learning more about "Village for a Day" or getting involved in the event can contact Associate Town Planner Ian Gilson at <igilson@boxborough-ma.gov> or 978-264-1723.

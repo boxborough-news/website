@@ -23,4 +23,4 @@ To keep Boxborough News running, we rely on a small but dedicated team of volunt
 - Community calendar editor: we need someone to handle local announcements and events
 - Photo editor: we need photography and photo organization
 
-Think you're a good fit for any of these roles? Contact us at info@boxboroughnews.org. Consider donating your time and talents to Boxborough News!
+Think you're a good fit for any of these roles? Contact us at <info@boxboroughnews.org>. Consider donating your time and talents to Boxborough News!

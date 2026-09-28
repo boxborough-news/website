@@ -1,11 +1,40 @@
 ---
 layout: layouts/base.njk
 ---
-<article class="article page-article" data-pagefind-body>
-  <header class="article-head">
-    <h1 class="article-title">{{ title }}</h1>
-  </header>
-  <div class="prose">
-    {{ content | safe }}
-  </div>
-</article>
+<div class="page-wrap{% if show_staff %} has-aside{% endif %}">
+  <article class="article page-article" data-pagefind-body>
+    <header class="article-head">
+      <h1 class="article-title">{{ title }}</h1>
+    </header>
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+  </article>
+  {%- if show_staff %}
+  <aside class="staff-box" aria-label="Boxborough News staff">
+    <div class="staff-brand">
+      <img src="/assets/brand/logo.png" width="360" height="360" alt="" eleventy:ignore>
+      <img src="/assets/brand/wordmark.png" width="1303" height="271" alt="{{ site.title }}: {{ site.tagline }}" eleventy:ignore>
+    </div>
+    {%- if staff.statement %}<p class="staff-statement">{{ staff.statement }}</p>{% endif %}
+    <dl>
+      {%- if staff.editors_in_chief %}
+      <dt>Editors-in-Chief</dt>
+      <dd>{{ staff.editors_in_chief }}</dd>
+      {%- endif %}
+      {%- if staff.contributors %}
+      <dt>Contributors</dt>
+      <dd>{{ staff.contributors }}</dd>
+      {%- endif %}
+      <dt>Contact</dt>
+      <dd>{% if staff.contact_email %}<a href="mailto:{{ staff.contact_email }}">{{ staff.contact_email }}</a> or {% endif %}<a href="/contact/">our contact page</a></dd>
+    </dl>
+    {%- if site.print_partner_url %}
+    <div class="staff-print">
+      <p class="staff-print-label">In print</p>
+      <p>Selected articles and headlines are published inside <em>Action Unlimited – Acton/Boxborough Edition</em>. <a href="{{ site.print_partner_url }}">Read the latest edition →</a></p>
+    </div>
+    {%- endif %}
+  </aside>
+  {%- endif %}
+</div>

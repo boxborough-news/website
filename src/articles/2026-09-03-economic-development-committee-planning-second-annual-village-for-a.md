@@ -22,6 +22,6 @@ The public will be encouraged to walk along the route to visit various businesse
 
 The activity is free and open to the public, with prizes for kids. The mini-golf course will be open throughout the event, from 11:30 a.m. to 4 p.m. The idea of developing a village center is something that the town has explored for a number of years.
 
-Most recently, the town hired consulting firm Tighe & Bond to conduct a Village Center Feasibility Assessment in Spring of 2024, funded by a community planning grant from the state. The Village Center project materials are available online at https://boxborough-ma.gov/698/Village-Center-Revitalization-Project.
+Most recently, the town hired consulting firm Tighe & Bond to conduct a Village Center Feasibility Assessment in Spring of 2024, funded by a community planning grant from the state. The Village Center project materials are available online at <https://boxborough-ma.gov/698/Village-Center-Revitalization-Project>.
 
-Local businesses or organizations interested in participating in "Village for a Day" or sponsoring one of the mini-golf putting greens can contact Boxborough Town Planner Alec Wade at awade@boxborough-ma.gov.
+Local businesses or organizations interested in participating in "Village for a Day" or sponsoring one of the mini-golf putting greens can contact Boxborough Town Planner Alec Wade at <awade@boxborough-ma.gov>.

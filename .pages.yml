@@ -85,7 +85,7 @@ content:
       - name: top_story
         label: Top story
         type: boolean
-        description: "Tick to put this article first on the home page and in the email."
+        description: "Tick to list this article first on the home page and in the email. (All stories are shown at the same size.)"
       - name: draft
         label: Draft (hide from website)
         type: boolean
@@ -160,6 +160,9 @@ content:
               label: Photo (may be trimmed to fit on the home page)
             - name: full
               label: Flyer, chart or logo (always shown whole)
+      - name: image_caption
+        label: Caption or credit (optional)
+        type: string
       - name: draft
         label: Draft (hide from website)
         type: boolean
@@ -260,9 +263,59 @@ content:
         label: Position in menu
         type: number
         description: "Lower numbers appear further left."
+      - name: show_staff
+        label: Show the staff box beside this page
+        type: boolean
+        description: "Used on About Us. Edit the names in 'Staff box'."
       - name: body
         label: Page text
         type: rich-text
+
+  # ------------------------------------------------------------- Staff box
+  - name: staff
+    label: Staff box (About Us)
+    type: file
+    path: src/_data/staff.json
+    format: json
+    fields:
+      - name: statement
+        label: Statement at the top
+        type: text
+      - name: editors_in_chief
+        label: Editors-in-Chief
+        type: string
+      - name: contributors
+        label: Contributors
+        type: text
+        description: "Names separated by commas."
+      - name: contact_email
+        label: Contact email
+        type: string
+
+  # ------------------------------------------------ Announcements page text
+  - name: announcements_page
+    label: Announcements page (policy & calendar)
+    type: file
+    path: src/_data/announcements_page.json
+    format: json
+    fields:
+      - name: intro
+        label: Submission policy (shown at the top of the page)
+        type: rich-text
+        options:
+          media: false
+      - name: extra
+        label: Extra note (e.g. public safety logs link)
+        type: rich-text
+        options:
+          media: false
+      - name: calendar_heading
+        label: Calendar heading
+        type: string
+      - name: calendar_embed
+        label: Community calendar (Google Calendar embed link)
+        type: string
+        description: "The 'src' link from Google Calendar's embed code. Leave blank to hide the calendar."
 
   # --------------------------------------------------------------- Settings
   - name: site

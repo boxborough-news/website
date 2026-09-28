@@ -20,7 +20,7 @@ Select Board Chair Bob Stemple presented the results of the annual Town Administ
 
 The review, written by Stemple, states, "we believe that Mike is the Town Administrator that is helping this town become better and slow down the revolving door of town employees. He's friendly, kind, knowledgeable and is able to communicate well and problem solve with all ages and demographics."
 
-The Board also briefly acknowledged the recent beaver activity along Beaver Brook in western Boxborough that is causing changes to water levels on surrounding properties, including at Paddock Estates. See August 21, 2026 Boxborough News article at https://www.boxboroughnews.org/news#h.1sbqjq8ffhgk.
+The Board also briefly acknowledged the recent beaver activity along Beaver Brook in western Boxborough that is causing changes to water levels on surrounding properties, including at Paddock Estates. See August 21, 2026 Boxborough News article at <https://www.boxboroughnews.org/news#h.1sbqjq8ffhgk>.
 
 The Board acknowledged the letters that it has received from community members on this topic and listened to a comment from a member of the public but emphasized that it does not believe it has any jurisdiction over the issue. Chair Stemple stated, "it is up to Paddock Estates to take care of the beaver situation."
 

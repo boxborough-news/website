@@ -22,4 +22,4 @@ Incumbent Middlesex Attorney General Marian Ryan received 637 votes, and her cha
 
 On the Republican ballot, the only contested race was for the gubernatorial nomination between Mike Minogue and Brian Shortsleeve. Minogue received 112 votes and Shortsleeve received 29 votes. Minogue won the statewide contest and will challenge sitting Democratic Governor Maura Healey in the November 3 general election.
 
-Complete election results are on the Town's website: https://www.boxborough-ma.gov/DocumentCenter/View/6881
+Complete election results are on the Town's website: <https://www.boxborough-ma.gov/DocumentCenter/View/6881>

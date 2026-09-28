@@ -73,4 +73,11 @@ SUMMARY:Fire Station Building Committee (FSBC)
 LOCATION:Town Hall > Grange Room - 29 Middle Road Boxborough MA 01719
 RRULE:FREQ=WEEKLY;COUNT=3
 END:VEVENT
+BEGIN:VEVENT
+UID:sample-9
+DTSTART;TZID=Eastern Standard Time:20261001T190000
+DTEND;TZID=Eastern Standard Time:20261001T235900
+SUMMARY:Nashoba Associated Board of Health Executive Committee &amp; Quarterly Meeting
+LOCATION:<p>Nashoba Associated Boards of Health</p><p>30 Central Ave\, Ayer MA</p> - Ayer MA 01432
+END:VEVENT
 END:VCALENDAR

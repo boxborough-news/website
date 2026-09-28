@@ -30,4 +30,4 @@ According to Mass Audubon, "all invasive plants were first introduced to our are
 
 When asked whether residents can independently remove invasives from Boxborough conservation land, Barnett replied, "the short answer to this question is that residents should first attend one or more work parties or training sessions, and once their knowledge has been confirmed, they will be allowed and encouraged to remove invasives on their own."
 
-To learn more about the Weed Warrior program or to participate in any of the work party days, contact Land Stewards Coordinator Dave Barnett at dbarnett@boxborough-ma.gov.
+To learn more about the Weed Warrior program or to participate in any of the work party days, contact Land Stewards Coordinator Dave Barnett at <dbarnett@boxborough-ma.gov>.

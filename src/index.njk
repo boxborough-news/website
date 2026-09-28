@@ -3,20 +3,15 @@ permalink: /
 layout: layouts/base.njk
 ---
 {%- set news = collections.news | topStoryFirst %}
-{%- set lead = news[0] %}
 {% include "partials/townhall.njk" %}
 
 <div class="home-grid">
   <div class="home-main">
     <section aria-labelledby="latest-news">
       <h2 class="label" id="latest-news"><a href="/news/">Latest News</a></h2>
-      {%- if lead %}
-      {%- set item = lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = false %}{% set thumb = false %}
-      {% include "partials/story.njk" %}
-      {%- endif %}
-      <div class="story-grid">
-        {%- for item in news | offset(1) | limit(6) %}
-        {%- set size = "medium" %}{% set showImage = false %}{% set thumb = true %}{% set teaserWords = 24 %}
+      <div class="story-grid story-grid-cards">
+        {%- for item in news | limit(8) %}
+        {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set thumb = false %}{% set teaserWords = 28 %}
         {% include "partials/story.njk" %}
         {%- endfor %}
       </div>
@@ -39,7 +34,7 @@ layout: layouts/base.njk
     <section aria-labelledby="earlier">
       <h2 class="label" id="earlier">Recently in Boxborough News</h2>
       <ul class="headline-list">
-        {%- for item in collections.articles | excludeAll(news | limit(7), collections.features | limit(3)) | limit(8) %}
+        {%- for item in collections.articles | excludeAll(news | limit(8), collections.features | limit(3)) | limit(8) %}
         <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }} · {{ item.data.date | date }}</span></li>
         {%- endfor %}
       </ul>

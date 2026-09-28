@@ -41,7 +41,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 | **Photo description** | A few words describing the photo for readers who use screen readers. |
 | **How to show the main image** | Leave as **Photo** for ordinary photos. Choose **Flyer, chart or logo** for anything with text in it, so it's always shown whole instead of trimmed to fit. |
 | **Photo caption / credit** | Shown under the photo. |
-| **Top story** | Tick to put the article first on the home page and in the email. Only tick one per week. |
+| **Top story** | Tick to list the article first on the home page and in the email. All stories are shown at the same size. Only tick one per week. |
 | **Draft** | Tick to save your work without publishing it. Untick when it's ready. |
 | **Article text** | Type or paste the article. Pasting from Word or Google Docs works. Use the toolbar for **bold**, *italics*, headings, lists and links. |
 

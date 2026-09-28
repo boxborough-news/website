@@ -14,7 +14,7 @@ draft: false
 ---
 At the Blanchard School Open House on September 14, two town employees greeted families outside the school doors to share information about the "Boxborough in the Know" project and encourage residents to take the "Boxborough in the Know" survey.
 
-"Boxborough in the Know" is a town initiative to improve communications between the town and its residents. The survey is available at https://forms.gle/fxdZxnF9eS6Berkx9.
+"Boxborough in the Know" is a town initiative to improve communications between the town and its residents. The survey is available at <https://forms.gle/fxdZxnF9eS6Berkx9>.
 
 The survey has been open since July, but the project team is trying to find more creative ways to reach additional residents to "provide a more complete picture of the community's experiences and preferences regarding Town communications," explained Assistant Town Administrator Rajon Hudson.
 

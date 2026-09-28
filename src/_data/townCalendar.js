@@ -36,9 +36,25 @@ function timeLabel(ev, start, end) {
   return `${clock(s, !sameHalf)}–${clock(e)}`;
 }
 
+// The town's feed sometimes includes HTML (e.g. "<p>…</p>") and entities in text fields.
+function plainText(value) {
+  return String(value || "")
+    .replace(/<\/p>\s*<p[^>]*>/gi, ", ")
+    .replace(/<br\s*\/?>/gi, ", ")
+    .replace(/<\/?[a-z][^>]*>/gi, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function cleanLocation(loc) {
   if (!loc) return "";
-  let l = String(loc).split(" - ")[0].replace(/\s*>\s*/g, ", ").trim();
+  let l = plainText(loc).split(" - ")[0].replace(/\s+>\s+/g, ", ").trim();
   if (/^Boxborough,?\s*MA/i.test(l)) return "";
   return l;
 }
@@ -102,7 +118,7 @@ export default async function () {
         date: ymd,
         sort: ev.datetype === "date" ? ymd + "T00" : start.toISOString(),
         time: timeLabel(ev, start, end),
-        title: String(ev.summary || "").trim(),
+        title: plainText(ev.summary),
         location: cleanLocation(ev.location),
       });
     }

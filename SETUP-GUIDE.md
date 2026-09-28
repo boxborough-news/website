@@ -74,6 +74,21 @@ GitHub's own instructions: https://docs.github.com/en/pages/configuring-a-custom
 
 ---
 
+## Updating the website with a new version
+
+When you get an updated copy of the project (for example, a new zip from Claude), use GitHub Desktop:
+
+1. In GitHub Desktop, click **Fetch origin**, then **Pull origin** if it appears. This brings down anything editors have saved in Pages CMS.
+2. Choose **Repository → Show in Explorer** to open the website folder on your computer.
+3. Delete everything in that folder **except the hidden `.git` folder**. (In File Explorer, turn on **View → Show → Hidden items** so you can see it, and leave it alone.)
+4. Unzip the new version and copy everything inside it, including the `.github` folder and `.pages.yml` file, into the website folder.
+5. Back in GitHub Desktop, you'll see the list of changed files. Type a short summary such as "Update website" and click **Commit to main**, then **Push origin**.
+6. The site republishes by itself. Check the **Actions** tab on GitHub; about three minutes later the changes are live.
+
+**Important:** step 3 replaces every file, so a new version must include any articles editors have added since it was made. If editors have been publishing, make sure whoever prepares the new version starts from the current copy on GitHub.
+
+---
+
 ## How it works (for whoever maintains it later)
 
 ```

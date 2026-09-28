@@ -96,6 +96,12 @@ a:hover { color: var(--red); text-decoration-thickness: 2px; }
 .mainnav li:first-child a { padding-left: 0; }
 .mainnav a:hover { color: var(--sky); }
 .mainnav a[aria-current="page"] { color: #ffffff; box-shadow: inset 0 -4px 0 var(--sky); }
+.nav-subscribe {
+  flex: none; background: var(--sky); color: var(--navy) !important; font-weight: 800 !important; border-radius: 3px;
+  padding: 7px 13px !important; margin: 0 6px 0 8px; font-size: 14px !important;
+}
+.nav-subscribe:hover { background: #ffffff; color: var(--navy) !important; }
+.nav-subscribe[aria-current="page"] { box-shadow: none !important; }
 .nav-search { display: inline-flex !important; align-items: center; gap: 6px; padding-right: 0 !important; }
 @media (max-width: 640px) {
   .nav-search span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -203,6 +209,7 @@ main.wrap { padding-top: 30px; padding-bottom: 60px; min-height: 60vh; }
 .story-grid .story { padding: 0 0 20px; margin-bottom: 20px; border-bottom: 1px solid var(--rule); }
 .story-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 26px; }
 .story-grid-3 .story-title { font-size: 20px; }
+.story-grid-cards .story-title { font-size: 21px; }
 @media (max-width: 760px) { .story-grid, .story-grid-3 { grid-template-columns: 1fr; } }
 
 .headline-list { list-style: none; margin: 0 0 8px; padding: 0; }
@@ -321,6 +328,36 @@ main.wrap { padding-top: 30px; padding-bottom: 60px; min-height: 60vh; }
 .archive-month a:hover { color: var(--red); text-decoration: underline; }
 .archive-date, .archive-sec { font-family: var(--sans); font-size: 13px; color: var(--muted); padding-top: 3px; }
 @media (max-width: 640px) { .archive-month li { grid-template-columns: 58px 1fr; } .archive-sec { display: none; } }
+
+/* ---------- Pages with a side box (About) ---------- */
+.page-wrap.has-aside { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: start; max-width: 1180px; }
+.page-wrap.has-aside .article { margin: 0; max-width: 720px; }
+.staff-box {
+  background: var(--white); border: 3px double var(--navy); padding: 22px 24px; text-align: center;
+  font-family: var(--sans); font-size: 15px; line-height: 1.5; color: var(--text); position: sticky; top: 20px; margin-top: 8px;
+}
+.staff-brand { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 14px; }
+.staff-brand img:first-child { width: 62px; height: auto; }
+.staff-brand img:last-child { width: 230px; height: auto; }
+.staff-statement { margin: 0 0 16px; font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--ink); }
+.staff-box dl { margin: 0; }
+.staff-box dt { font-size: 11.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin: 14px 0 3px; }
+.staff-box dd { margin: 0; color: var(--ink); }
+.staff-print { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.staff-print p { margin: 0; }
+.staff-print-label { font-size: 11.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-dark); margin-bottom: 4px !important; }
+@media (max-width: 960px) {
+  .page-wrap.has-aside { grid-template-columns: 1fr; gap: 28px; }
+  .staff-box { position: static; }
+}
+
+/* ---------- Announcements page ---------- */
+.section-note { max-width: 780px; font-family: var(--sans); font-size: 14.5px; line-height: 1.55; color: var(--muted); background: var(--tint); border-left: 4px solid var(--slate); padding: 12px 16px; margin: -12px 0 30px; }
+.section-note p { margin: 0 0 8px; }
+.section-note p:last-child { margin-bottom: 0; }
+.community-cal { margin-bottom: 36px; }
+.cal-frame { background: var(--white); border: 1px solid var(--rule); }
+.cal-frame iframe { display: block; width: 100%; height: 520px; border: 0; }
 
 /* ---------- Subscribe page ---------- */
 .subscribe-panel { margin: 10px 0 32px; }

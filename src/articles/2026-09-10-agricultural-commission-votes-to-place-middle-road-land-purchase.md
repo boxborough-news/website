@@ -20,9 +20,9 @@ According to AgCom's warrant article summary, the 18.57 acre property at 276 Mid
 
 The residence (ca. 1866) was the home of Clyde and Virginia (Ginny) Richardson. Ginny Richardson served as Boxborough Town Clerk for almost four decades. Together, the Richardsons farmed the land and sold a variety of fruits and vegetables, including Halloween pumpkins. Clyde died in 2015, and Ginny died in 2024. The property is now being offered for sale by their heirs.
 
-Clyde's obituary: https://www.lowellsun.com/obituaries/clyde-l-richardson-boxborough-ma/
+Clyde's obituary: <https://www.lowellsun.com/obituaries/clyde-l-richardson-boxborough-ma/>
 
-Ginny's obituary: https://www.actonfuneralhome.com/memorials/virginia-richardson/5517738
+Ginny's obituary: <https://www.actonfuneralhome.com/memorials/virginia-richardson/5517738>
 
 In other business, AgCom resumed its discussion about the beaver dams blocking Beaver Brook. The dams have caused flooding of agricultural parcels while also impeding the flow of water into the fire pond that serves Paddock Estates.
 
@@ -32,4 +32,4 @@ Boxborough News learned that Paddock Estates hired a contractor who breached the
 
 Wade told Boxborough News that Paddock Estates is working toward a long term solution, such as a Beaver Deceiver™, which manages water levels in beaver-inhabited areas and prevents beavers from building dams. AgCom Vice-Chair John Neyland also advocated that AgCom explore electric fencing as a long-term solution to prevent beaver migration. The electric wire, installed close to the ground, would not kill the beavers. Neyland told Boxborough News that the goal is for the beavers to "decide it's not a good area to settle in" and locate elsewhere.
 
-For background information, see August 21, 2026 Boxborough News article at https://www.boxboroughnews.org/news#h.1sbqjq8ffhgk.
+For background information, see August 21, 2026 Boxborough News article at <https://www.boxboroughnews.org/news#h.1sbqjq8ffhgk>.

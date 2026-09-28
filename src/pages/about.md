@@ -2,7 +2,10 @@
 title: "About Us"
 menu_order: 5
 show_in_menu: true
+show_staff: true
 ---
+## Our story
+
 The Boxborough News project began in Fall 2022 and launched in April 2023. We publish every Friday on BoxboroughNews.org.
 
 Readers are encouraged to [subscribe](/subscribe/) to receive our free email newsletter every Friday, and follow us on Facebook and Instagram.

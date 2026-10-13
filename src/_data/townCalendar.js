@@ -52,10 +52,57 @@ function plainText(value) {
     .trim();
 }
 
+// The town's titles are typed by many hands: "Planning Board Meeting - Boxborough MA 01719",
+// "Select Board Meeting -", "TOWN OFFICES ARE CLOSED - Indigenous People Day", "Boxbrorough".
+function cleanTitle(raw) {
+  let t = plainText(raw)
+    .replace(/\bBoxbrorough\b/gi, "Boxborough")
+    .replace(/\s*[-\u2013]\s*Boxborough,?\s*MA\s*\d{5}\s*$/i, "")
+    .replace(/\s*[-\u2013]\s*$/, "")
+    .trim();
+  // Shouted titles ("TOWN OFFICES ARE CLOSED") -> sentence case; short acronyms like FSBC stay.
+  const shouted = t.split(/\s+/).filter((w) => /^[A-Z]{3,}$/.test(w));
+  if (shouted.length >= 3) {
+    t = t.replace(/\b[A-Z]{3,}\b/g, (w) => w.toLowerCase()).replace(/^./, (c) => c.toUpperCase());
+  }
+  // "Planning Board Meeting" -> "Planning Board" (but keep "Town Meeting" and "Joint meeting").
+  if (/\b(board|committee|commission|council|corps|authority|trust)\b/i.test(t) && !/\b(town|joint)\s+meeting$/i.test(t)) {
+    t = t.replace(/\s+meeting$/i, "");
+  }
+  return t;
+}
+
+const isClosure = (title) => /\b(offices?|town hall)\b.*\bclosed\b|\bclosed\b.*\b(holiday|day)\b/i.test(title);
+
+// Several boards often list the same joint meeting separately (a "Tri-Board" meeting can
+// appear three times). Same day, same time, and "joint"/"tri-board" in each title -> one row.
+function mergeJoint(events) {
+  const out = [];
+  for (const e of events) {
+    const joint = /\bjoint\b|tri-?board/i.test(e.title);
+    const twin = joint && out.find((o) => o.date === e.date && o.time === e.time && o.joint);
+    if (twin) {
+      twin.boards.push(boardName(e.title));
+      continue;
+    }
+    out.push({ ...e, joint, boards: joint ? [boardName(e.title)] : [] });
+  }
+  for (const o of out) {
+    if (o.joint && o.boards.length > 1) {
+      const tri = /tri-?board/i.test(o.title);
+      o.title = `${tri ? "Tri-Board" : "Joint"} meeting: ${[...new Set(o.boards)].join(", ")}`;
+    }
+    delete o.joint;
+    delete o.boards;
+  }
+  return out;
+}
+const boardName = (title) => title.split(/\s+(?:joint|with|meeting|at)\b/i)[0].trim();
+
 function cleanLocation(loc) {
   if (!loc) return "";
-  let l = plainText(loc).split(" - ")[0].replace(/\s+>\s+/g, ", ").trim();
-  if (/^Boxborough,?\s*MA/i.test(l)) return "";
+  let l = plainText(loc).replace(/^[-\u2013\s]+/, "").split(" - ")[0].replace(/\s+>\s+/g, ", ").replace(/[\s,-]+$/, "").trim();
+  if (/^Boxborough,?\s*MA/i.test(l) || !l) return "";
   return l;
 }
 
@@ -118,19 +165,21 @@ export default async function () {
         date: ymd,
         sort: ev.datetype === "date" ? ymd + "T00" : start.toISOString(),
         time: timeLabel(ev, start, end),
-        title: plainText(ev.summary),
+        title: cleanTitle(ev.summary),
         location: cleanLocation(ev.location),
+        closure: isClosure(plainText(ev.summary)),
       });
     }
   }
 
   events.sort((a, b) => a.date.localeCompare(b.date) || a.sort.localeCompare(b.sort));
-  const shown = events.slice(0, MAX_EVENTS);
+  const merged = mergeJoint(events);
+  const shown = merged.slice(0, MAX_EVENTS);
   const days = [];
   for (const e of shown) {
     let day = days.find((d) => d.date === e.date);
     if (!day) days.push((day = { date: e.date, ...dayLabel(e.date), events: [] }));
     day.events.push(e);
   }
-  return { ok: true, days, events: shown, more: events.length > shown.length, link: settings.calendar_link || "" };
+  return { ok: true, days, events: shown, all: merged, more: merged.length > shown.length, link: settings.calendar_link || "" };
 }

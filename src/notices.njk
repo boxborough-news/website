@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+permalink: /notices/
+title: Community notices
+---
+<div class="events-page narrow-wide">
+  <header class="section-head section-head-row">
+    <div>
+      <h1>Community notices</h1>
+      <p>{{ announcements_page.notices_intro }}</p>
+    </div>
+    <a class="button" href="/submit/">Submit a notice</a>
+  </header>
+  <nav class="tabs" aria-label="Events and notices">
+    <a href="/events/">Events</a>
+    <a href="/notices/" aria-current="page">Community notices</a>
+  </nav>
+  <p class="disclaimer small">{{ announcements_page.disclaimer }}</p>
+  <ul class="headline-list notice-list">
+    {%- for item in collections.notices %}
+    <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{% if item.data.organizer %}{{ item.data.organizer }} · {% endif %}Posted {{ item.data.date | date }}{% if item.data.expires %} · Through {{ item.data.expires | date("short") }}{% endif %}</span></li>
+    {%- else %}
+    <li>No community notices right now.</li>
+    {%- endfor %}
+  </ul>
+  {%- if collections.expiredNotices.length %}
+  <p class="small">Older notices whose deadlines have passed are in the <a href="/archive/">archive</a>.</p>
+  {%- endif %}
+</div>

@@ -1,54 +1,117 @@
 ---
 layout: layouts/base.njk
 ---
+{%- set isAnn = section == "announcements" %}
+{%- set isEvent = isAnn and kind == "event" %}
 {%- set sec = section | sectionInfo(sections) %}
+{%- set place = location %}
+{%- if town and not ("online" in (town | lower)) and not (location and (town in location)) %}{% set place = (location + ", " + town) if location else town %}{% endif %}
 <article class="article" data-pagefind-body>
   <header class="article-head">
-    <p class="kicker" data-pagefind-ignore><a href="{{ sec.path }}">{{ sec.name }}</a></p>
+    <p class="kicker" data-pagefind-ignore>
+      {%- if isEvent %}<a href="/events/" data-pagefind-filter="Section">Events</a>
+      {%- elif isAnn %}<a href="/notices/" data-pagefind-filter="Section">Community notices</a>
+      {%- else %}<a href="{{ sec.path }}" data-pagefind-filter="Section">{{ sec.name }}</a>{% endif %}
+    </p>
     <h1 class="article-title" data-pagefind-meta="title">{{ title | smart }}</h1>
     {%- if summary %}<p class="deck">{{ summary }}</p>{% endif %}
+    {%- if isAnn %}
+    <p class="byline" data-pagefind-ignore>
+      {%- if organizer %}<span>Submitted by <span class="author">{{ organizer }}</span></span>{% endif %}
+      <span>Posted <time datetime="{{ date | ymd }}" data-pagefind-meta="date">{{ date | date }}</time></span>
+    </p>
+    {%- else %}
     <p class="byline" data-pagefind-ignore>
       {%- if byline %}<span class="author">{{ byline }}</span>{% endif %}
       <time datetime="{{ date | ymd }}" data-pagefind-meta="date">{{ date | date }}</time>
       {%- if readMinutes %}<span>{{ readMinutes }} min read</span>{% endif %}
     </p>
+    {%- endif %}
   </header>
 
-  {%- if image %}
+  {%- if isEvent %}
+  <dl class="event-facts" data-pagefind-ignore>
+    <div><dt>When</dt><dd>
+      {%- if sessions and sessions.length %}{{ sessions.length }} sessions, {{ start_date | rangeLong(end_date) }} (schedule below)
+      {%- elif end_date and (end_date | ymd) != (start_date | ymd) %}{{ start_date | date("weekdayshort") }} to {{ end_date | date("weekday") }}{% if time %}<br>{{ time }}{% endif %}
+      {%- else %}{{ start_date | date("weekday") }}{% if time %}, {{ time }}{% endif %}{% endif %}
+    </dd></div>
+    {%- if place %}<div><dt>Where</dt><dd>{{ place }}{% if not ("online" in (place | lower)) %} · <a href="{{ place | mapsUrl }}">Map</a>{% endif %}</dd></div>{% endif %}
+    {%- if cost %}<div><dt>Cost</dt><dd>{{ cost }}</dd></div>{% endif %}
+    {%- if registration %}<div><dt>Registration</dt><dd>{{ registration }}</dd></div>{% endif %}
+    {%- if link %}<div><dt>More info</dt><dd><a href="{{ link }}">{{ link | replace("https://", "") | replace("http://", "") | replace("www.", "") | truncate(44) }}</a></dd></div>{% endif %}
+    <div class="event-facts-cal"><dt>Calendar</dt><dd><a href="{{ page.url }}event.ics">Add to Apple or Outlook calendar</a> · <a href="{{ title | gcal(start_date, end_date, time, place, page.url | absolute) }}">Add to Google Calendar</a></dd></div>
+  </dl>
+  {%- if sessions and sessions.length %}
+  <section class="sessions" aria-labelledby="schedule">
+    <h2 class="label" id="schedule">Schedule</h2>
+    <ul class="event-list">
+      {%- for s in sessions %}
+      <li><span class="datebadge" aria-hidden="true"><span>{{ s.date | date("monthshort") }}</span><strong>{{ s.date | date("daynum") }}</strong></span>
+        <span class="event-text"><strong class="session-title">{{ s.title | smart }}</strong><span class="meta">{{ s.date | date("eventday") }}{% if s.time %} · {{ s.time }}{% endif %}{% if s.location %} · {{ s.location }}{% endif %}{% if s.town and not (s.location and (s.town in s.location)) %}, {{ s.town }}{% endif %}</span></span></li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+  {%- elif isAnn and link %}
+  <p class="notice-link" data-pagefind-ignore>More information: <a href="{{ link }}">{{ link | replace("https://", "") | replace("http://", "") | replace("www.", "") | truncate(50) }}</a></p>
+  {%- endif %}
+
+  {%- if image and not isAnn %}
   <figure class="article-figure{% if image_fit == 'full' %} is-full{% endif %}">
-    <img src="{{ image }}" alt="{{ image_alt }}" loading="eager" sizes="{% if image_fit == 'full' %}600px{% else %}(min-width: 900px) 860px, 100vw{% endif %}">
+    <img src="{{ image }}" alt="{{ image_alt }}" loading="eager" fetchpriority="high" sizes="{% if image_fit == 'full' %}600px{% else %}(min-width: 900px) 860px, 100vw{% endif %}">
     {%- if image_caption or image_credit %}
     <figcaption>{{ image_caption }}{% if image_credit %} <span class="credit">{{ "Photo: " if not ("photo" in image_credit | lower) }}{{ image_credit }}</span>{% endif %}</figcaption>
     {%- endif %}
   </figure>
   {%- endif %}
 
-  {%- if event_date %}
-  <dl class="event-facts" data-pagefind-ignore>
-    <div><dt>When</dt><dd>{{ event_date | date("weekday") }}{% if event_time %}, {{ event_time }}{% endif %}</dd></div>
-    {%- if location %}<div><dt>Where</dt><dd>{{ location }}</dd></div>{% endif %}
-    {%- if link %}<div><dt>More info</dt><dd><a href="{{ link }}">{{ link | replace("https://", "") | truncate(48) }}</a></dd></div>{% endif %}
-  </dl>
-  {%- endif %}
-
   <div class="prose">
     {{ content | safe }}
   </div>
 
+  {%- if image and isAnn %}
+  <figure class="article-figure flyer{% if image_fit == 'full' %} is-full{% endif %}">
+    <img src="{{ image }}" alt="{{ image_alt }}" sizes="(min-width: 900px) 760px, 100vw">
+    {%- if image_caption %}<figcaption>{{ image_caption }}</figcaption>{% endif %}
+  </figure>
+  {%- endif %}
+
   <footer class="article-foot" data-pagefind-ignore>
+    {%- if isAnn %}<p class="disclaimer small">{{ announcements_page.disclaimer }}</p>{% endif %}
     <div class="share">
       <span>Share:</span>
       <a href="mailto:?subject={{ title | encode }}&body={{ page.url | absolute | encode }}">Email</a>
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute | encode }}">Facebook</a>
       <button type="button" data-copy-link="{{ page.url | absolute }}">Copy link</button>
     </div>
-    <p class="correction">See an error? <a href="mailto:{{ site.email }}?subject=Correction:%20{{ title | encode }}">Let us know</a>.</p>
+    <p class="correction">See an error or have a news tip? <a href="mailto:{{ site.email }}?subject=Correction:%20{{ title | encode }}">Let us know</a>.</p>
   </footer>
 </article>
 
 <div class="after-article">
+  {%- if isEvent %}
+  {%- set others = collections.upcomingEvents | excludeUrl(page.url) | limit(4) %}
+  {%- if others.length %}
+  <section class="more-from">
+    <h2 class="label">Other upcoming events</h2>
+    <ul class="event-list">{% for r in others %}{% include "partials/event-row.njk" %}{% endfor %}</ul>
+    <p class="more"><a href="/events/">All events →</a></p>
+  </section>
+  {%- endif %}
+  {%- elif isAnn %}
+  {%- set more = collections.notices | exclude(page.url) | limit(4) %}
+  {%- if more.length %}
+  <section class="more-from">
+    <h2 class="label">More community notices</h2>
+    <ul class="headline-list">
+      {%- for item in more %}<li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ item.data.date | date }}</span></li>{% endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+  {%- else %}
   {% include "partials/subscribe-box.njk" %}
-  {%- set more = (collections.announcements if section == "announcements" else collections[section]) | exclude(page.url) | limit(4) %}
+  {%- set more = collections[section] | exclude(page.url) | limit(4) %}
   {%- if more.length %}
   <section class="more-from">
     <h2 class="label">More {{ sec.name }}</h2>
@@ -58,5 +121,6 @@ layout: layouts/base.njk
       {%- endfor %}
     </ul>
   </section>
+  {%- endif %}
   {%- endif %}
 </div>

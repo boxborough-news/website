@@ -1,0 +1,7 @@
+[
+  { "from": "/announcements/", "to": "/events/", "old": "" },
+  { "from": "/home/", "to": "/", "old": "/home" },
+  { "from": "/announcements-and-events/", "to": "/events/", "old": "/announcements-and-events" },
+  { "from": "/about-us/", "to": "/about/", "old": "/about-us" },
+  { "from": "/archives/", "to": "/archive/", "old": "/archives", "prefer_old": true }
+]

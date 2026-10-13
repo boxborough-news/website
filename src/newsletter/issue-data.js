@@ -1,6 +1,6 @@
 // Collects this week's stories and turns them into the newsletter.
 import { buildNewsletter } from "../../lib/newsletter.js";
-import { todayET, ymd, addDays } from "../../lib/content.js";
+import { todayET, ymd, addDays, formatDate } from "../../lib/content.js";
 
 export function makeIssue(data) {
   const { collections, site, newsletter, townhall, siteUrl, townCalendar } = data;
@@ -12,9 +12,18 @@ export function makeIssue(data) {
     image: abs(i.data.shareImage),
     imageAlt: i.data.image_alt,
     imageFit: i.data.image_fit,
-    event_date: i.data.event_date,
-    event_time: i.data.event_time,
-    location: i.data.location,
+    event_date: i.data.start_date,
+    event_time: i.data.time,
+    location: [i.data.location, i.data.town].filter(Boolean).join(", "),
+  });
+  // Upcoming events come as rows (one per date; a series shows its next session).
+  const toEvent = (r) => ({
+    title: r.series ? `${r.title} (${r.series})` : r.title,
+    url: abs(r.url),
+    event_date: r.ongoing ? todayET() : r.date,
+    event_time: [r.ongoing ? `Through ${formatDate(r.end, "short")}` : r.end !== r.date ? `Through ${formatDate(r.end, "short")}` : "", r.time]
+      .filter(Boolean).join(" · "),
+    location: [r.location, r.town].filter(Boolean).join(", "),
   });
   const week = collections.thisWeek;
   const news = [...week.news];
@@ -28,7 +37,7 @@ export function makeIssue(data) {
     news: news.map(toItem),
     features: week.features.map(toItem),
     announcements: week.announcements.map(toItem),
-    events: newsletter.include_events ? collections.upcomingEvents.slice(0, 6).map(toItem) : [],
+    events: newsletter.include_events ? collections.upcomingEvents.slice(0, 6).map(toEvent) : [],
     site: { ...site, url: siteUrl },
     settings: newsletter,
     townhall: showTownhall ? townhall : null,

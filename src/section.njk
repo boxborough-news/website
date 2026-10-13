@@ -7,55 +7,31 @@ pagination:
 permalink: "{{ sp.url }}"
 eleventyComputed:
   title: "{{ sp.section.name }}"
+  oldPath: "{{ '/' + sp.section.key if sp.number == 1 else '' }}"
 ---
-<header class="section-head">
-  <h1>{{ sp.section.name }}</h1>
-  <p>{{ sp.section.blurb }}</p>
-</header>
+<div class="narrow">
+  <header class="section-head">
+    <h1>{{ sp.section.name }}</h1>
+    <p>{{ sp.section.blurb }}</p>
+  </header>
 
-{%- if sp.section.key == "announcements" and sp.number == 1 %}
-{%- if announcements_page.intro %}
-<div class="section-note">{{ announcements_page.intro | markdown | safe }}{% if announcements_page.extra %}{{ announcements_page.extra | markdown | safe }}{% endif %}</div>
-{%- endif %}
-{%- set upcoming = collections.upcomingEvents %}
-{%- if upcoming.length %}
-<section class="upcoming-strip" aria-labelledby="upcoming">
-  <h2 class="label" id="upcoming">Coming up</h2>
-  <ul class="event-list event-list-wide">
-    {%- for ev in upcoming %}
-    <li>
-      <span class="datebadge" aria-hidden="true"><span>{{ ev.data.event_date | date("monthshort") }}</span><strong>{{ ev.data.event_date | date("daynum") }}</strong></span>
-      <span>
-        <a href="{{ ev.url }}">{{ ev.data.title | smart }}</a>
-        <span class="meta">{{ ev.data.event_date | date("eventday") }}{% if ev.data.event_time %} · {{ ev.data.event_time }}{% endif %}{% if ev.data.location %} · {{ ev.data.location }}{% endif %}</span>
-      </span>
-    </li>
+  <div class="river">
+    {%- for item in sp.items %}
+    {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 40 %}
+    {% include "partials/story.njk" %}
+    {%- else %}
+    <p>Nothing here yet.</p>
     {%- endfor %}
-  </ul>
-</section>
-{%- endif %}
-{%- if announcements_page.calendar_embed %}
-<section class="community-cal" aria-labelledby="community-cal">
-  <h2 class="label" id="community-cal">{{ announcements_page.calendar_heading or "Community calendar" }}</h2>
-  <div class="cal-frame"><iframe src="{{ announcements_page.calendar_embed }}" title="Community calendar" loading="lazy"></iframe></div>
-</section>
-{%- endif %}
-<h2 class="label">All announcements</h2>
-{%- endif %}
+  </div>
 
-<div class="river">
-  {%- for item in sp.items %}
-  {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 50 %}
-  {% include "partials/story.njk" %}
-  {%- else %}
-  <p>Nothing here yet.</p>
-  {%- endfor %}
+  {%- if sp.prev or sp.next %}
+  <nav class="pager" aria-label="More stories">
+    {%- if sp.prev %}<a href="{{ sp.prev }}">← Newer</a>{% else %}<span></span>{% endif %}
+    <span>Page {{ sp.number }} of {{ sp.total }}</span>
+    {%- if sp.next %}<a href="{{ sp.next }}">Older →</a>{% else %}<span></span>{% endif %}
+  </nav>
+  {%- endif %}
+  {%- if site.old_site_url and not sp.next %}
+  <p class="small old-site-note">Looking for older stories? Articles from 2023 to 2026 are on <a href="{{ site.old_site_url }}">our previous website</a>.</p>
+  {%- endif %}
 </div>
-
-{%- if sp.prev or sp.next %}
-<nav class="pager" aria-label="More stories">
-  {%- if sp.prev %}<a href="{{ sp.prev }}">← Newer</a>{% else %}<span></span>{% endif %}
-  <span>Page {{ sp.number }} of {{ sp.total }}</span>
-  {%- if sp.next %}<a href="{{ sp.next }}">Older →</a>{% else %}<span></span>{% endif %}
-</nav>
-{%- endif %}

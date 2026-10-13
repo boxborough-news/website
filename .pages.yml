@@ -46,7 +46,7 @@ content:
         label: Publication date
         type: date
         required: true
-        description: "The article goes live on this date. Pick a future date to schedule it; it appears early that morning."
+        description: "Use the Friday of the issue. A future date schedules the article; it appears early that morning."
         options:
           format: yyyy-MM-dd
       - name: byline
@@ -85,7 +85,7 @@ content:
       - name: top_story
         label: Top story
         type: boolean
-        description: "Tick to list this article first on the home page and in the email. (All stories are shown at the same size.)"
+        description: "Tick one story each week. It becomes the large lead story at the top of the home page and leads the email."
       - name: draft
         label: Draft (hide from website)
         type: boolean
@@ -94,9 +94,9 @@ content:
         label: Article text
         type: rich-text
 
-  # ---------------------------------------------------- Announcements & events
+  # ---------------------------------------------------- Events & community notices
   - name: announcements
-    label: Announcements & Events
+    label: Events & Notices
     type: collection
     path: src/announcements
     format: yaml-frontmatter
@@ -105,10 +105,10 @@ content:
       template: "{year}-{month}-{day}-{title}.md"
       field: false
     view:
-      fields: [title, event_date, date, draft]
+      fields: [title, type, start_date, date, draft]
       primary: title
-      sort: [date, event_date, title]
-      search: [title]
+      sort: [date, start_date, title]
+      search: [title, organizer]
       default:
         sort: date
         order: desc
@@ -117,47 +117,116 @@ content:
         label: Title
         type: string
         required: true
+        description: "Name the event or announcement. Leave the date out of the title; it is shown separately."
+      - name: type
+        label: Kind
+        type: select
+        required: true
+        default: event
+        options:
+          values:
+            - name: event
+              label: Event (something people can attend on a date)
+            - name: notice
+              label: Community notice (news release, message or call for volunteers)
       - name: date
         label: Date posted
         type: date
         required: true
-        description: "The announcement goes live on this date and is included in that week's email."
+        description: "When it appears on the site and which Friday email it goes in. Use the Friday of the issue."
         options:
           format: yyyy-MM-dd
-      - name: event_date
-        label: Event date (optional)
+      - name: organizer
+        label: Submitted by (organization)
+        type: string
+        description: "Shown as 'Submitted by …'. For example: Sargent Memorial Library"
+      - name: start_date
+        label: "Event: date (or first day)"
         type: date
         default: ""
-        description: "If this is an event, when it happens. Events appear under 'Coming up' until the day has passed."
+        description: "Events stay listed until their last day has passed."
         options:
           format: yyyy-MM-dd
-      - name: event_time
-        label: Event time (optional)
+      - name: end_date
+        label: "Event: last day (optional)"
+        type: date
+        default: ""
+        description: "Only for events that run several days, such as a show's run or a weekly market. Leave blank for one-day events."
+        options:
+          format: yyyy-MM-dd
+      - name: time
+        label: "Event: time (optional)"
         type: string
-        description: "For example: 7:00 – 8:30 p.m."
+        description: "For example: 7 p.m. · 10:30 a.m.–noon · 3–6 p.m. Written this way, it also goes into calendar apps."
       - name: location
-        label: Location (optional)
+        label: "Event: place (optional)"
         type: string
+        description: "For example: Sargent Memorial Library, 427 Massachusetts Ave."
+      - name: town
+        label: "Event: town"
+        type: string
+        description: "Boxborough, Acton, Concord … Used for the Boxborough / Nearby towns filter. Write 'Online' for virtual events."
+      - name: cost
+        label: "Event: cost (optional)"
+        type: string
+        description: "For example: Free · $10; children under 12 free"
+      - name: registration
+        label: "Event: registration (optional)"
+        type: string
+        description: "For example: Required; register online"
+      - name: sessions
+        label: "Event: sessions of a series (optional)"
+        type: object
+        list: true
+        description: "For a program series, add one entry per session. Each session is listed on its own date."
+        fields:
+          - name: date
+            label: Date
+            type: date
+            options:
+              format: yyyy-MM-dd
+          - name: time
+            label: Time
+            type: string
+          - name: title
+            label: Session title
+            type: string
+          - name: location
+            label: Place
+            type: string
+          - name: town
+            label: Town
+            type: string
       - name: link
         label: Link for more information (optional)
         type: string
+        description: "The full web address. Readers can't click a QR code, so type the link here even if the flyer has one."
+      - name: expires
+        label: "Notice: remove after (optional)"
+        type: date
+        default: ""
+        description: "For notices with a deadline (a survey, an application). The notice leaves the Notices page after this date."
+        options:
+          format: yyyy-MM-dd
       - name: summary
         label: Summary (optional)
         type: text
+        description: "One sentence for the weekly email. Leave blank to use the opening lines."
       - name: image
         label: Flyer or photo (optional)
         type: image
+        description: "Shown below the details. Please also type the key details (date, place, link) in the text, since many readers can't read a flyer image."
       - name: image_alt
         label: Image description for screen readers
         type: string
       - name: image_fit
-        label: How to show the main image
+        label: How to show the image
         type: select
-        default: photo
+        default: full
         options:
           values:
             - name: photo
-              label: Photo (may be trimmed to fit on the home page)
+              label: Photo
             - name: full
               label: Flyer, chart or logo (always shown whole)
       - name: image_caption
@@ -170,45 +239,40 @@ content:
         label: Details
         type: rich-text
 
-  # ------------------------------------------------------------ Town Hall box
+  # ------------------------------------------------------------ Town Hall note
   - name: townhall
-    label: Town Hall notice (home page box)
+    label: Town Hall note (top of the town meetings list)
     type: file
     path: src/_data/townhall.json
     format: json
     fields:
       - name: show
-        label: Show this box
+        label: Show the note
         type: boolean
       - name: heading
-        label: Heading
+        label: Heading (used in the weekly email)
         type: string
-        default: Next Week at Town Hall
+        default: Town Hall note
       - name: body
-        label: Text
+        label: Note
         type: rich-text
+        description: "A sentence or two about the week's most important meetings. Appears above the town meetings list on the home page, the Events page and in the email."
         options:
           media: false
-      - name: image
-        label: Photo (optional)
-        type: image
-      - name: image_alt
-        label: Photo description for screen readers
-        type: string
-      - name: calendar_feed
-        label: Town calendar feed (set up once; leave as is)
-        type: string
-        description: "The iCal link for the Town of Boxborough's meetings calendar. Upcoming meetings from it are listed under the notice and in the weekly email. Clear it to hide the list."
-      - name: calendar_link
-        label: Link to the full town calendar
-        type: string
       - name: hide_after
         label: Hide automatically after
         type: date
         default: ""
-        description: "The notice text disappears the day after this date, so it never goes stale (the photo, heading and meetings list stay). Leave blank to keep it up until you untick 'Show this box'."
+        description: "The note disappears the day after this date, so it never goes stale. Usually the next Saturday."
         options:
           format: yyyy-MM-dd
+      - name: calendar_feed
+        label: Town calendar feed (set up once; leave as is)
+        type: string
+        description: "The iCal link for the Town of Boxborough's meetings calendar. Clear it to hide the meetings list."
+      - name: calendar_link
+        label: Link to the full town calendar
+        type: string
 
   # --------------------------------------------------------- Weekly newsletter
   - name: newsletter
@@ -263,6 +327,9 @@ content:
         label: Position in menu
         type: number
         description: "Lower numbers appear further left."
+      - name: subtitle
+        label: Subtitle (optional)
+        type: string
       - name: show_staff
         label: Show the staff box beside this page
         type: boolean
@@ -292,30 +359,23 @@ content:
         label: Contact email
         type: string
 
-  # ------------------------------------------------ Announcements page text
+  # ------------------------------------------------ Events & notices page text
   - name: announcements_page
-    label: Announcements page (policy & calendar)
+    label: Events & Notices page text
     type: file
     path: src/_data/announcements_page.json
     format: json
     fields:
-      - name: intro
-        label: Submission policy (shown at the top of the page)
-        type: rich-text
-        options:
-          media: false
-      - name: extra
-        label: Extra note (e.g. public safety logs link)
-        type: rich-text
-        options:
-          media: false
-      - name: calendar_heading
-        label: Calendar heading
+      - name: disclaimer
+        label: Submission policy line
         type: string
-      - name: calendar_embed
-        label: Community calendar (Google Calendar embed link)
+        description: "Shown on the Events and Notices pages and under each submitted item."
+      - name: events_intro
+        label: Events page introduction
         type: string
-        description: "The 'src' link from Google Calendar's embed code. Leave blank to hide the calendar."
+      - name: notices_intro
+        label: Notices page introduction
+        type: string
 
   # --------------------------------------------------------------- Settings
   - name: site
@@ -357,15 +417,31 @@ content:
         label: Newsletter sign-up form code (optional)
         type: code
         description: "Paste the 'embed' HTML from your email service to show a sign-up form right on the site instead of a button."
+      - name: submit_form_url
+        label: Event and notice submission form link (optional)
+        type: string
+        description: "A Google Form or similar. When blank, the Submit page offers a ready-made email instead."
       - name: old_site_url
         label: Old website address (for older articles)
         type: string
+        description: "The Google Sites address of the previous website (sites.google.com/view/…). Turns on archive links and forwards old article links there."
       - name: print_partner_note
         label: Print partner note
         type: string
       - name: print_partner_url
         label: Print partner link
         type: string
+      - name: town_resources
+        label: Town resources (footer links)
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Link text
+            type: string
+          - name: url
+            label: Web address
+            type: string
 
 actions:
   - name: newsletter-draft
@@ -376,6 +452,14 @@ actions:
       title: Create email draft?
       message: This builds this week's newsletter and saves it as a draft in Kit. Nothing is sent.
       button: Create draft
+  - name: save-photos
+    label: Save imported photos (one-time)
+    workflow: save-photos.yml
+    ref: current
+    confirm:
+      title: Save imported photos?
+      message: Downloads photos that imported articles still load from the old website and saves them in the site. Takes about a minute.
+      button: Save photos
   - name: rebuild
     label: Rebuild the website
     workflow: publish.yml

@@ -1,0 +1,38 @@
+---
+layout: layouts/base.njk
+permalink: /submit/
+title: Submit an event or notice
+---
+{%- set nl = "\n" %}
+{%- set body = "Event or notice title:" + nl + "Your organization:" + nl + "Date(s):" + nl + "Time:" + nl + "Place and town:" + nl + "Cost:" + nl + "Registration needed? How?" + nl + "Link for more information:" + nl + "One-sentence summary:" + nl + nl + "Full details:" + nl + nl + "(Please attach a flyer or photo if you have one.)" %}
+<article class="article page-article">
+  <header class="article-head">
+    <h1 class="article-title">Submit an event or notice</h1>
+  </header>
+  <div class="prose">
+    <p>Community groups in Boxborough and nearby towns are welcome to share events and announcements. We post them on our <a href="/events/">Events</a> and <a href="/notices/">Community notices</a> pages and include them in the Friday newsletter.</p>
+    <p>Please send yours <strong>at least one week before the Friday</strong> you'd like it to appear. Submissions are posted at the editors' discretion and may be edited for clarity and length.</p>
+  </div>
+  <div class="subscribe-panel">
+    {%- if site.submit_form_url %}
+    <a class="button button-large" href="{{ site.submit_form_url }}">Fill in the submission form</a>
+    <p class="small">Prefer email? Write to <a href="mailto:{{ site.email }}?subject=Event%20or%20notice%20submission&body={{ body | encode }}">{{ site.email }}</a>.</p>
+    {%- else %}
+    <a class="button button-large" href="mailto:{{ site.email }}?subject=Event%20or%20notice%20submission&body={{ body | encode }}">Email your submission</a>
+    <p class="small">This opens an email to {{ site.email }} with the details we need already listed.</p>
+    {%- endif %}
+  </div>
+  <div class="prose">
+    <h2>What to include</h2>
+    <ul>
+      <li>The title of the event or announcement</li>
+      <li>Your organization's name</li>
+      <li>For events: the date (and end date, for a series or a run of shows), time, place and town</li>
+      <li>Cost and whether registration is needed</li>
+      <li>A link for more information, written out (not only a QR code)</li>
+      <li>A one-sentence summary, and the full details</li>
+      <li>A flyer or photo, if you have one (JPEG or PNG)</li>
+    </ul>
+    <p>Have a news tip or a story idea instead? See our <a href="/contact/">Contact</a> page.</p>
+  </div>
+</article>

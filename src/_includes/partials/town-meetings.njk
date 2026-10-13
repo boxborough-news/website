@@ -1,0 +1,29 @@
+{#- Compact list of upcoming town meetings. Set: tmDays (how many days ahead), tmMax (rows) -#}
+{%- set thNote = townhall.show and townhall.body and (townhall.hide_after | afterToday) %}
+<section class="meetings" aria-labelledby="meetings-head">
+  <h2 class="label" id="meetings-head">Town meetings</h2>
+  {%- if thNote %}
+  <div class="meetings-note">{{ townhall.body | markdown | safe }}</div>
+  {%- endif %}
+  {%- if townCalendar.ok and townCalendar.all.length %}
+  {%- set mt = townCalendar.all | meetingsWithin(tmDays or 7, tmMax or 12) %}
+  {%- set rows = mt.rows %}{% set later = mt.later %}
+  {%- if rows.length %}
+  <dl class="meetings-list">
+    {%- set lastDate = "" %}
+    {%- for e in rows %}
+    {%- if e.date != lastDate %}<dt>{{ e.date | date("eventday") }}</dt>{% set lastDate = e.date %}{% endif %}
+    <dd{% if e.closure %} class="is-closure"{% endif %}>{% if e.closure %}{{ e.title }}{% else %}<span class="meetings-time">{{ e.time }}</span> {{ e.title }}{% endif %}</dd>
+    {%- endfor %}
+  </dl>
+  {%- else %}
+  <p class="small">No town meetings are listed for the next week.</p>
+  {%- endif %}
+  <p class="meetings-foot">
+    {%- if later > 0 %}{{ later }} more meeting{{ "s" if later != 1 }} in the next two weeks. {% endif %}
+    {%- if townCalendar.link %}<a href="{{ townCalendar.link }}">Full town calendar and agendas →</a>{% endif %}
+  </p>
+  {%- else %}
+  <p class="meetings-foot">{% if townCalendar.link %}See the <a href="{{ townCalendar.link }}">Town of Boxborough calendar</a> for upcoming meetings and agendas.{% endif %}</p>
+  {%- endif %}
+</section>

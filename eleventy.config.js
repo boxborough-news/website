@@ -3,7 +3,8 @@ import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
 import {
-  md, todayET, ymd, addDays, formatDate, isPublished, teaser, stripHtml, smartQuotes, words,
+  md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words,
+  weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl,
 } from "./lib/content.js";
 
 const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
@@ -71,20 +72,130 @@ export default function (eleventyConfig) {
   );
   eleventyConfig.addCollection("everything", (api) => [...articles(api), ...announcements(api)].sort(byNewest));
 
-  eleventyConfig.addCollection("upcomingEvents", (api) => {
+  // ---- Events and notices -------------------------------------------------
+  // (Worked out here rather than read from computed data, which isn't ready when collections are built.)
+  const kindOf = (i) => (i.data.type === "notice" ? "notice" : i.data.type === "event" || ymd(i.data.start_date) ? "event" : "notice");
+  const isEvent = (i) => kindOf(i) === "event";
+  const isNotice = (i) => kindOf(i) === "notice";
+  const startOf = (i) => ymd(i.data.start_date);
+  const endOf = (i) => ymd(i.data.end_date) || ymd(i.data.start_date);
+  const minutes = (t) => (parseTimeRange(t) || { start: -1 }).start;
+
+  // One row per date people can attend: a single event is one row, a series with
+  // "sessions" is one row per session. Rows that have ended are dropped.
+  function eventRows(api) {
     const today = todayET();
-    return announcements(api)
-      .filter((i) => ymd(i.data.event_date) >= today)
-      .sort((a, b) => ymd(a.data.event_date).localeCompare(ymd(b.data.event_date)));
+    const rows = [];
+    for (const item of announcements(api).filter(isEvent)) {
+      const d = item.data;
+      const base = { item, url: item.url, organizer: d.organizer || "" };
+      if (Array.isArray(d.sessions) && d.sessions.length) {
+        for (const s of d.sessions) {
+          const date = ymd(s.date);
+          if (!date || date < today) continue;
+          rows.push({ ...base, date, end: date, sort: date, ongoing: false, title: s.title || d.title, series: d.title,
+            time: s.time || "", location: s.location || d.location || "", town: s.town || d.town || "" });
+        }
+      } else {
+        const start = startOf(item);
+        const end = endOf(item);
+        if (!start || end < today) continue;
+        const ongoing = start < today;
+        rows.push({ ...base, date: start, end, sort: ongoing ? today : start, ongoing, title: d.title, series: "",
+          time: d.time || "", location: d.location || "", town: d.town || "" });
+      }
+    }
+    return rows.sort((a, b) => a.sort.localeCompare(b.sort) || (a.ongoing - b.ongoing) || minutes(a.time) - minutes(b.time) || a.title.localeCompare(b.title));
+  }
+  eleventyConfig.addCollection("eventRows", eventRows);
+
+  // Upcoming rows grouped into This week / Next week / Later (weeks run Monday to Sunday).
+  eleventyConfig.addCollection("eventGroups", (api) => {
+    const today = todayET();
+    const thisSun = addDays(weekStart(today), 6);
+    const nextSun = addDays(thisSun, 7);
+    const groups = [
+      { key: "this-week", label: "This week", range: formatRange(today, thisSun), rows: [] },
+      { key: "next-week", label: "Next week", range: formatRange(addDays(thisSun, 1), nextSun), rows: [] },
+      { key: "later", label: "Later", range: "", rows: [] },
+    ];
+    for (const r of eventRows(api)) {
+      groups[r.sort <= thisSun ? 0 : r.sort <= nextSun ? 1 : 2].rows.push(r);
+    }
+    // Beyond next week, a series shows once ("6 sessions, Oct. 27–Nov. 21") instead of a row per session.
+    const later = [];
+    for (const r of groups[2].rows) {
+      if (!r.series) { later.push(r); continue; }
+      const first = later.find((x) => x.url === r.url && x.count);
+      if (first) { first.count++; first.end = r.date; continue; }
+      const d = r.item.data;
+      later.push({ ...r, title: r.series, series: "", count: 1, time: "", location: d.location || "", town: d.town || "" });
+    }
+    groups[2].rows = later;
+    return groups;
   });
 
-  // Section listing pages, 20 stories per page: /news/, /news/page-2/ …
+  // The next seven days, for the home page. Tops up from later dates when the week is quiet.
+  eleventyConfig.addCollection("eventsThisWeek", (api) => {
+    const rows = eventRows(api);
+    const weekEnd = addDays(todayET(), 6);
+    const week = rows.filter((r) => r.sort <= weekEnd);
+    return week.length >= 3 ? week.slice(0, 6) : rows.slice(0, Math.max(week.length, 4));
+  });
+
+  // Each upcoming event once (a series appears once, at its next session), for the email
+  // and "Other upcoming events".
+  eleventyConfig.addCollection("upcomingEvents", (api) => {
+    const seen = new Set();
+    return eventRows(api).filter((r) => (seen.has(r.url) ? false : seen.add(r.url)));
+  });
+
+  eleventyConfig.addCollection("pastEvents", (api) => {
+    const today = todayET();
+    return announcements(api)
+      .filter((i) => isEvent(i) && endOf(i) && endOf(i) < today)
+      .sort((a, b) => endOf(b).localeCompare(endOf(a)));
+  });
+
+  eleventyConfig.addCollection("notices", (api) => {
+    const today = todayET();
+    return announcements(api).filter((i) => isNotice(i) && (!ymd(i.data.expires) || ymd(i.data.expires) >= today));
+  });
+  eleventyConfig.addCollection("expiredNotices", (api) => {
+    const today = todayET();
+    return announcements(api).filter((i) => isNotice(i) && ymd(i.data.expires) && ymd(i.data.expires) < today);
+  });
+
+  // Every event, past and future, for the subscribable calendar feed.
+  eleventyConfig.addCollection("allEvents", (api) => announcements(api).filter(isEvent));
+
+  // ---- Home page story selection ------------------------------------------
+  // Lead: the story ticked "Top story" in the latest week; otherwise the newest
+  // News story with a photo. Then four more News stories, then headlines.
+  eleventyConfig.addCollection("homeStories", (api) => {
+    const all = articles(api);
+    const news = all.filter((i) => i.data.section === "news");
+    const newest = ymd(all[0]?.data.date);
+    const lead =
+      all.find((i) => i.data.top_story === true && ymd(i.data.date) >= addDays(newest, -6)) ||
+      news.find((i) => i.data.image) || news[0] || all[0];
+    const rest = news.filter((i) => i !== lead);
+    const features = all.filter((i) => i.data.section === "features" && i !== lead);
+    return {
+      lead,
+      issue: lead ? issueFriday(newest) : "",
+      secondary: rest.slice(0, 4),
+      headlines: rest.slice(4, 10),
+      features: features.slice(0, 3),
+    };
+  });
+
+  // Section listing pages (News, Features), 20 stories per page: /news/, /news/page-2/ …
   eleventyConfig.addCollection("sectionPages", (api) => {
     const sections = JSON.parse(fs.readFileSync("src/_data/sections.json", "utf8"));
     const pages = [];
     for (const s of sections) {
-      const items =
-        s.key === "announcements" ? announcements(api) : articles(api).filter((i) => i.data.section === s.key);
+      const items = articles(api).filter((i) => i.data.section === s.key);
       const size = 20;
       const total = Math.max(1, Math.ceil(items.length / size));
       for (let n = 0; n < total; n++) {
@@ -102,15 +213,15 @@ export default function (eleventyConfig) {
     return pages;
   });
 
-  // Archive grouped by month, newest first.
-  eleventyConfig.addCollection("archiveMonths", (api) => {
+  // Archive grouped by Friday issue, newest first. Events are listed on /events/past/ instead.
+  eleventyConfig.addCollection("archiveIssues", (api) => {
     const groups = new Map();
-    for (const item of [...articles(api), ...announcements(api)].sort(byNewest)) {
-      const key = ymd(item.data.date).slice(0, 7);
+    for (const item of [...articles(api), ...announcements(api).filter(isNotice)].sort(byNewest)) {
+      const key = issueFriday(item.data.date);
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(item);
     }
-    return [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key + "-01", "month"), items }));
+    return [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items }));
   });
 
   // What goes into this week's newsletter: everything dated in the 7 days ending today.
@@ -155,6 +266,36 @@ export default function (eleventyConfig) {
     return list;
   });
   eleventyConfig.addFilter("longDate", () => formatDate(todayET(), "weekday"));
+  eleventyConfig.addFilter("range", (a, b) => formatRange(a, b));
+  eleventyConfig.addFilter("rangeLong", (a, b) => (ymd(a) ? formatRange(a, b) + ", " + ymd(b || a).slice(0, 4) : ""));
+  eleventyConfig.addFilter("plusDays", (v, n) => addDays(ymd(v), n));
+  eleventyConfig.addFilter("uniqueBy", (arr, key) => {
+    const seen = new Set();
+    return (arr || []).filter((x) => (seen.has(x[key]) ? false : seen.add(x[key])));
+  });
+  eleventyConfig.addFilter("meetingsWithin", (all, days, max) => {
+    const horizon = addDays(todayET(), days - 1);
+    const rows = (all || []).filter((e) => e.date <= horizon).slice(0, max);
+    return { rows, later: (all || []).length - rows.length };
+  });
+  eleventyConfig.addFilter("excludeUrl", (rows, url) => (rows || []).filter((r) => r.url !== url));
+  eleventyConfig.addFilter("isBoxborough", (town) => /boxborough/i.test(String(town || "")));
+  // Calendar links for one event page.
+  eleventyConfig.addFilter("gcal", (title, start, end, time, place, url) =>
+    googleCalendarUrl({ title, start, end, time, location: place, url })
+  );
+  eleventyConfig.addFilter("icsFile", (items, name) =>
+    icsCalendar(name, (items || []).flatMap((i) => {
+      const d = i.data;
+      const url = siteUrl + i.url.replace(pathPrefix, "/");
+      const where = (loc, town) => [loc, town && !/online/i.test(town) ? town : ""].filter(Boolean).join(", ");
+      if (Array.isArray(d.sessions) && d.sessions.length) {
+        return d.sessions.map((s, n) => ({ uid: `${i.page.fileSlug}-${n + 1}@boxboroughnews.org`, title: s.title || d.title, start: s.date, time: s.time, location: where(s.location || d.location, s.town || d.town), url, description: d.title }));
+      }
+      return [{ uid: `${i.page.fileSlug}@boxboroughnews.org`, title: d.title, start: d.start_date, end: d.end_date, time: d.time, location: where(d.location, d.town), url, description: d.organizer ? "Organized by " + d.organizer : "" }];
+    }))
+  );
+  eleventyConfig.addFilter("mapsUrl", (place) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place));
 
   return {
     dir: { input: "src", output: "_site", includes: "_includes", data: "_data" },

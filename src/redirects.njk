@@ -1,0 +1,28 @@
+---
+pagination:
+  data: redirects
+  size: 1
+  alias: r
+permalink: "{{ r.from }}"
+eleventyExcludeFromCollections: true
+noindex: true
+---
+{#- Small forwarding pages for addresses used by the old website (and the old /announcements/ list). -#}
+{%- set old = site.old_site_url | replace(r/\/$/, "") %}
+{%- set target = (old + r.old) if (r.prefer_old and old) else (r.to | url) %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Redirecting…</title>
+  <link rel="canonical" href="{{ target if target.startsWith('http') else (target | absolute) }}">
+  <script>
+    var old = {{ old | dump | safe }}, oldPath = {{ r.old | dump | safe }};
+    if (old && oldPath && /^#h\./.test(location.hash)) location.replace(old + oldPath + location.hash);
+    else location.replace({{ target | dump | safe }});
+  </script>
+  <meta http-equiv="refresh" content="0; url={{ target }}">
+</head>
+<body><p>This page has moved. <a href="{{ target }}">Continue</a>.</p></body>
+</html>

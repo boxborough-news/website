@@ -9,7 +9,26 @@
   "instagram_url": "https://www.instagram.com/boxboroughnews/",
   "subscribe_url": "https://docs.google.com/forms/d/e/1FAIpQLScldKK2RMxoMYPZuz7-p0RdU8g47Y1kCmSlTX8v2HW9Hk9z9w/viewform",
   "subscribe_embed_code": "",
+  "submit_form_url": "",
   "old_site_url": "",
   "print_partner_note": "Selected articles also appear in Action Unlimited – Acton/Boxborough Edition.",
-  "print_partner_url": "https://www.actionunlimited.com/acton-boxborough"
+  "print_partner_url": "https://www.actionunlimited.com/acton-boxborough",
+  "town_resources": [
+    {
+      "label": "Town of Boxborough website",
+      "url": "https://www.boxborough-ma.gov"
+    },
+    {
+      "label": "Town meeting calendar",
+      "url": "https://www.boxborough-ma.gov/Calendar.aspx"
+    },
+    {
+      "label": "Agendas and minutes",
+      "url": "https://www.boxborough-ma.gov/AgendaCenter"
+    },
+    {
+      "label": "Police logs (Nashoba Valley Regional Dispatch)",
+      "url": "https://www.boxborough-ma.gov/724/Nashoba-Valley-Regional-Dispatch-Police-"
+    }
+  ]
 }

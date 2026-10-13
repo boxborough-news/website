@@ -1,0 +1,9 @@
+---
+pagination:
+  data: collections.allEvents
+  size: 1
+  alias: ev
+permalink: "/announcements/{{ ev.page.fileSlug }}/event.ics"
+eleventyExcludeFromCollections: true
+---
+{{ [ev] | icsFile(ev.data.title) | safe }}

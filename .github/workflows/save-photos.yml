@@ -1,0 +1,38 @@
+# One-time helper: downloads photos that imported articles still load from the old
+# Google Sites website, saves them in the repository, and updates the articles.
+# Run it from the Actions tab (Save imported photos → Run workflow) or from Pages CMS.
+name: Save imported photos
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS payload (filled in automatically)
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tools/save-remote-photos.js
+      - name: Commit the saved photos
+        run: |
+          git config user.name "Boxborough News website"
+          git config user.email "boxboroughnews@gmail.com"
+          git add -A src
+          git diff --cached --quiet && echo "Nothing to save." && exit 0
+          git commit -m "Save imported photos"
+          git push
+          # A push made by this workflow doesn't start other workflows, so start the publish run directly.
+          gh workflow run publish.yml --ref "${GITHUB_REF_NAME}"
+        env:
+          GH_TOKEN: ${{ github.token }}

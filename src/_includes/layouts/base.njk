@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- set pageTitle = (title + " | " + site.title) if title else (site.title + " – " + site.tagline) %}
   {%- set pageDescription = (teaser or summary or site.description) | plain %}
+  {%- set isHome = page.url == "/" %}
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDescription }}">
   <link rel="canonical" href="{{ page.url | absolute }}">
@@ -26,35 +27,33 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="masthead">
-    <div class="topbar">
-      <div class="wrap topbar-inner">
-        <span>{{ "" | longDate }}</span>
-        <span class="topbar-links">
-          <a href="/subscribe/">Free weekly newsletter</a>
-          <a href="mailto:{{ site.tips_email or site.email }}?subject=News%20tip">Send a news tip</a>
-        </span>
-      </div>
-    </div>
+  <header class="masthead{% if not isHome %} masthead-compact{% endif %}">
     <div class="wrap brand">
-      <a class="brand-link" href="/">
+      <a class="brand-link" href="/"{% if isHome %} aria-current="page"{% endif %}>
         <img class="brand-logo" src="/assets/brand/logo.png" width="360" height="360" alt="" eleventy:ignore>
         <img class="brand-wordmark" src="/assets/brand/wordmark.png" width="1303" height="271" alt="{{ site.title }}: {{ site.tagline }}" eleventy:ignore>
       </a>
     </div>
     <nav class="mainnav" aria-label="Main">
       <div class="wrap nav-inner">
-        <ul>
-          <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <span>Menu</span>
+        </button>
+        <ul id="nav-menu">
+          <li><a href="/" {% if isHome %}aria-current="page"{% endif %}>Home</a></li>
           {%- for s in sections %}
           <li><a href="{{ s.path }}" {% if page.url.startsWith(s.path) or section == s.key %}aria-current="page"{% endif %}>{{ s.name }}</a></li>
           {%- endfor %}
+          <li><a href="/events/" {% if page.url.startsWith("/events/") or page.url.startsWith("/notices/") or page.url.startsWith("/submit/") or section == "announcements" %}aria-current="page"{% endif %}>Events</a></li>
           {%- for p in collections.menuPages %}
           <li><a href="{{ p.url }}" {% if page.url == p.url %}aria-current="page"{% endif %}>{{ p.data.title }}</a></li>
           {%- endfor %}
+          <li class="nav-extra"><a href="/contact/">Contact</a></li>
+          <li class="nav-extra"><a href="/subscribe/">Subscribe to the free newsletter</a></li>
         </ul>
         <a class="nav-subscribe" href="/subscribe/" {% if page.url == "/subscribe/" %}aria-current="page"{% endif %}>Subscribe</a>
-        <a class="nav-search" href="/search/" aria-label="Search">
+        <a class="nav-search" href="/search/" {% if page.url == "/search/" %}aria-current="page"{% endif %}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>
           <span>Search</span>
         </a>
@@ -68,7 +67,7 @@
 
   <footer class="footer">
     <div class="wrap footer-grid">
-      <div>
+      <div class="footer-about">
         <p class="footer-brand"><img src="/assets/brand/logo.png" width="360" height="360" alt="" eleventy:ignore><img src="/assets/brand/wordmark-white.png" width="1303" height="271" alt="{{ site.title }}" eleventy:ignore></p>
         <p>{{ site.description }}</p>
         {%- if site.print_partner_note %}
@@ -76,23 +75,32 @@
         {%- endif %}
       </div>
       <div>
-        <p class="footer-head">Sections</p>
+        <p class="footer-head">Read</p>
         <ul>
           {%- for s in sections %}<li><a href="{{ s.path }}">{{ s.name }}</a></li>{% endfor %}
+          <li><a href="/events/">Events</a></li>
+          <li><a href="/notices/">Community notices</a></li>
           <li><a href="/archive/">Archive</a></li>
-          <li><a href="/search/">Search</a></li>
+          {%- if site.old_site_url %}<li><a href="{{ site.old_site_url }}">2023–2026 archive</a></li>{% endif %}
         </ul>
       </div>
       <div>
         <p class="footer-head">Boxborough News</p>
         <ul>
-          {%- for p in collections.menuPages %}<li><a href="{{ p.url }}">{{ p.data.title }}</a></li>{% endfor %}
-          <li><a href="/subscribe/">Subscribe</a></li>
+          <li><a href="/about/">About us</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/submit/">Submit an event or notice</a></li>
+          <li><a href="/outside-the-box/">Outside the Box</a></li>
+          <li><a href="/subscribe/">Newsletter</a></li>
           <li><a href="/feed.xml">RSS feed</a></li>
         </ul>
       </div>
       <div>
-        <p class="footer-head">Get in touch</p>
+        <p class="footer-head">Town resources</p>
+        <ul>
+          {%- for r in site.town_resources %}<li><a href="{{ r.url }}">{{ r.label }}</a></li>{% endfor %}
+        </ul>
+        <p class="footer-head footer-head-spaced">Get in touch</p>
         <ul>
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
           {%- if site.facebook_url %}<li><a href="{{ site.facebook_url }}">Facebook</a></li>{% endif %}
@@ -106,14 +114,28 @@
     </div>
   </footer>
   <script>
-    document.querySelectorAll("[data-copy-link]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        navigator.clipboard.writeText(btn.getAttribute("data-copy-link")).then(function () {
-          var old = btn.textContent; btn.textContent = "Link copied";
-          setTimeout(function () { btn.textContent = old; }, 2000);
+    (function () {
+      var btn = document.querySelector(".nav-toggle");
+      var nav = document.querySelector(".mainnav");
+      if (btn) btn.addEventListener("click", function () {
+        var open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", open ? "false" : "true");
+        nav.classList.toggle("is-open", !open);
+      });
+      document.querySelectorAll("[data-copy-link]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          navigator.clipboard.writeText(b.getAttribute("data-copy-link")).then(function () {
+            var old = b.textContent; b.textContent = "Link copied";
+            setTimeout(function () { b.textContent = old; }, 2000);
+          });
         });
       });
-    });
+      {%- if site.old_site_url and oldPath %}
+      // Links to articles on the old site look like boxboroughnews.org/news#h.jvtmz8l2jtbg.
+      // Send them to the same spot on the old site, where those articles still live.
+      if (/^#h\./.test(location.hash)) location.replace({{ (site.old_site_url | replace(r/\/$/, "")) | dump | safe }} + {{ oldPath | dump | safe }} + location.hash);
+      {%- endif %}
+    })();
   </script>
 </body>
 </html>

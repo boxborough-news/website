@@ -1,9 +1,13 @@
-<section class="box box-subscribe">
-  <h2 class="box-title">Boxborough News in your inbox</h2>
-  <p>Every Friday: this week's town news and features, and what's coming up. Free, and you can unsubscribe at any time.</p>
-  {%- if site.subscribe_embed_code %}
-  <div class="embed">{{ site.subscribe_embed_code | safe }}</div>
-  {%- else %}
-  <a class="button" href="{{ site.subscribe_url or '/subscribe/' }}">Subscribe free</a>
-  {%- endif %}
+<section class="newsletter-band" aria-labelledby="newsletter-head">
+  <div>
+    <h2 id="newsletter-head" class="newsletter-title">Boxborough News in your inbox every Friday</h2>
+    <p>The week's town news, features and upcoming events. Free, and you can unsubscribe at any time.</p>
+  </div>
+  <div class="newsletter-action">
+    {%- if site.subscribe_embed_code %}
+    <div class="embed">{{ site.subscribe_embed_code | safe }}</div>
+    {%- else %}
+    <a class="button button-light" href="{{ site.subscribe_url or '/subscribe/' }}">Subscribe free</a>
+    {%- endif %}
+  </div>
 </section>

@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+permalink: /events/past/
+title: Past events
+---
+<div class="narrow">
+  <header class="section-head">
+    <h1>Past events</h1>
+    <p>Events that have already taken place, most recent first. <a href="/events/">See upcoming events →</a></p>
+  </header>
+  <ul class="headline-list">
+    {%- for item in collections.pastEvents %}
+    <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ item.data.start_date | rangeLong(item.data.end_date) }}{% if item.data.town %} · {{ item.data.town }}{% endif %}{% if item.data.organizer %} · {{ item.data.organizer }}{% endif %}</span></li>
+    {%- else %}
+    <li>No past events yet.</li>
+    {%- endfor %}
+  </ul>
+</div>

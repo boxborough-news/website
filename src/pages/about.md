@@ -14,4 +14,8 @@ We aim to strengthen our community and promote civic engagement by delivering un
 
 Boxborough News is committed to independent reporting of town news and information. We are not affiliated with the Town of Boxborough or any political or community group. Our number one priority is publishing accurate and neutral content, and we ask that all our volunteers agree to maintain this critical neutrality.
 
-Boxborough News is, above all, a community project – a true group effort that depends on engagement from Town departments, boards and committees, community groups, and residents in order to succeed. We're starting small. We're experimenting. We're learning and making adjustments as we go. This is just the beginning.
+Boxborough News is, above all, a community project – a true group effort that depends on engagement from Town departments, boards and committees, community groups, and residents in order to succeed.
+
+## Get involved
+
+We're always looking for volunteer writers, photographers and editors. If you'd like to help, see [how to get involved](/contact/#get-involved) or email [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com).

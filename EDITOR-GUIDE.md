@@ -8,8 +8,8 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 
 | When | What to do |
 |---|---|
-| Monday to Thursday | Add articles as they're ready. Use a Friday **publication date** if you want them held until Friday. |
-| Thursday | Update the **Town Hall notice** for the week ahead. |
+| Monday to Thursday | Add articles as they're ready, with **Friday's date** as the publication date so they appear together on Friday morning. Add events and notices as they arrive. |
+| Thursday | Tick one **Top story** for the week. Update the **Town Hall note** for the week ahead. |
 | **Friday morning** | Open **Kit**, review the email draft that was created automatically, and click **Send**. |
 
 ---
@@ -34,14 +34,14 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 |---|---|
 | **Headline** | The article's headline. |
 | **Section** | **News** for town government, schools and public safety. **Features** for people, events and community life. |
-| **Publication date** | Today's date to publish right away. Pick a future date to schedule the article. It goes live early that morning. |
+| **Publication date** | Use the **Friday** of the issue. A future date schedules the article; it goes live early that morning. (Today's date publishes it right away.) |
 | **Byline** | Optional, e.g. *By Jane Smith*. |
 | **Summary** | Optional. One or two sentences shown on the home page and in the email. If you leave it blank, the first couple of sentences of the article are used, which usually works well. |
 | **Main photo** | Optional. Click to upload (see *Photos* below). |
 | **Photo description** | A few words describing the photo for readers who use screen readers. |
 | **How to show the main image** | Leave as **Photo** for ordinary photos. Choose **Flyer, chart or logo** for anything with text in it, so it's always shown whole instead of trimmed to fit. |
-| **Photo caption / credit** | Shown under the photo. |
-| **Top story** | Tick to list the article first on the home page and in the email. All stories are shown at the same size. Only tick one per week. |
+| **Photo caption / credit** | Optional. Shown under the photo. |
+| **Top story** | Tick **one** story each week. It becomes the large lead story at the top of the home page and leads the email. If nothing is ticked, the newest News story with a photo is used. |
 | **Draft** | Tick to save your work without publishing it. Untick when it's ready. |
 | **Article text** | Type or paste the article. Pasting from Word or Google Docs works. Use the toolbar for **bold**, *italics*, headings, lists and links. |
 
@@ -63,31 +63,51 @@ Open it and tick **Draft**, then **Save**. It disappears from the website but is
 
 ---
 
-## Announcements & events
+## Events & notices
 
-Use **Announcements & Events** in the left menu for community notices and events.
+Use **Events & Notices** in the left menu for everything submitted by community groups. Each entry is one of two kinds:
 
-- **Date posted** controls when the announcement appears and which week's email it goes in.
-- If it's an event, fill in the **Event date** (plus time and location). Events appear under **Coming up** on the home page and in the email, and drop off automatically once the day has passed.
-- Paste a flyer image into **Flyer or photo** if you have one.
+- **Event**: something people can attend on a date. Events are listed on the **Events** page by date (this week, next week, later), in the "This week in Boxborough" box on the home page and in the Friday email. They drop off by themselves once their last day has passed, and move to **Past events**.
+- **Community notice**: a news release, a message from an organization, a call for volunteers. Notices are listed on the **Community notices** page, newest first.
+
+| Field | What to put |
+|---|---|
+| **Title** | The name of the event or announcement. Leave the date out of the title; it's shown separately. Prefer a plain description ("Annual Flu Clinic at Blanchard School") to a generic one ("Message from the Well-Being Committee"). |
+| **Kind** | Event or Community notice. |
+| **Date posted** | The Friday of the issue it belongs to. |
+| **Submitted by** | The organization, e.g. *Sargent Memorial Library*. Shown as "Submitted by …". |
+| **Event: date** | The day of the event, or the first day of a run. |
+| **Event: last day** | Only for multi-day events (a show's run, a weekly market). Leave blank for one-day events. |
+| **Event: time** | Written like *7 p.m.*, *10:30 a.m.–noon* or *3–6 p.m.* Written this way, it also goes into readers' calendar apps correctly. |
+| **Event: place** and **town** | The place (e.g. *Blanchard Memorial School, 493 Massachusetts Ave.*) and the town (*Boxborough*, *Acton*, … or *Online*). The town drives the Boxborough / Nearby towns filter. |
+| **Event: cost**, **registration** | Optional, e.g. *Free*; *Required; register online*. |
+| **Event: sessions of a series** | For a program series (several talks or walks), add one entry per session with its date, time, title, place and town. Each session is listed on its own date; the event page shows the whole schedule. |
+| **Link for more information** | The full web address. Readers can't click a QR code, so type the link even if the flyer has one. |
+| **Notice: remove after** | For notices with a deadline (a survey, an application). The notice leaves the Notices page after this date. |
+| **Flyer or photo** | Optional. It's shown below the details. Please also type the key facts (date, place, link) into the text, since many readers can't read a flyer image. |
+| **Details** | The full text. Copyedit for clarity and length as needed. |
+
+### Submissions
+
+The **Submit an event or notice** page (linked from the Events page, the footer and Contact) asks organizations for exactly these details. Until a submission form is set up, its button opens an email to boxboroughnews@gmail.com with the questions already filled in. To use a Google Form instead, paste its link into **Site settings → Event and notice submission form link**.
 
 ---
 
-## The Town Hall notice
+## The Town Hall note
 
-This is the green box at the top of the home page (and the email).
+A sentence or two about the week's most important town meetings. It appears at the top of the **Town meetings** list on the home page and the Events page, and in the email.
 
-1. Click **Town Hall notice** in the left menu.
-2. Edit the text. Set **Hide automatically after** to the last day it applies, usually the next Saturday. The box then disappears by itself, so it never shows out-of-date information.
-3. Untick **Show this box** to hide it straight away.
+1. Click **Town Hall note** in the left menu.
+2. Edit the text. Set **Hide automatically after** to the last day it applies, usually the next Saturday. The note then disappears by itself, so it never shows out-of-date information.
+3. Untick **Show the note** to hide it straight away.
 
-The list of upcoming town meetings below the notice comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain. The same list also appears in the weekly email.
+The list of upcoming town meetings comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain. The website tidies up the town's titles (for example, a joint meeting listed separately by three boards appears once).
 
 ---
 
 ## The Friday email
 
-**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email: headlines, photos, summaries, and "Read more" links to each article, plus the Town Hall notice and upcoming events. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
+**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email: headlines, photos, summaries, and "Read more" links to each article, plus the Town Hall note, upcoming town meetings and upcoming events. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
 
 To send it:
 1. Log in to **Kit** (https://app.kit.com) with the Boxborough News account.
@@ -105,8 +125,9 @@ To send it:
 
 ## Other pages and settings
 
-- **Pages** contains About Us, Contact and Outside the Box. Edit them like articles. Tick **Show in the menu bar** to list a page in the site's menu.
-- **Site settings** holds the contact email, social media links, and the newsletter sign-up link. Change these rarely.
+- **Pages** contains About Us, Contact and Outside the Box. Edit them like articles. Tick **Show in the menu bar** to list a page in the site's top menu (only About Us is there now; the others are in the footer).
+- **Events & Notices page text** holds the one-line submission policy shown on those pages.
+- **Site settings** holds the contact email, social media links, the newsletter sign-up link, the submission form link, the old website's address and the "Town resources" links in the footer. Change these rarely.
 
 ---
 
@@ -115,6 +136,7 @@ To send it:
 | Problem | What to check |
 |---|---|
 | I saved, but my article isn't on the site | Wait two or three minutes, then refresh the page. Check that **Draft** is unticked and the **Publication date** isn't in the future. |
-| The home page still shows last week's Town Hall notice | Check **Hide automatically after** in the Town Hall notice. |
+| The home page still shows last week's Town Hall note | Check **Hide automatically after** in the Town Hall note. |
+| An event is missing from the Events page | Check that **Kind** is *Event*, the **Event: date** is filled in, and its last day hasn't passed. |
 | There's no email draft in Kit on Friday | If nothing was published that week, no draft is made. Otherwise click **Create this week's email draft now**, or ask the site administrator. |
 | Anything else | Contact the site administrator. Every change is saved in the site's history, so nothing is ever truly lost. |

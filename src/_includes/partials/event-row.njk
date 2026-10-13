@@ -1,0 +1,18 @@
+{#- One row in an events list. Set: r (a row from collections.eventRows) -#}
+<li class="event-row" data-place="{{ 'boxborough' if (r.town | isBoxborough) else 'nearby' }}">
+  {%- if r.ongoing %}
+  <span class="datebadge datebadge-thru" aria-hidden="true"><span>Thru</span><strong>{{ r.end | date("monthshort") }} {{ r.end | date("daynum") }}</strong></span>
+  {%- else %}
+  <span class="datebadge" aria-hidden="true"><span>{{ r.date | date("monthshort") }}</span><strong>{{ r.date | date("daynum") }}</strong></span>
+  {%- endif %}
+  <span class="event-text">
+    <a href="{{ r.url }}">{{ r.title | smart }}</a>
+    {%- set where = r.location %}{% if r.town and not (r.location and (r.town in r.location)) %}{% set where = (r.location + ", " + r.town) if r.location else r.town %}{% endif %}
+    {%- if r.count %}{% set when = r.count + (" sessions, " if r.count != 1 else " session, ") + (r.date | range(r.end)) %}
+    {%- elif r.ongoing %}{% set when = "" %}
+    {%- elif r.end != r.date %}{% set when = (r.date | date("eventday")) + "–" + (r.end | date("short")) %}
+    {%- else %}{% set when = r.date | date("eventday") %}{% endif %}
+    <span class="meta"><span class="visually-hidden">{{ ("Through " + (r.end | date("weekday"))) if r.ongoing else (r.date | date("weekday")) }}. </span>{{ [when, r.time, where] | select | join(" · ") }}</span>
+    {%- if r.series %}<span class="meta event-series">Part of {{ r.series | smart }}</span>{% endif %}
+  </span>
+</li>

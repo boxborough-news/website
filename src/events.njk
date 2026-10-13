@@ -1,0 +1,71 @@
+---
+layout: layouts/base.njk
+permalink: /events/
+title: Events
+oldPath: /announcements-and-events
+---
+<div class="events-page">
+  <header class="section-head section-head-row">
+    <div>
+      <h1>Events</h1>
+      <p>{{ announcements_page.events_intro }}</p>
+    </div>
+    <a class="button" href="/submit/">Submit an event</a>
+  </header>
+  <nav class="tabs" aria-label="Events and notices">
+    <a href="/events/" aria-current="page">Events</a>
+    <a href="/notices/">Community notices</a>
+  </nav>
+
+  <div class="events-grid">
+    <div class="events-main">
+      <div class="filters" role="group" aria-label="Show events in">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="boxborough" aria-pressed="false">Boxborough</button>
+        <button type="button" data-filter="nearby" aria-pressed="false">Nearby towns</button>
+      </div>
+      {%- set any = false %}
+      {%- for g in collections.eventGroups %}
+      {%- if g.rows.length %}{% set any = true %}
+      <section class="event-group" aria-labelledby="g-{{ g.key }}">
+        <h2 class="label" id="g-{{ g.key }}">{{ g.label }}{% if g.range %} <span class="label-range">{{ g.range }}</span>{% endif %}</h2>
+        <ul class="event-list event-list-page">
+          {%- for r in g.rows %}{% include "partials/event-row.njk" %}{% endfor %}
+        </ul>
+        <p class="filter-empty small" hidden>Nothing here for this choice.</p>
+      </section>
+      {%- endif %}
+      {%- endfor %}
+      {%- if not any %}<p>No upcoming events are listed right now. <a href="/submit/">Submit one</a>.</p>{% endif %}
+
+      <p class="disclaimer small">{{ announcements_page.disclaimer }}</p>
+      <ul class="page-links">
+        <li><a href="/events/past/">Past events</a></li>
+        <li><a href="/notices/">Community notices</a></li>
+        <li><a href="{{ '/events.ics' | absolute | replace('https://', 'webcal://') | replace('http://', 'webcal://') }}">Add these events to your calendar app</a> <span class="small">(updates automatically)</span></li>
+      </ul>
+    </div>
+
+    <aside class="events-side">
+      {%- set tmDays = 7 %}{% set tmMax = 14 %}
+      {% include "partials/town-meetings.njk" %}
+    </aside>
+  </div>
+</div>
+<script>
+  (function () {
+    var buttons = document.querySelectorAll(".filters button");
+    function apply(f) {
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-filter") === f ? "true" : "false"); });
+      document.querySelectorAll(".event-group").forEach(function (g) {
+        var shown = 0;
+        g.querySelectorAll(".event-row").forEach(function (row) {
+          var ok = f === "all" || row.getAttribute("data-place") === f;
+          row.hidden = !ok; if (ok) shown++;
+        });
+        g.querySelector(".filter-empty").hidden = shown > 0;
+      });
+    }
+    buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.getAttribute("data-filter")); }); });
+  })();
+</script>

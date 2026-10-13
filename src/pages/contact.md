@@ -1,10 +1,16 @@
 ---
 title: "Contact"
 menu_order: 6
-show_in_menu: true
+show_in_menu: false
 show_staff: false
 ---
-Email us at [info@boxboroughnews.org](mailto:info@boxboroughnews.org) or [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com). News tips, story ideas, corrections and announcements are always welcome.
+Email us at [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com). We read every message.
+
+- **Send a news tip or story idea:** [email us](mailto:boxboroughnews@gmail.com?subject=News%20tip)
+- **Report an error:** [request a correction](mailto:boxboroughnews@gmail.com?subject=Correction)
+- **Share an event or announcement:** [submit an event or notice](/submit/)
+- **Submit an article:** see the guidelines below
+- **Volunteer:** see [Get involved](#get-involved)
 
 ## Get involved
 

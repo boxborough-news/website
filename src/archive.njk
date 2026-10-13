@@ -3,22 +3,52 @@ layout: layouts/base.njk
 permalink: /archive/
 title: Archive
 ---
-<header class="section-head">
-  <h1>Archive</h1>
-  <p>Every article on this site, newest first. Looking for something specific? <a href="/search/">Search the site</a>.</p>
+<div class="narrow">
+  <header class="section-head">
+    <h1>Archive</h1>
+    <p>Every article and community notice on this site, by weekly issue. Past events are listed on <a href="/events/past/">their own page</a>.</p>
+  </header>
+  <form class="search-inline" action="/search/" role="search">
+    <label for="archive-q" class="visually-hidden">Search Boxborough News</label>
+    <input id="archive-q" name="q" type="search" placeholder="Search all articles">
+    <button class="button" type="submit">Search</button>
+  </form>
   {%- if site.old_site_url %}
-  <p>Articles published before this website launched are on <a href="{{ site.old_site_url }}">our previous website</a>.</p>
+  <p class="old-site-box">Articles from 2023 to 2026 are on our previous website. <a href="{{ site.old_site_url | replace(r/\/$/, '') }}/archives">Browse the 2023–2026 archive →</a></p>
   {%- endif %}
-</header>
-<div class="archive">
-  {%- for m in collections.archiveMonths %}
-  <section class="archive-month">
-    <h2>{{ m.label }} <span class="count">{{ m.items.length }}</span></h2>
-    <ul>
-      {%- for item in m.items %}
-      <li><span class="archive-date">{{ item.data.date | date("short") }}</span> <a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="archive-sec">{{ (item.data.section | sectionInfo(sections)).name }}</span></li>
-      {%- endfor %}
-    </ul>
-  </section>
-  {%- endfor %}
+  <div class="filters" role="group" aria-label="Show">
+    <button type="button" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" data-filter="news" aria-pressed="false">News</button>
+    <button type="button" data-filter="features" aria-pressed="false">Features</button>
+    <button type="button" data-filter="announcements" aria-pressed="false">Notices</button>
+  </div>
+  <div class="archive">
+    {%- for m in collections.archiveIssues %}
+    <section class="archive-month">
+      <h2>Issue of {{ m.label }} <span class="count">{{ m.items.length }}</span></h2>
+      <ul>
+        {%- for item in m.items %}
+        <li data-sec="{{ item.data.section }}"><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="archive-sec">{{ "Notice" if item.data.section == "announcements" else (item.data.section | sectionInfo(sections)).name }}</span></li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endfor %}
+  </div>
 </div>
+<script>
+  (function () {
+    var buttons = document.querySelectorAll(".filters button");
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var f = b.getAttribute("data-filter");
+        buttons.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        document.querySelectorAll(".archive-month").forEach(function (m) {
+          var n = 0;
+          m.querySelectorAll("li").forEach(function (li) { var ok = f === "all" || li.getAttribute("data-sec") === f; li.hidden = !ok; if (ok) n++; });
+          m.hidden = n === 0;
+          m.querySelector(".count").textContent = n;
+        });
+      });
+    });
+  })();
+</script>

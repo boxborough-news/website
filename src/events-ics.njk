@@ -1,0 +1,5 @@
+---
+permalink: /events.ics
+eleventyExcludeFromCollections: true
+---
+{{ collections.allEvents | icsFile(site.title + " community events") | safe }}

@@ -19,65 +19,99 @@ END:DAYLIGHT
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:sample-1
-DTSTART;TZID=Eastern Standard Time:20260928T190000
-DTEND;TZID=Eastern Standard Time:20260928T235900
-SUMMARY:Select Board Meeting
-LOCATION:Grange Room - 29 Middle Road Boxborough MA 01719
-END:VEVENT
-BEGIN:VEVENT
-UID:sample-2
-DTSTART;TZID=Eastern Standard Time:20260929T190000
-DTEND;TZID=Eastern Standard Time:20260929T235900
-SUMMARY:BERC
-LOCATION:Morse-Hilberg Room - 29 Middle Road Boxborough MA 01719
-END:VEVENT
-BEGIN:VEVENT
-UID:sample-3
-DTSTART:20260929T230000Z
-DTEND:20260930T035900Z
-SUMMARY:Finance Committee Meeting (Hybrid)
-LOCATION:Grange Room - 29 Middle Road Boxborough MA 01719
-END:VEVENT
-BEGIN:VEVENT
-UID:sample-4
-DTSTART;TZID=Eastern Standard Time:20260930T190000
-DTEND;TZID=Eastern Standard Time:20260930T203000
-SUMMARY:Public Outreach - Fire Station Design Update
-LOCATION:Town Hall > Grange Room - 29 Middle Road Boxborough MA 01719
-END:VEVENT
-BEGIN:VEVENT
-UID:sample-5
-DTSTART;TZID=Eastern Standard Time:20261005T100000
-DTEND;TZID=Eastern Standard Time:20261005T110000
-SUMMARY:Well-Being Committee Meeting
-LOCATION:Town Hall > Morse-Hilberg Room - 29 Middle Road Boxborough MA 01719
-END:VEVENT
-BEGIN:VEVENT
-UID:sample-6
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
 SUMMARY:TOWN OFFICES ARE CLOSED - Indigenous People Day
 LOCATION:Boxborough MA 01719
 END:VEVENT
 BEGIN:VEVENT
+UID:sample-2
+DTSTART;TZID=Eastern Standard Time:20261013T140000
+DTEND;TZID=Eastern Standard Time:20261013T153000
+SUMMARY:Council on Aging Hybrid Board Meeting
+LOCATION:Morse-Hilberg Room - 29 Middle Road Boxborough MA 01719
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-3
+DTSTART;TZID=Eastern Standard Time:20261013T180000
+DTEND;TZID=Eastern Standard Time:20261013T235900
+SUMMARY:Planning Board Meeting
+LOCATION:- Boxborough MA 01719
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-4
+DTSTART;TZID=Eastern Standard Time:20261013T190000
+DTEND;TZID=Eastern Standard Time:20261013T235900
+SUMMARY:Finance Committee Joint meeting at Acton Boxbrorough Tri-Board meeting
+LOCATION:Hybrid: ZOOM and Grange, Town Hall, 29 Middle Rd. -
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-5
+DTSTART;TZID=Eastern Standard Time:20261013T190000
+DTEND;TZID=Eastern Standard Time:20261013T235900
+SUMMARY:Select Board Joint Meeting with Acton-Boxborough Tri-Board
+LOCATION:Grange Room
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-6
+DTSTART;TZID=Eastern Standard Time:20261013T190000
+DTEND;TZID=Eastern Standard Time:20261013T235900
+SUMMARY:Acton-Boxborough Regional School Committee with TriBoard Meeting
+LOCATION:Hybrid: ZOOM and Grange, 29 Middle Rd. Boxborough
+END:VEVENT
+BEGIN:VEVENT
 UID:sample-7
-DTSTART;TZID=Eastern Standard Time:20260915T190000
-DTEND;TZID=Eastern Standard Time:20260915T210000
-SUMMARY:Past meeting (should be hidden)
+DTSTART;TZID=Eastern Standard Time:20261013T193000
+DTEND;TZID=Eastern Standard Time:20261013T235900
+SUMMARY:Agricultural Commission Meeting
+LOCATION:Morse-Hilberg Room
 END:VEVENT
 BEGIN:VEVENT
 UID:sample-8
-DTSTART;TZID=Eastern Standard Time:20261008T190000
-DTEND;TZID=Eastern Standard Time:20261008T220000
-SUMMARY:Fire Station Building Committee (FSBC)
-LOCATION:Town Hall > Grange Room - 29 Middle Road Boxborough MA 01719
-RRULE:FREQ=WEEKLY;COUNT=3
+DTSTART;TZID=Eastern Standard Time:20261014T190000
+DTEND;TZID=Eastern Standard Time:20261014T235900
+SUMMARY:Select Board Meeting -
 END:VEVENT
 BEGIN:VEVENT
 UID:sample-9
-DTSTART;TZID=Eastern Standard Time:20261001T190000
-DTEND;TZID=Eastern Standard Time:20261001T235900
-SUMMARY:Nashoba Associated Board of Health Executive Committee &amp; Quarterly Meeting
-LOCATION:<p>Nashoba Associated Boards of Health</p><p>30 Central Ave\, Ayer MA</p> - Ayer MA 01432
+DTSTART;TZID=Eastern Standard Time:20261014T190000
+DTEND;TZID=Eastern Standard Time:20261014T235900
+SUMMARY:Sustainability Committee Meeting
+LOCATION:- Boxborough MA 01719
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-10
+DTSTART;TZID=Eastern Standard Time:20261014T193000
+DTEND;TZID=Eastern Standard Time:20261014T235900
+SUMMARY:Board of Health Meeting
+LOCATION:- Boxborough MA 01719
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-11
+DTSTART;TZID=Eastern Standard Time:20261019T190000
+DTEND;TZID=Eastern Standard Time:20261019T235900
+SUMMARY:Planning Board Meeting
+LOCATION:- Boxborough MA 01719
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-12
+DTSTART;TZID=Eastern Standard Time:20261020T190000
+DTEND;TZID=Eastern Standard Time:20261020T235900
+SUMMARY:Finance Committee Meeting
+LOCATION:Town Hall, Grange Room
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-13
+DTSTART;TZID=Eastern Standard Time:20261020T193000
+DTEND;TZID=Eastern Standard Time:20261020T213000
+SUMMARY:Water Resources Committee
+LOCATION:- Boxborough MA 01719
+END:VEVENT
+BEGIN:VEVENT
+UID:sample-14
+DTSTART;TZID=Eastern Standard Time:20261022T190000
+DTEND;TZID=Eastern Standard Time:20261022T235900
+SUMMARY:Fire Station Building Committee (FSBC)
+LOCATION:Town Hall, Grange Room
 END:VEVENT
 END:VCALENDAR

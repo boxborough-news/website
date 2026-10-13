@@ -154,6 +154,27 @@ content:
         description: "Only for events that run several days, such as a show's run or a weekly market. Leave blank for one-day events."
         options:
           format: yyyy-MM-dd
+      - name: weekdays
+        label: "Event: repeats on (optional)"
+        type: select
+        description: "For a run with a last day that happens on certain days each week, such as a Saturday market or a show Thursday to Sunday. The event is then listed on its next date."
+        options:
+          multiple: true
+          values:
+            - name: Mon
+              label: Monday
+            - name: Tue
+              label: Tuesday
+            - name: Wed
+              label: Wednesday
+            - name: Thu
+              label: Thursday
+            - name: Fri
+              label: Friday
+            - name: Sat
+              label: Saturday
+            - name: Sun
+              label: Sunday
       - name: time
         label: "Event: time (optional)"
         type: string

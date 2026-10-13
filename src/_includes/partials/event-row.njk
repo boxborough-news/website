@@ -9,6 +9,7 @@
     <a href="{{ r.url }}">{{ r.title | smart }}</a>
     {%- set where = r.location %}{% if r.town and not (r.location and (r.town in r.location)) %}{% set where = (r.location + ", " + r.town) if r.location else r.town %}{% endif %}
     {%- if r.count %}{% set when = r.count + (" sessions, " if r.count != 1 else " session, ") + (r.date | range(r.end)) %}
+    {%- elif r.runsThrough %}{% set when = (r.date | date("eventday")) + " · " + ((r.days + " through ") if r.days else "Runs through ") + (r.runsThrough | date("short")) %}
     {%- elif r.ongoing %}{% set when = "" %}
     {%- elif r.end != r.date %}{% set when = (r.date | date("eventday")) + "–" + (r.end | date("short")) %}
     {%- else %}{% set when = r.date | date("eventday") %}{% endif %}

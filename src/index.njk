@@ -5,57 +5,56 @@ oldPath: /home
 ---
 {%- set hs = collections.homeStories %}
 {%- if hs.issue %}
-<p class="issue-line"><span>Latest issue</span> {{ hs.issue | date("weekday") }}</p>
+<p class="issue-line"><span>This week's issue</span> {{ hs.issue | date("weekday") }}</p>
 {%- endif %}
 
 <div class="home-top">
   {%- if hs.lead %}
   <div class="home-lead">
-    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = (hs.lead.data.section == "features") %}
+    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = true %}
     {% include "partials/story.njk" %}
   </div>
   {%- endif %}
 
-  <aside class="home-rail">
-    {% include "partials/this-week.njk" %}
-  </aside>
-
-  {%- if hs.secondary.length %}
-  <section class="home-secondary" aria-labelledby="latest-news">
+  {%- if hs.news.length %}
+  <section class="home-news" aria-labelledby="latest-news">
     <h2 class="label" id="latest-news"><a href="/news/">News</a></h2>
     <div class="story-grid">
-      {%- for item in hs.secondary %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 22 %}
+      {%- for item in hs.news %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}
       {% include "partials/story.njk" %}
       {%- endfor %}
     </div>
   </section>
   {%- endif %}
 
-  {%- if hs.headlines.length %}
-  <section class="home-headlines" aria-labelledby="more-news">
-    <h2 class="label" id="more-news">More news</h2>
-    <ul class="headline-list">
-      {%- for item in hs.headlines %}
-      <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ item.data.date | date }}</span></li>
+  {%- if hs.features.length %}
+  <section class="home-features" aria-labelledby="latest-features">
+    <h2 class="label" id="latest-features"><a href="/features/">{{ "Features" if hs.featuresAreCurrent else "Recent features" }}</a></h2>
+    <div class="story-grid">
+      {%- for item in hs.features %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}
+      {% include "partials/story.njk" %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  <aside class="home-rail">
+    {% include "partials/this-week.njk" %}
+  </aside>
+
+  {%- if hs.earlier.length %}
+  <section class="home-earlier" aria-labelledby="earlier">
+    <h2 class="label label-quiet" id="earlier">Earlier issues</h2>
+    <ul class="compact-list">
+      {%- for item in hs.earlier %}
+      <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }} · {{ item.data.date | date("short") }}</span></li>
       {%- endfor %}
     </ul>
-    <p class="more"><a href="/news/">All news →</a> <a class="more-secondary" href="/archive/">Browse the archive</a></p>
+    <p class="more"><a href="/news/">All news →</a> <a href="/features/">All features →</a> <a class="more-secondary" href="/archive/">Browse the archive</a></p>
   </section>
   {%- endif %}
 </div>
-
-{%- if hs.features.length %}
-<section class="home-features" aria-labelledby="latest-features">
-  <h2 class="label" id="latest-features"><a href="/features/">Features</a></h2>
-  <div class="story-grid story-grid-3">
-    {%- for item in hs.features %}
-    {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 22 %}
-    {% include "partials/story.njk" %}
-    {%- endfor %}
-  </div>
-  <p class="more"><a href="/features/">All features →</a></p>
-</section>
-{%- endif %}
 
 {% include "partials/subscribe-box.njk" %}

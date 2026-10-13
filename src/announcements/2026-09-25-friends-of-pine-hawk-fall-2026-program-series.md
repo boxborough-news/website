@@ -54,20 +54,10 @@ sessions:
     title: "Fish Weir Creation Event"
     location: "NARA Park, North Acton (limited to 35)"
     town: "Acton"
-  - date: 2026-11-21
-    time: "10–11 a.m."
-    title: "Beaver Brook Valley Preserve (Esker) Presentations"
-    location: "Sargent Memorial Library"
-    town: "Boxborough"
-  - date: 2026-11-21
-    time: "12:45–2:30 p.m."
-    title: "George Krusen Memorial Esker Walk"
-    location: "Beaver Brook Valley Preserve (limited to 40, ages 13+)"
-    town: "Boxborough"
 ---
 The Friends of Pine Hawk 2026 Fall Program Series is presented with support from Acton Memorial Library and Freedom's Way National Heritage Area. **Events are free but require registration** at <https://tinyurl.com/2026-Pinehawk>.
 
 
-Full descriptions of each program are in the flyer.
+Full descriptions of each program are in the flyer. The series ends with the [George Krusen Memorial Talk and Walk](/announcements/george-krusen-memorial-talk-and-walk-november-21/) in Boxborough on Saturday, November 21, presented by the Boxborough Conservation Trust.
 
 ![Friends of Pine Hawk 2026 Fall Program Series flyer, page 2](/media/announcements/04-friends-of-pine-hawk-02.jpg)

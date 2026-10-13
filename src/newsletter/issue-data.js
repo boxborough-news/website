@@ -20,9 +20,11 @@ export function makeIssue(data) {
   const toEvent = (r) => ({
     title: r.series ? `${r.title} (${r.series})` : r.title,
     url: abs(r.url),
-    event_date: r.ongoing ? todayET() : r.date,
-    event_time: [r.ongoing ? `Through ${formatDate(r.end, "short")}` : r.end !== r.date ? `Through ${formatDate(r.end, "short")}` : "", r.time]
-      .filter(Boolean).join(" · "),
+    when: r.ongoing ? `Through ${formatDate(r.end, "eventday")}` : formatDate(r.date, "eventday"),
+    event_time: [
+      r.runsThrough ? `${r.days ? r.days + " through" : "Runs through"} ${formatDate(r.runsThrough, "short")}` : !r.ongoing && r.end !== r.date ? `Through ${formatDate(r.end, "short")}` : "",
+      r.time,
+    ].filter(Boolean).join(" · "),
     location: [r.location, r.town].filter(Boolean).join(", "),
   });
   const week = collections.thisWeek;

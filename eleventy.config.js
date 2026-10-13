@@ -3,8 +3,8 @@ import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
 import {
-  md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words,
-  weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl,
+  md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words, sentences,
+  weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel,
 } from "./lib/content.js";
 
 const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
@@ -100,6 +100,17 @@ export default function (eleventyConfig) {
         const start = startOf(item);
         const end = endOf(item);
         if (!start || end < today) continue;
+        const days = weekdayList(d.weekdays);
+        if (days.length && end > start) {
+          // A run on certain days each week (a market every Saturday, a show Thursday to Sunday):
+          // list it on its next date, with "Runs through …".
+          const next = nextOnDays(start > today ? start : today, end, days);
+          if (!next) continue;
+          rows.push({ ...base, date: next, end: next, sort: next, ongoing: false, runsThrough: end,
+            days: /\b(mon|tue|wed|thu|fri|sat|sun)/i.test(d.time || "") ? "" : daysLabel(d.weekdays),
+            title: d.title, series: "", time: d.time || "", location: d.location || "", town: d.town || "" });
+          continue;
+        }
         const ongoing = start < today;
         rows.push({ ...base, date: start, end, sort: ongoing ? today : start, ongoing, title: d.title, series: "",
           time: d.time || "", location: d.location || "", town: d.town || "" });
@@ -122,16 +133,6 @@ export default function (eleventyConfig) {
     for (const r of eventRows(api)) {
       groups[r.sort <= thisSun ? 0 : r.sort <= nextSun ? 1 : 2].rows.push(r);
     }
-    // Beyond next week, a series shows once ("6 sessions, Oct. 27–Nov. 21") instead of a row per session.
-    const later = [];
-    for (const r of groups[2].rows) {
-      if (!r.series) { later.push(r); continue; }
-      const first = later.find((x) => x.url === r.url && x.count);
-      if (first) { first.count++; first.end = r.date; continue; }
-      const d = r.item.data;
-      later.push({ ...r, title: r.series, series: "", count: 1, time: "", location: d.location || "", town: d.town || "" });
-    }
-    groups[2].rows = later;
     return groups;
   });
 
@@ -170,24 +171,27 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("allEvents", (api) => announcements(api).filter(isEvent));
 
   // ---- Home page story selection ------------------------------------------
-  // Lead: the story ticked "Top story" in the latest week; otherwise the newest
-  // News story with a photo. Then four more News stories, then headlines.
+  // The home page is built around the latest Friday issue:
+  //   lead      the story ticked "Top story" in that issue (otherwise its first News story with a photo)
+  //   news      the rest of that issue's News stories
+  //   features  that issue's Features (or the three most recent, if the issue has none)
+  //   earlier   stories from previous issues, as a compact list
   eleventyConfig.addCollection("homeStories", (api) => {
     const all = articles(api);
-    const news = all.filter((i) => i.data.section === "news");
-    const newest = ymd(all[0]?.data.date);
+    if (!all.length) return { lead: null, issue: "", news: [], features: [], earlier: [] };
+    const issue = issueFriday(all[0].data.date);
+    const inIssue = all.filter((i) => issueFriday(i.data.date) === issue);
     const lead =
-      all.find((i) => i.data.top_story === true && ymd(i.data.date) >= addDays(newest, -6)) ||
-      news.find((i) => i.data.image) || news[0] || all[0];
-    const rest = news.filter((i) => i !== lead);
-    const features = all.filter((i) => i.data.section === "features" && i !== lead);
-    return {
-      lead,
-      issue: lead ? issueFriday(newest) : "",
-      secondary: rest.slice(0, 4),
-      headlines: rest.slice(4, 10),
-      features: features.slice(0, 3),
-    };
+      inIssue.find((i) => i.data.top_story === true) ||
+      inIssue.find((i) => i.data.section === "news" && i.data.image) ||
+      inIssue.find((i) => i.data.image) || inIssue[0];
+    const news = inIssue.filter((i) => i !== lead && i.data.section === "news");
+    let features = inIssue.filter((i) => i !== lead && i.data.section === "features");
+    const featuresAreCurrent = features.length > 0;
+    if (!featuresAreCurrent) features = all.filter((i) => i !== lead && i.data.section === "features").slice(0, 3);
+    const shown = new Set([lead, ...news, ...features]);
+    const earlier = all.filter((i) => !shown.has(i)).slice(0, 8);
+    return { lead, issue, news, features, featuresAreCurrent, earlier };
   });
 
   // Section listing pages (News, Features), 20 stories per page: /news/, /news/page-2/ …
@@ -224,9 +228,10 @@ export default function (eleventyConfig) {
     return [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items }));
   });
 
-  // What goes into this week's newsletter: everything dated in the 7 days ending today.
+  // What goes into this week's newsletter.
   eleventyConfig.addCollection("thisWeek", (api) => {
-    const end = todayET();
+    // The issue is dated the coming Friday (or today, on a Friday) and covers the seven days ending then.
+    const end = issueFriday(todayET());
     const start = addDays(end, -6);
     const inWeek = (i) => ymd(i.data.date) >= start && ymd(i.data.date) <= end;
     return {
@@ -246,6 +251,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("markdownInline", (s) => md.renderInline(String(s || "")));
   eleventyConfig.addFilter("smart", (s) => smartQuotes(s));
   eleventyConfig.addFilter("words", (s, n) => words(s, n));
+  eleventyConfig.addFilter("sentences", (s, n) => sentences(s, n));
   eleventyConfig.addFilter("plain", (s) => stripHtml(s));
   eleventyConfig.addFilter("limit", (arr, n) => (arr || []).slice(0, n));
   eleventyConfig.addFilter("offset", (arr, n) => (arr || []).slice(n));
@@ -281,9 +287,24 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("excludeUrl", (rows, url) => (rows || []).filter((r) => r.url !== url));
   eleventyConfig.addFilter("isBoxborough", (town) => /boxborough/i.test(String(town || "")));
   // Calendar links for one event page.
-  eleventyConfig.addFilter("gcal", (title, start, end, time, place, url) =>
-    googleCalendarUrl({ title, start, end, time, location: place, url })
+  eleventyConfig.addFilter("gcal", (title, start, end, time, place, url, weekdays) =>
+    googleCalendarUrl({ title, start, end, time, location: place, url, weekdays })
   );
+  eleventyConfig.addFilter("daysLabel", (v) => daysLabel(v));
+  // "Saturday, Nov. 21, 2026" when all sessions share a day; otherwise "7 dates, Oct. 17–31, 2026".
+  eleventyConfig.addFilter("sessionsWhen", (list) => {
+    const days = [...new Set((list || []).map((x) => ymd(x.date)).filter(Boolean))].sort();
+    if (!days.length) return "";
+    if (days.length === 1) return formatDate(days[0], "weekday");
+    return `${days.length} dates, ${formatRange(days[0], days.at(-1))}, ${days.at(-1).slice(0, 4)}`;
+  });
+  // Sessions still to come (all of them, if the series is over).
+  eleventyConfig.addFilter("upcomingSessions", (list) => {
+    const today = todayET();
+    const all = Array.isArray(list) ? list : [];
+    const next = all.filter((x) => ymd(x.date) >= today);
+    return next.length ? next : all;
+  });
   eleventyConfig.addFilter("icsFile", (items, name) =>
     icsCalendar(name, (items || []).flatMap((i) => {
       const d = i.data;
@@ -292,7 +313,7 @@ export default function (eleventyConfig) {
       if (Array.isArray(d.sessions) && d.sessions.length) {
         return d.sessions.map((s, n) => ({ uid: `${i.page.fileSlug}-${n + 1}@boxboroughnews.org`, title: s.title || d.title, start: s.date, time: s.time, location: where(s.location || d.location, s.town || d.town), url, description: d.title }));
       }
-      return [{ uid: `${i.page.fileSlug}@boxboroughnews.org`, title: d.title, start: d.start_date, end: d.end_date, time: d.time, location: where(d.location, d.town), url, description: d.organizer ? "Organized by " + d.organizer : "" }];
+      return [{ uid: `${i.page.fileSlug}@boxboroughnews.org`, title: d.title, start: d.start_date, end: d.end_date, time: d.time, weekdays: d.weekdays, location: where(d.location, d.town), url, description: d.organizer ? "Organized by " + d.organizer : "" }];
     }))
   );
   eleventyConfig.addFilter("mapsUrl", (place) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place));

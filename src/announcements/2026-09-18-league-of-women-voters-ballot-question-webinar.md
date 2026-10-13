@@ -13,9 +13,9 @@ registration: "Required; register for the webinar link"
 link: "https://tinyurl.com/LWVAA-BallotQuestions"
 expires: ""
 summary: ""
-image: ""
-image_alt: ""
-image_fit: "photo"
+image: "/media/announcements/30-lwv-ballot-question-webinar.jpg"
+image_alt: "LWV Acton Area flyer: Voter Engagement Webinar on the 9 Massachusetts ballot questions, Oct. 7 at 7 p.m."
+image_fit: "full"
 image_caption: ""
 draft: false
 ---

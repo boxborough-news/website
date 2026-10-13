@@ -4,7 +4,7 @@ date: 2026-09-11
 type: "event"
 start_date: 2026-07-11
 end_date: 2026-10-24
-time: "Saturdays, 10:30 a.m.–noon"
+time: "10:30 a.m.–noon"
 location: "30 Middle Road, across from Town Hall"
 town: "Boxborough"
 organizer: "FreeBee Community Market"
@@ -18,6 +18,87 @@ image_alt: "FreeBee Community Market 2026 season schedule"
 image_fit: "full"
 image_caption: ""
 draft: false
+sessions:
+  - date: 2026-07-11
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Community Market (first Community Market)"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-07-18
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-07-25
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-08-01
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-08-08
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-08-15
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Community Market (school supplies)"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-08-22
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-08-29
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-09-05
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-09-12
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Community Market (harvest theme)"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-09-19
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-09-26
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-10-03
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-10-10
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-10-17
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Food Rescue Saturday"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
+  - date: 2026-10-24
+    time: "10:30 a.m.–noon"
+    title: "FreeBee Community Market (costume exchange)"
+    location: "30 Middle Road, across from Town Hall"
+    town: "Boxborough"
 ---
 The **FreeBee Community Market** is volunteer-powered food rescue: all welcome, all free.
 

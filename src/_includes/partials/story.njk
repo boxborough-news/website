@@ -16,7 +16,7 @@
     {%- endif %}
     <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
     {%- if size == 'lead' %}<p class="story-teaser">{{ d.teaser }}</p>
-    {%- elif size != 'small' %}<p class="story-teaser">{{ d.teaser | words(teaserWords or 24) }}</p>{% endif %}
+    {%- elif size != 'small' %}<p class="story-teaser">{{ d.teaser | sentences(teaserWords or 28) }}</p>{% endif %}
     <p class="meta"><time datetime="{{ d.date | ymd }}">{{ d.date | date }}</time>{% if d.byline %} · {{ d.byline }}{% endif %}</p>
   </div>
 </article>

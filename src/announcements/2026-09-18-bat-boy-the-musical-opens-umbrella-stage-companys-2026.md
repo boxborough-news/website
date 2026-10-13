@@ -5,6 +5,7 @@ type: "event"
 start_date: 2026-09-25
 end_date: 2026-11-08
 time: "Thu.–Sat. 7:30 p.m., Sun. 3 p.m."
+weekdays: ["Thu", "Fri", "Sat", "Sun"]
 location: "Umbrella Arts Center, 40 Stow Street"
 town: "Concord"
 organizer: "Umbrella Stage Company"

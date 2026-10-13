@@ -41,7 +41,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 | **Photo description** | A few words describing the photo for readers who use screen readers. |
 | **How to show the main image** | Leave as **Photo** for ordinary photos. Choose **Flyer, chart or logo** for anything with text in it, so it's always shown whole instead of trimmed to fit. |
 | **Photo caption / credit** | Optional. Shown under the photo. |
-| **Top story** | Tick **one** story each week. It becomes the large lead story at the top of the home page and leads the email. If nothing is ticked, the newest News story with a photo is used. |
+| **Top story** | Tick **one** story each week. It becomes the large lead story at the top of the home page and leads the email. If nothing is ticked, the issue's first News story with a photo is used. The rest of the issue's News and Features follow it; stories from earlier issues move to a short "Earlier issues" list. |
 | **Draft** | Tick to save your work without publishing it. Untick when it's ready. |
 | **Article text** | Type or paste the article. Pasting from Word or Google Docs works. Use the toolbar for **bold**, *italics*, headings, lists and links. |
 
@@ -78,6 +78,7 @@ Use **Events & Notices** in the left menu for everything submitted by community 
 | **Submitted by** | The organization, e.g. *Sargent Memorial Library*. Shown as "Submitted by …". |
 | **Event: date** | The day of the event, or the first day of a run. |
 | **Event: last day** | Only for multi-day events (a show's run, a weekly market). Leave blank for one-day events. |
+| **Event: repeats on** | Only for runs that happen on certain days each week (a Saturday market, a show Thursday to Sunday). Tick the days; the event is then listed on its next actual date, with "Runs through …". |
 | **Event: time** | Written like *7 p.m.*, *10:30 a.m.–noon* or *3–6 p.m.* Written this way, it also goes into readers' calendar apps correctly. |
 | **Event: place** and **town** | The place (e.g. *Blanchard Memorial School, 493 Massachusetts Ave.*) and the town (*Boxborough*, *Acton*, … or *Online*). The town drives the Boxborough / Nearby towns filter. |
 | **Event: cost**, **registration** | Optional, e.g. *Free*; *Required; register online*. |
@@ -115,7 +116,7 @@ To send it:
 3. Click it and read it through. You can make small edits there if needed.
 4. Click **Send**. (You can also schedule it for a particular time.)
 
-**Want to preview the email before Friday?** Visit **boxboroughnews.org/newsletter/this-week/** at any time. It shows exactly what this week's email will contain so far.
+**Want to preview the email before Friday?** Visit **boxboroughnews.org/newsletter/this-week/** at any time. It shows the coming Friday's issue as it stands: events, town meetings and anything already published that week. Stories scheduled for Friday join it early Friday morning, before the draft is made.
 
 **Added or fixed an article after the draft was made?** In Pages CMS, look for the action button labeled **Create this week's email draft now** and click it. This refreshes the existing draft rather than making a second one. If you don't see the button, just edit the draft directly in Kit.
 

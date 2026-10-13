@@ -1,0 +1,11 @@
+{#- A short line in the home page "This week" box. Set: r (from collections.eventsThisWeek) -#}
+<li>
+  <span class="datebadge{% if r.first != r.last %} datebadge-range{% endif %}" aria-hidden="true"><span>{{ r.first | date("monthshort") }}</span><strong>{{ r.first | date("daynum") }}{% if r.first != r.last %}–{{ r.last | date("daynum") }}{% endif %}</strong></span>
+  <span class="event-text">
+    <a href="{{ r.url }}">{{ r.title | smart }}</a>
+    {%- if r.first != r.last %}{% set when = r.first | range(r.last) %}
+    {%- elif r.runsThrough %}{% set when = (r.first | date("eventday")) + " · through " + (r.runsThrough | date("short")) %}
+    {%- else %}{% set when = r.first | date("eventday") %}{% endif %}
+    <span class="meta"><span class="visually-hidden">{{ r.first | date("weekday") }}. </span>{{ [when, r.time if not r.runsThrough else "", r.venue] | select | join(" · ") }}</span>
+  </span>
+</li>

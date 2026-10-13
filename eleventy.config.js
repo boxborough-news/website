@@ -138,10 +138,30 @@ export default function (eleventyConfig) {
 
   // The next seven days, for the home page. Tops up from later dates when the week is quiet.
   eleventyConfig.addCollection("eventsThisWeek", (api) => {
+    // The home page box: the coming week's events, Boxborough first, then nearby towns.
+    // Repeat sessions of the same thing (a two-day show, several performances) become one line.
+    const today = todayET();
     const rows = eventRows(api);
-    const weekEnd = addDays(todayET(), 6);
-    const week = rows.filter((r) => r.sort <= weekEnd);
-    return week.length >= 3 ? week.slice(0, 6) : rows.slice(0, Math.max(week.length, 4));
+    const within = (days) => rows.filter((r) => r.sort <= addDays(today, days - 1));
+    const merge = (list) => {
+      const out = [];
+      for (const r of list) {
+        const key = r.url + "|" + r.title;
+        const hit = out.find((x) => x.key === key);
+        if (hit) { hit.last = r.date; hit.times.add(r.time); continue; }
+        out.push({ ...r, key, first: r.date, last: r.date, times: new Set([r.time]) });
+      }
+      return out.map((x) => ({
+        ...x,
+        time: x.times.size === 1 ? [...x.times][0] : "",
+        venue: String(x.location || "").split(/,| \(/)[0].trim(),
+      }));
+    };
+    const isBox = (r) => /boxborough/i.test(r.town || "");
+    let box = merge(within(7).filter(isBox));
+    if (box.length < 3) box = merge(within(14).filter(isBox)).slice(0, 4);
+    const near = merge(within(7).filter((r) => !isBox(r)));
+    return { boxborough: box.slice(0, 7), nearby: near.slice(0, 5) };
   });
 
   // Each upcoming event once (a series appears once, at its next session), for the email
@@ -178,7 +198,7 @@ export default function (eleventyConfig) {
   //   earlier   stories from previous issues, as a compact list
   eleventyConfig.addCollection("homeStories", (api) => {
     const all = articles(api);
-    if (!all.length) return { lead: null, issue: "", news: [], features: [], earlier: [] };
+    if (!all.length) return { lead: null, issue: "", news: [], features: [], featuresAreCurrent: false, earlier: [] };
     const issue = issueFriday(all[0].data.date);
     const inIssue = all.filter((i) => issueFriday(i.data.date) === issue);
     const lead =
@@ -190,7 +210,14 @@ export default function (eleventyConfig) {
     const featuresAreCurrent = features.length > 0;
     if (!featuresAreCurrent) features = all.filter((i) => i !== lead && i.data.section === "features").slice(0, 3);
     const shown = new Set([lead, ...news, ...features]);
-    const earlier = all.filter((i) => !shown.has(i)).slice(0, 8);
+    // The two previous issues, each as its own group.
+    const earlier = [];
+    for (const i of all.filter((x) => !shown.has(x) && issueFriday(x.data.date) < issue)) {
+      const key = issueFriday(i.data.date);
+      let g = earlier.find((x) => x.issue === key);
+      if (!g) { if (earlier.length === 2) break; earlier.push((g = { issue: key, items: [] })); }
+      g.items.push(i);
+    }
     return { lead, issue, news, features, featuresAreCurrent, earlier };
   });
 
@@ -273,6 +300,7 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addFilter("longDate", () => formatDate(todayET(), "weekday"));
   eleventyConfig.addFilter("range", (a, b) => formatRange(a, b));
+  eleventyConfig.addFilter("issueOf", (v) => issueFriday(v));
   eleventyConfig.addFilter("rangeLong", (a, b) => (ymd(a) ? formatRange(a, b) + ", " + ymd(b || a).slice(0, 4) : ""));
   eleventyConfig.addFilter("plusDays", (v, n) => addDays(ymd(v), n));
   eleventyConfig.addFilter("uniqueBy", (arr, key) => {

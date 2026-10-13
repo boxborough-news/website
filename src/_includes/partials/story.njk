@@ -1,8 +1,9 @@
-{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserWords -#}
+{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserWords, hideDate.
+    Without an editor's summary, the teaser is the story's opening, so it ends with "…" to show it continues. -#}
 {%- set d = item.data %}
 <article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% endif %}">
   {%- if showImage and d.image %}
-  <a class="story-image{% if d.image_fit == 'full' %} is-full{% endif %}" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+  <a class="story-image{% if d.image_fit == 'full' %} is-full{% endif %}{% if d.image_focus and d.image_focus != 'center' %} focus-{{ d.image_focus }}{% endif %}" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
     {%- if size == 'lead' %}
     <img src="{{ d.image }}" alt="{{ d.image_alt }}" sizes="(min-width: 1000px) 760px, 100vw" loading="eager" fetchpriority="high">
     {%- else %}
@@ -15,8 +16,12 @@
     <p class="kicker">{{ (d.section | sectionInfo(sections)).name }}</p>
     {%- endif %}
     <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
-    {%- if size == 'lead' %}<p class="story-teaser">{{ d.teaser }}</p>
-    {%- elif size != 'small' %}<p class="story-teaser">{{ d.teaser | sentences(teaserWords or 28) }}</p>{% endif %}
-    <p class="meta"><time datetime="{{ d.date | ymd }}">{{ d.date | date }}</time>{% if d.byline %} · {{ d.byline }}{% endif %}</p>
+    {%- set isExcerpt = not (d.summary and (d.summary | trim)) %}
+    {%- set t = d.teaser if size == 'lead' else (d.teaser | sentences(teaserWords or 28)) %}
+    {%- if isExcerpt %}{% set t = (t | replace(r/\s*…$/, "")) + " …" %}{% endif %}
+    {%- if size != 'small' %}<p class="story-teaser">{{ t }}</p>{% endif %}
+    {%- if not hideDate or d.byline %}
+    <p class="meta">{% if not hideDate %}<time datetime="{{ d.date | ymd }}">{{ d.date | date }}</time>{% endif %}{% if d.byline %}{% if not hideDate %} · {% endif %}{{ d.byline }}{% endif %}</p>
+    {%- endif %}
   </div>
 </article>

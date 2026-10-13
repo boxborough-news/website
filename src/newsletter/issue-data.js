@@ -8,7 +8,7 @@ export function makeIssue(data) {
   const toItem = (i) => ({
     title: i.data.title,
     url: abs(i.url),
-    teaser: i.data.teaser,
+    teaser: i.data.summary && String(i.data.summary).trim() ? i.data.teaser : String(i.data.teaser || "").replace(/\s*…$/, "") + " …",
     image: abs(i.data.shareImage),
     imageAlt: i.data.image_alt,
     imageFit: i.data.image_fit,

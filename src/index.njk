@@ -18,21 +18,12 @@ oldPath: /home
 
   {%- if hs.news.length %}
   <section class="home-news" aria-labelledby="latest-news">
-    <h2 class="label" id="latest-news"><a href="/news/">News</a></h2>
-    <div class="story-grid">
-      {%- for item in hs.news %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}
-      {% include "partials/story.njk" %}
-      {%- endfor %}
+    <div class="label-row">
+      <h2 class="label" id="latest-news"><a href="/news/">News</a></h2>
+      <a class="label-more" href="/news/">All news →</a>
     </div>
-  </section>
-  {%- endif %}
-
-  {%- if hs.features.length %}
-  <section class="home-features" aria-labelledby="latest-features">
-    <h2 class="label" id="latest-features"><a href="/features/">{{ "Features" if hs.featuresAreCurrent else "Recent features" }}</a></h2>
-    <div class="story-grid">
-      {%- for item in hs.features %}
+    <div class="story-grid{% if hs.news.length is odd %} is-odd{% endif %}">
+      {%- for item in hs.news %}
       {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}
       {% include "partials/story.njk" %}
       {%- endfor %}
@@ -44,15 +35,39 @@ oldPath: /home
     {% include "partials/this-week.njk" %}
   </aside>
 
+  {%- if hs.features.length %}
+  {%- set fc = hs.features.length %}
+  <section class="home-features" aria-labelledby="latest-features">
+    <div class="label-row">
+      <h2 class="label" id="latest-features"><a href="/features/">{{ "Features" if hs.featuresAreCurrent else "Recent features" }}</a></h2>
+      <a class="label-more" href="/features/">All features →</a>
+    </div>
+    <div class="story-grid {{ 'story-grid-3' if (fc % 3 == 0 or fc == 5) else ('story-grid-2' if fc != 1 else 'story-grid-1') }}">
+      {%- for item in hs.features %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}
+      {% include "partials/story.njk" %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
   {%- if hs.earlier.length %}
   <section class="home-earlier" aria-labelledby="earlier">
     <h2 class="label label-quiet" id="earlier">Earlier issues</h2>
-    <ul class="compact-list">
-      {%- for item in hs.earlier %}
-      <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }} · {{ item.data.date | date("short") }}</span></li>
+    <div class="earlier-issues">
+      {%- for g in hs.earlier %}
+      <div class="earlier-issue">
+        <h3 class="earlier-head">{{ g.issue | date("long") }} issue</h3>
+        <ul class="compact-list">
+          {%- for item in g.items %}
+          <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }}</span></li>
+          {%- endfor %}
+        </ul>
+        <p class="more"><a href="/archive/#issue-{{ g.issue }}">View the {{ g.issue | date("short") }} issue →</a></p>
+      </div>
       {%- endfor %}
-    </ul>
-    <p class="more"><a href="/news/">All news →</a> <a href="/features/">All features →</a> <a class="more-secondary" href="/archive/">Browse the archive</a></p>
+    </div>
+    <p class="more"><a class="more-secondary" href="/archive/">Browse the archive</a></p>
   </section>
   {%- endif %}
 </div>

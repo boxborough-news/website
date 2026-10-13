@@ -1,15 +1,22 @@
-{#- Home page rail: community events in the next seven days, then town meetings. -#}
-{%- set rows = collections.eventsThisWeek %}
+{#- Home page rail: the coming week's events (Boxborough first), then town meetings. -#}
+{%- set ev = collections.eventsThisWeek %}
 <section class="this-week" aria-labelledby="this-week-head">
-  <h2 class="label" id="this-week-head"><a href="/events/">This week in Boxborough</a></h2>
-  {%- if rows.length %}
-  <ul class="event-list">
-    {%- for r in rows %}{% include "partials/event-row.njk" %}{% endfor %}
-  </ul>
-  {%- else %}
+  <div class="label-row">
+    <h2 class="label" id="this-week-head"><a href="/events/">This week</a></h2>
+    <a class="label-more" href="/events/">All events →</a>
+  </div>
+  {%- if ev.boxborough.length %}
+  <h3 class="rail-sub">In Boxborough</h3>
+  <ul class="event-list rail-list">{% for r in ev.boxborough %}{% include "partials/rail-row.njk" %}{% endfor %}</ul>
+  {%- endif %}
+  {%- if ev.nearby.length %}
+  <h3 class="rail-sub">Nearby</h3>
+  <ul class="event-list rail-list">{% for r in ev.nearby %}{% include "partials/rail-row.njk" %}{% endfor %}</ul>
+  {%- endif %}
+  {%- if not ev.boxborough.length and not ev.nearby.length %}
   <p class="small">No community events are listed for the coming week.</p>
   {%- endif %}
-  <p class="more"><a href="/events/">All events →</a> <a class="more-secondary" href="/submit/">Submit an event</a></p>
+  <p class="more"><a class="more-secondary" href="/submit/">Submit an event</a></p>
   {%- set tmDays = 7 %}{% set tmMax = 6 %}
   {% include "partials/town-meetings.njk" %}
 </section>

@@ -8,6 +8,7 @@ image: "/media/sergeant-brett-pelley-retires-after-33-years-of-service-in-law.jp
 image_alt: "Sergeant Brett Pelley in his Boxborough Police uniform in front of an American flag"
 image_caption: ""
 image_fit: "photo"
+image_focus: "top"
 image_credit: ""
 top_story: false
 draft: false

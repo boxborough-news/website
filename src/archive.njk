@@ -24,7 +24,7 @@ title: Archive
   </div>
   <div class="archive">
     {%- for m in collections.archiveIssues %}
-    <section class="archive-month">
+    <section class="archive-month" id="issue-{{ m.key }}">
       <h2>Issue of {{ m.label }} <span class="count">{{ m.items.length }}</span></h2>
       <ul>
         {%- for item in m.items %}

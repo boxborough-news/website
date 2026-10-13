@@ -108,10 +108,10 @@
         </ul>
       </div>
     </div>
-    <div class="wrap footer-base">
+    <div class="wrap"><div class="footer-base">
       <span>© {{ today | truncate(4, true, "") }} {{ site.title }}. All rights reserved.</span>
       {%- if site.old_site_url %}<span><a href="{{ site.old_site_url }}">Articles from 2023 to 2026 are on our previous website</a></span>{% endif %}
-    </div>
+    </div></div>
   </footer>
   <script>
     (function () {

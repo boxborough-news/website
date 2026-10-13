@@ -36,10 +36,11 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 | **Section** | **News** for town government, schools and public safety. **Features** for people, events and community life. |
 | **Publication date** | Use the **Friday** of the issue. A future date schedules the article; it goes live early that morning. (Today's date publishes it right away.) |
 | **Byline** | Optional, e.g. *By Jane Smith*. |
-| **Summary** | Optional. One or two sentences shown on the home page and in the email. If you leave it blank, the first couple of sentences of the article are used, which usually works well. |
+| **Summary** | Optional. One or two sentences shown on the home page and in the email. If you leave it blank, the first couple of sentences of the article are used, which usually works well. (Those opening sentences end with "…" so readers know the story continues.) |
 | **Main photo** | Optional. Click to upload (see *Photos* below). |
 | **Photo description** | A few words describing the photo for readers who use screen readers. |
 | **How to show the main image** | Leave as **Photo** for ordinary photos. Choose **Flyer, chart or logo** for anything with text in it, so it's always shown whole instead of trimmed to fit. |
+| **Keep in view when trimmed** | Leave as **Center** for most photos. The home page and section pages trim photos to a standard shape; for a portrait or a tall subject, choose **Top** so heads aren't cut off. |
 | **Photo caption / credit** | Optional. Shown under the photo. |
 | **Top story** | Tick **one** story each week. It becomes the large lead story at the top of the home page and leads the email. If nothing is ticked, the issue's first News story with a photo is used. The rest of the issue's News and Features follow it; stories from earlier issues move to a short "Earlier issues" list. |
 | **Draft** | Tick to save your work without publishing it. Untick when it's ready. |

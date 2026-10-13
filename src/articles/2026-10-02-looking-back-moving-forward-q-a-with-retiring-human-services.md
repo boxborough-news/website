@@ -8,6 +8,7 @@ image: "/media/looking-back-moving-forward-q-a-with-retiring-human-services.jpg"
 image_alt: "Boxborough Human Services Director Kimberley Dee"
 image_caption: ""
 image_fit: "photo"
+image_focus: "top"
 image_credit: ""
 top_story: false
 draft: false

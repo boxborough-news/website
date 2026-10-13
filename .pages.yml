@@ -75,6 +75,19 @@ content:
               label: Photo (may be trimmed to fit on the home page)
             - name: full
               label: Flyer, chart or logo (always shown whole)
+      - name: image_focus
+        label: Keep in view when trimmed
+        type: select
+        default: center
+        description: "Home page and list pages trim photos to a standard shape. For a portrait, choose Top so heads aren't cut off."
+        options:
+          values:
+            - name: center
+              label: Center (most photos)
+            - name: top
+              label: Top (portraits, tall subjects)
+            - name: bottom
+              label: Bottom
       - name: image_caption
         label: Photo caption
         type: string

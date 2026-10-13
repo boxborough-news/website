@@ -1,6 +1,6 @@
 // Collects this week's stories and turns them into the newsletter.
 import { buildNewsletter } from "../../lib/newsletter.js";
-import { todayET, ymd, addDays, formatDate } from "../../lib/content.js";
+import { todayET, ymd, addDays, formatDate, continued } from "../../lib/content.js";
 
 export function makeIssue(data) {
   const { collections, site, newsletter, townhall, siteUrl, townCalendar } = data;
@@ -8,7 +8,7 @@ export function makeIssue(data) {
   const toItem = (i) => ({
     title: i.data.title,
     url: abs(i.url),
-    teaser: i.data.summary && String(i.data.summary).trim() ? i.data.teaser : String(i.data.teaser || "").replace(/\s*…$/, "") + " …",
+    teaser: i.data.summary && String(i.data.summary).trim() ? i.data.teaser : continued(i.data.teaser),
     image: abs(i.data.shareImage),
     imageAlt: i.data.image_alt,
     imageFit: i.data.image_fit,

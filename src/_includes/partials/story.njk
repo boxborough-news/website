@@ -18,7 +18,7 @@
     <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
     {%- set isExcerpt = not (d.summary and (d.summary | trim)) %}
     {%- set t = d.teaser if size == 'lead' else (d.teaser | sentences(teaserWords or 28)) %}
-    {%- if isExcerpt %}{% set t = (t | replace(r/\s*…$/, "")) + " …" %}{% endif %}
+    {%- if isExcerpt %}{% set t = t | continued %}{% endif %}
     {%- if size != 'small' %}<p class="story-teaser">{{ t }}</p>{% endif %}
     {%- if not hideDate or d.byline %}
     <p class="meta">{% if not hideDate %}<time datetime="{{ d.date | ymd }}">{{ d.date | date }}</time>{% endif %}{% if d.byline %}{% if not hideDate %} · {% endif %}{{ d.byline }}{% endif %}</p>

@@ -4,7 +4,7 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
 import {
   md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words, sentences,
-  weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel,
+  weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel, continued,
 } from "./lib/content.js";
 
 const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
@@ -279,6 +279,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("smart", (s) => smartQuotes(s));
   eleventyConfig.addFilter("words", (s, n) => words(s, n));
   eleventyConfig.addFilter("sentences", (s, n) => sentences(s, n));
+  eleventyConfig.addFilter("continued", (s) => continued(s));
   eleventyConfig.addFilter("plain", (s) => stripHtml(s));
   eleventyConfig.addFilter("limit", (arr, n) => (arr || []).slice(0, n));
   eleventyConfig.addFilter("offset", (arr, n) => (arr || []).slice(n));

@@ -81,7 +81,6 @@
           <li><a href="/events/">Events</a></li>
           <li><a href="/notices/">Community notices</a></li>
           <li><a href="/archive/">Archive</a></li>
-          {%- if site.old_site_url %}<li><a href="{{ site.old_site_url }}">2023–2026 archive</a></li>{% endif %}
         </ul>
       </div>
       <div>
@@ -110,7 +109,6 @@
     </div>
     <div class="wrap"><div class="footer-base">
       <span>© {{ today | truncate(4, true, "") }} {{ site.title }}. All rights reserved.</span>
-      {%- if site.old_site_url %}<span><a href="{{ site.old_site_url }}">Articles from 2023 to 2026 are on our previous website</a></span>{% endif %}
     </div></div>
   </footer>
   <script>
@@ -130,12 +128,8 @@
           });
         });
       });
-      {%- if site.old_site_url and oldPath %}
-      // Links to articles on the old site look like boxboroughnews.org/news#h.jvtmz8l2jtbg.
-      // Send them to the same spot on the old site, where those articles still live.
-      if (/^#h\./.test(location.hash)) location.replace({{ (site.old_site_url | replace(r/\/$/, "")) | dump | safe }} + {{ oldPath | dump | safe }} + location.hash);
-      {%- endif %}
     })();
+    {% set fallback = "" %}{% include "partials/old-links-script.njk" %}
   </script>
 </body>
 </html>

@@ -15,15 +15,8 @@ noindex: true
     <button class="button" type="submit">Search</button>
   </form>
   <p><a href="/">Go to the home page</a> or <a href="/archive/">browse the archive</a>.</p>
-  {%- if site.old_site_url %}<p>Articles from 2023 to 2026 are on <a href="{{ site.old_site_url }}">our previous website</a>.</p>{% endif %}
 </div>
-{%- if site.old_site_url %}
 <script>
-  // Old-site addresses such as /archives/jan-jun-2026-news live on the previous website.
-  (function () {
-    var old = {{ (site.old_site_url | replace(r/\/$/, "")) | dump | safe }};
-    var p = location.pathname.replace(/\/$/, "");
-    if (/^\/archives\//.test(p)) location.replace(old + p + location.hash);
-  })();
+  // Old-site addresses such as /archives/jan-jun-2026-news now have redirect pages; anything else under /archives/ goes to the archive.
+  if (/^\/archives\//.test(location.pathname.replace({{ "/" | url | dump | safe }}, "/")) && !/^#h\./.test(location.hash)) location.replace({{ "/archive/" | url | dump | safe }});
 </script>
-{%- endif %}

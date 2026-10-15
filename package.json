@@ -15,7 +15,8 @@
     "gray-matter": "^4.0.3",
     "markdown-it": "^15.0.2",
     "node-ical": "^0.27.2",
-    "pagefind": "^1.5.2"
+    "pagefind": "^1.5.2",
+    "sharp": "^0.35.4"
   },
   "private": true,
   "type": "module",

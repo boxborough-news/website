@@ -9,16 +9,18 @@ A free-to-run website and weekly newsletter for Boxborough News.
 
 | Folder / file | What's in it |
 |---|---|
-| `src/articles/` | News and feature articles (one file each) |
+| `src/articles/` | News and feature articles from September 2026 on (one file each) |
+| `src/past-articles/` | Articles imported from the old website, June 2023 to August 2026; photos in `src/media/archive/` |
 | `src/announcements/` | Events and community notices (shown at /events/ and /notices/) |
 | `src/pages/` | About, Contact, Outside the Box |
-| `src/_data/` | Site settings, Town Hall note, newsletter settings, sections, old-site redirects |
+| `src/_data/` | Site settings, Town Hall note, newsletter settings, sections, old-site redirects (`redirects.json`) and old article links (`oldLinks.json`) |
 | `src/media/` | Photos and documents uploaded by editors |
 | `src/_includes/`, `src/*.njk` | Page templates |
 | `src/assets/` | Styles, fonts, icons |
 | `src/assets/brand/` | Logo, wordmark, email header and default sharing image |
 | `lib/` | Shared code, including the newsletter email design |
 | `src/_data/townCalendar.js` | Reads upcoming meetings from the town's calendar feed |
+| `scripts/shrink-photos.js` | Shrinks large uploaded photos (run by the "Shrink uploaded photos" workflow) |
 | `tools/save-remote-photos.js` | One-time helper that saves photos imported from the old website (run by the "Save imported photos" workflow) |
 | `tools/sample-town-calendar.ics` | Sample feed for testing without internet (`TOWN_ICS_FILE=tools/sample-town-calendar.ics npm start`) |
 | `scripts/create-newsletter-draft.js` | Sends the weekly draft to Kit |

@@ -7,7 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const DIRS = ["src/articles", "src/announcements"];
+const DIRS = ["src/articles", "src/past-articles", "src/announcements"];
 const OUT = "src/media/imported";
 const REMOTE = /https:\/\/[a-z0-9.-]*googleusercontent\.com\/[^\s"')]+/g;
 

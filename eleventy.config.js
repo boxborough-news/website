@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
+import { imageOptions } from "./lib/share-image.js";
 import {
   md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words, sentences,
   weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel, continued,
@@ -32,7 +33,7 @@ export default function (eleventyConfig) {
   // (The site rebuilds itself every morning, so scheduled articles appear on time.)
   eleventyConfig.addPreprocessor("unpublished", "md", (data) => {
     const p = data.page.inputPath;
-    if (!p.includes("/articles/") && !p.includes("/announcements/")) return;
+    if (!/\/(past-)?articles\/|\/announcements\//.test(p)) return;
     if (!isPublished(data)) return false;
   });
 
@@ -40,12 +41,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    ...imageOptions,
     formats: ["webp", "jpeg"],
-    widths: [640, 1280],
-    sharpJpegOptions: { quality: 78, mozjpeg: true },
-    sharpWebpOptions: { quality: 76 },
-    outputDir: "_site/img/",
-    urlPath: "/img/",
+    widths: [640, 1200],
     failOnError: false,
     htmlOptions: {
       imgAttributes: {
@@ -57,7 +55,8 @@ export default function (eleventyConfig) {
   });
 
   // ---- Collections ---------------------------------------------------------
-  const articles = (api) => api.getFilteredByGlob("src/articles/*.md").sort(byNewest);
+  // Articles: src/articles (September 2026 on) plus src/past-articles (imported from the old site).
+  const articles = (api) => api.getFilteredByGlob(["src/articles/*.md", "src/past-articles/*.md"]).sort(byNewest);
   const announcements = (api) => api.getFilteredByGlob("src/announcements/*.md").sort(byNewest);
 
   eleventyConfig.addCollection("articles", articles);
@@ -244,15 +243,26 @@ export default function (eleventyConfig) {
     return pages;
   });
 
-  // Archive grouped by Friday issue, newest first. Events are listed on /events/past/ instead.
-  eleventyConfig.addCollection("archiveIssues", (api) => {
-    const groups = new Map();
+  // Archive grouped by Friday issue, newest first, one page per year at /archive/2025/ and
+  // so on. /archive/ shows the latest year as well. Events are on /events/past/.
+  eleventyConfig.addCollection("archiveYears", (api) => {
+    const years = new Map();
     for (const item of [...articles(api), ...announcements(api).filter(isNotice)].sort(byNewest)) {
       const key = issueFriday(item.data.date);
+      const y = key.slice(0, 4);
+      if (!years.has(y)) years.set(y, new Map());
+      const groups = years.get(y);
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(item);
     }
-    return [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items }));
+    const list = [...years.entries()].map(([year, groups]) => ({
+      year,
+      url: `/archive/${year}/`,
+      issues: [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items })),
+    }));
+    const all = list.map(({ year, url }) => ({ year, url }));
+    const pages = list.map((y) => ({ ...y, all }));
+    return list.length ? [{ ...pages[0], url: "/archive/", latest: true }, ...pages] : [];
   });
 
   // What goes into this week's newsletter.
@@ -273,6 +283,11 @@ export default function (eleventyConfig) {
   // ---- Filters -------------------------------------------------------------
   eleventyConfig.addFilter("date", (v, style) => formatDate(v, style));
   eleventyConfig.addFilter("ymd", (v) => ymd(v));
+  // Link to an issue on the archive page for its year.
+  eleventyConfig.addFilter("issueUrl", (key, years) => {
+    const y = (years || []).find((x) => x.year === String(key).slice(0, 4));
+    return `${y ? y.url : "/archive/"}#issue-${key}`;
+  });
   eleventyConfig.addFilter("isoDate", (v) => ymd(v) + "T12:00:00Z");
   eleventyConfig.addFilter("markdown", (s) => md.render(String(s || "")));
   eleventyConfig.addFilter("markdownInline", (s) => md.renderInline(String(s || "")));

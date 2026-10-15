@@ -1,21 +1,28 @@
 ---
 layout: layouts/base.njk
-permalink: /archive/
-title: Archive
+pagination:
+  data: collections.archiveYears
+  size: 1
+  alias: yr
+permalink: "{{ yr.url }}"
+eleventyComputed:
+  title: "{{ 'Archive' if yr.latest else 'Archive: ' + yr.year }}"
 ---
 <div class="narrow">
   <header class="section-head">
-    <h1>Archive</h1>
-    <p>Every article and community notice on this site, by weekly issue. Past events are listed on <a href="/events/past/">their own page</a>.</p>
+    <h1>Archive{% if not yr.latest %}: {{ yr.year }}{% endif %}</h1>
+    <p>Every article and community notice since 2023, by weekly issue. Past events are listed on <a href="/events/past/">their own page</a>.</p>
   </header>
   <form class="search-inline" action="/search/" role="search">
     <label for="archive-q" class="visually-hidden">Search Boxborough News</label>
     <input id="archive-q" name="q" type="search" placeholder="Search all articles">
     <button class="button" type="submit">Search</button>
   </form>
-  {%- if site.old_site_url %}
-  <p class="old-site-box">Articles from 2023 to 2026 are on our previous website. <a href="{{ site.old_site_url | replace(r/\/$/, '') }}/archives">Browse the 2023–2026 archive →</a></p>
-  {%- endif %}
+  <nav class="year-nav" aria-label="Archive years">
+    {%- for y in yr.all %}
+    <a href="{{ y.url }}"{% if y.year == yr.year %} aria-current="page"{% endif %}>{{ y.year }}</a>
+    {%- endfor %}
+  </nav>
   <div class="filters" role="group" aria-label="Show">
     <button type="button" data-filter="all" aria-pressed="true">All</button>
     <button type="button" data-filter="news" aria-pressed="false">News</button>
@@ -23,7 +30,7 @@ title: Archive
     <button type="button" data-filter="announcements" aria-pressed="false">Notices</button>
   </div>
   <div class="archive">
-    {%- for m in collections.archiveIssues %}
+    {%- for m in yr.issues %}
     <section class="archive-month" id="issue-{{ m.key }}">
       <h2>Issue of {{ m.label }} <span class="count">{{ m.items.length }}</span></h2>
       <ul>

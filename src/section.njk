@@ -38,9 +38,6 @@ eleventyComputed:
       {%- if sp.next %}<a href="{{ sp.next }}">Older →</a>{% else %}<span></span>{% endif %}
     </nav>
     {%- endif %}
-    {%- if site.old_site_url and not sp.next %}
-    <p class="small old-site-note">Looking for older stories? Articles from 2023 to 2026 are on <a href="{{ site.old_site_url }}">our previous website</a>.</p>
-    {%- endif %}
   </div>
   <aside class="section-side">
     {% include "partials/this-week.njk" %}

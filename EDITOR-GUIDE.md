@@ -52,12 +52,12 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 
 ### Photos
 - JPG or PNG photos straight from a phone or camera are fine. The website automatically makes small, fast-loading copies.
-- Please keep each photo **under about 3 MB**. On an iPhone, when you email or AirDrop a photo to yourself, choose the **Medium** size. Very large photos slowly fill up the site's free storage.
+- Any size is fine. A minute or two after you save, the website automatically shrinks large photos so they don't fill up the site's free storage.
 - Always fill in the **photo credit**, and get permission for photos you didn't take.
 - To add a photo *inside* the article text, click the image button in the toolbar.
 
 ### Fixing a mistake
-Open the article, make the correction, and click **Save**. The live site updates in about two minutes. For a significant correction, add a line at the end of the article, e.g. *"Correction: An earlier version of this article misstated the meeting date."*
+Open the article, make the correction, and click **Save**. Articles from before September 2026 (imported from the old website) are under **Archive: articles before Sept. 2026** in the left menu. The live site updates in about two minutes. For a significant correction, add a line at the end of the article, e.g. *"Correction: An earlier version of this article misstated the meeting date."*
 
 ### Taking an article down
 Open it and tick **Draft**, then **Save**. It disappears from the website but isn't deleted. (The **Delete** button removes it permanently.)

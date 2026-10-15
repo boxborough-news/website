@@ -312,7 +312,7 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li { margin-bottom: 0.35em; }
 .prose blockquote { margin-left: 0; padding-left: 20px; border-left: 3px solid var(--rule); font-style: italic; color: var(--ink); }
-.prose img { margin: 1.6em 0; }
+.prose img { display: block; margin: 1.6em auto; max-height: 520px; width: auto; max-width: 100%; height: auto; }
 .prose a { overflow-wrap: anywhere; }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
 .prose table { border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 16px; }
@@ -375,6 +375,10 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .notice-list li { padding: 13px 0; }
 
 /* ---------- Archive ---------- */
+.year-nav { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 4px 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); font-family: var(--sans); font-size: 18px; font-weight: 700; }
+.year-nav a { color: var(--navy); text-decoration: none; padding: 6px 0; border-bottom: 3px solid transparent; }
+.year-nav a:hover { border-bottom-color: #b9bccb; }
+.year-nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--red); }
 .archive-month { margin-bottom: 34px; }
 .archive-month h2 {
   font-family: var(--sans); font-size: 14px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;

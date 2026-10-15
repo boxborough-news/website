@@ -1,7 +1,74 @@
 [
-  { "from": "/announcements/", "to": "/events/", "old": "" },
-  { "from": "/home/", "to": "/", "old": "/home" },
-  { "from": "/announcements-and-events/", "to": "/events/", "old": "/announcements-and-events" },
-  { "from": "/about-us/", "to": "/about/", "old": "/about-us" },
-  { "from": "/archives/", "to": "/archive/", "old": "/archives", "prefer_old": true }
+ {
+  "from": "/announcements/",
+  "to": "/events/"
+ },
+ {
+  "from": "/home/",
+  "to": "/"
+ },
+ {
+  "from": "/announcements-and-events/",
+  "to": "/events/"
+ },
+ {
+  "from": "/about-us/",
+  "to": "/about/"
+ },
+ {
+  "from": "/archives/",
+  "to": "/archive/"
+ },
+ {
+  "from": "/archives/jan-jun-2026-news/",
+  "to": "/archive/2026/"
+ },
+ {
+  "from": "/archives/jan-jun-2026-features/",
+  "to": "/archive/2026/"
+ },
+ {
+  "from": "/archives/july-dec-2025-news/",
+  "to": "/archive/2025/"
+ },
+ {
+  "from": "/archives/july-dec-2025-features/",
+  "to": "/archive/2025/"
+ },
+ {
+  "from": "/archives/jan-jun-2025-news/",
+  "to": "/archive/2025/"
+ },
+ {
+  "from": "/archives/jan-jun-2025-community/",
+  "to": "/archive/2025/"
+ },
+ {
+  "from": "/archives/july-dec-2024-news/",
+  "to": "/archive/2024/"
+ },
+ {
+  "from": "/archives/july-dec-2024-community/",
+  "to": "/archive/2024/"
+ },
+ {
+  "from": "/archives/jan-jun-2024-news/",
+  "to": "/archive/2024/"
+ },
+ {
+  "from": "/archives/jan-jun-2024-community/",
+  "to": "/archive/2024/"
+ },
+ {
+  "from": "/archives/news/",
+  "to": "/archive/2023/"
+ },
+ {
+  "from": "/archives/community/",
+  "to": "/archive/2023/"
+ },
+ {
+  "from": "/archives/Community/",
+  "to": "/archive/2023/"
+ }
 ]

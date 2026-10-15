@@ -58,18 +58,15 @@ Use a shared Boxborough News account (e.g. boxboroughnews@gmail.com) for every s
 4. In Kit, open **Send → Broadcasts**. The draft should be there. Send it to yourself with **Preview → Send test email** and check it on your phone.
 5. Delete the test article, or tick **Draft**.
 
-**About the sample articles:** the site comes with recent articles and announcements copied from the current website, so you can see it with real content. Before launch, check them against the originals. The plan is to leave older articles on the old Google Site (see Part E).
+**About the articles:** the site includes every News, Features and Community article from the old website, from June 2023 on (about 1,330 articles and 1,000 photos), each on its own page. Articles from before September 2026 are kept in a separate **Archive: articles before Sept. 2026** list in Pages CMS, so the everyday **Articles** list stays short. They can be corrected there like any other article. A handful of items needed a judgment call during the import (for example, an article with no date on the old site); Claude's notes list them. Before launch, spot-check a few against the originals.
 
-**Imported photos:** all photos for the included articles are already saved in `src/media`. If you ever import more articles from the old website and their photos still point to Google's servers, run **Actions → Save imported photos → Run workflow** (or the **Save imported photos** button in Pages CMS) to save copies in the site.
+**Photos:** all photos for the imported articles are saved, already reduced in size, in `src/media/archive`. Photos that editors upload later are shrunk automatically too: after each upload, the **Shrink uploaded photos** action resizes anything larger than 1,600 pixels or 600 KB and saves the smaller copy in place. This keeps the site's storage small enough to last for many years.
 
 **Retiring the old community calendar:** the Google Calendar on the old Announcements page is replaced by the new Events page, which is built from the entries in **Events & Notices**. Before launch, check that calendar for any events that were never posted as announcements and add them. Readers who want the events in their own calendar app can use the "Add these events to your calendar app" link on the Events page.
 
 ## Part E: Launch day, moving boxboroughnews.org over (15 minutes, then up to a day for DNS)
 
-1. **Keep the old site as an archive.** In Google Sites, open the site's **Publish settings** and note its `sites.google.com/view/…` address. It stays online there after the domain moves. In Pages CMS **Site settings**, paste it into **Old website address**. This does three things:
-   - Links to the 2023–2026 archive appear in the footer, the Archive, News and Search pages, and the "page not found" page.
-   - Old links to articles (they look like `boxboroughnews.org/news#h.jvtmz8l2jtbg`, and are all over Facebook and search engines) are forwarded to the same article on the old site.
-   - Old page addresses (`/home`, `/about-us`, `/announcements-and-events`, `/archives/…`) are forwarded to their new equivalents or to the old site's archive pages.
+1. **Old links keep working on their own.** Links to old articles (they look like `boxboroughnews.org/news#h.jvtmz8l2jtbg`, and are all over Facebook and search engines) go straight to the same article on the new site, and old page addresses (`/home`, `/about-us`, `/announcements-and-events`, `/archives/jan-jun-2025-news` and so on) go to their new equivalents. Nothing to set up. You can keep the old Google Site online at its `sites.google.com/view/…` address as a backup, or unpublish it.
 2. **Remove the custom domain from Google Sites** (Settings → Custom domains).
 3. **Point the domain at GitHub.** At whichever company the domain is registered with (possibly Squarespace Domains, which took over Google Domains), set these DNS records:
    - `A` records for `boxboroughnews.org` (the "@" host): `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`

@@ -63,7 +63,7 @@ oldPath: /home
           <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }}</span></li>
           {%- endfor %}
         </ul>
-        <p class="more"><a href="/archive/#issue-{{ g.issue }}">View the {{ g.issue | date("short") }} issue →</a></p>
+        <p class="more"><a href="{{ g.issue | issueUrl(collections.archiveYears) }}">View the {{ g.issue | date("short") }} issue →</a></p>
       </div>
       {%- endfor %}
     </div>

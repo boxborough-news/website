@@ -1,0 +1,10 @@
+{#- Links to articles on the old Google Sites website end in #h.xxxxxxxx (for example
+    boxboroughnews.org/news#h.jvtmz8l2jtbg). Look the code up and go to that article here. -#}
+(function () {
+  var h = location.hash.slice(1);
+  if (!/^h\./.test(h) || !window.fetch) return;
+  fetch({{ "/old-links.json" | url | dump | safe }}).then(function (r) { return r.json(); }).then(function (m) {
+    if (m[h]) location.replace(m[h]);
+    {%- if fallback %} else location.replace({{ fallback | dump | safe }});{% endif %}
+  }).catch(function () {});
+})();

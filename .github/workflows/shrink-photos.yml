@@ -1,0 +1,39 @@
+# Shrinks newly uploaded photos (see scripts/shrink-photos.js) so the site has room to grow.
+# Commits made here use the built-in token, so they don't start another publish run;
+# the publish run started by the upload already makes the small web versions.
+name: Shrink uploaded photos
+
+on:
+  push:
+    branches: [main]
+    paths: ["src/media/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shrink-photos
+  cancel-in-progress: false
+
+jobs:
+  shrink:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/shrink-photos.js src/media
+      - name: Save the smaller photos
+        run: |
+          if [ -n "$(git status --porcelain src/media)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add src/media
+            git commit -m "Shrink uploaded photos"
+            git pull --rebase
+            git push
+          fi

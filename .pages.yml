@@ -108,6 +108,105 @@ content:
         type: rich-text
 
   # ---------------------------------------------------- Events & community notices
+  - name: past-articles
+    label: "Archive: articles before Sept. 2026"
+    type: collection
+    path: src/past-articles
+    format: yaml-frontmatter
+    exclude: [past-articles.11tydata.js]
+    filename:
+      template: "{year}-{month}-{day}-{title}.md"
+      field: false
+    view:
+      fields: [title, section, date, draft]
+      primary: title
+      sort: [date, title]
+      search: [title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Headline
+        type: string
+        required: true
+      - name: section
+        label: Section
+        type: select
+        required: true
+        default: news
+        options:
+          values:
+            - name: news
+              label: News
+            - name: features
+              label: Features
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+        description: "Use the Friday of the issue. A future date schedules the article; it appears early that morning."
+        options:
+          format: yyyy-MM-dd
+      - name: byline
+        label: Byline (optional)
+        type: string
+        description: "For example: By Jane Smith"
+      - name: summary
+        label: Summary (optional)
+        type: text
+        description: "One or two sentences for the home page and the weekly email. Leave blank to use the article's opening lines."
+      - name: image
+        label: Main photo (optional)
+        type: image
+        description: "Shown at the top of the article, on the home page, in the weekly email and when shared on Facebook."
+      - name: image_alt
+        label: Photo description for screen readers
+        type: string
+        description: "Briefly describe what the photo shows, e.g. 'Children on the new swings at Flerra Meadows'."
+      - name: image_fit
+        label: How to show the main image
+        type: select
+        default: photo
+        options:
+          values:
+            - name: photo
+              label: Photo (may be trimmed to fit on the home page)
+            - name: full
+              label: Flyer, chart or logo (always shown whole)
+      - name: image_focus
+        label: Keep in view when trimmed
+        type: select
+        default: center
+        description: "Home page and list pages trim photos to a standard shape. For a portrait, choose Top so heads aren't cut off."
+        options:
+          values:
+            - name: center
+              label: Center (most photos)
+            - name: top
+              label: Top (portraits, tall subjects)
+            - name: bottom
+              label: Bottom
+      - name: image_caption
+        label: Photo caption
+        type: string
+      - name: image_credit
+        label: Photo credit
+        type: string
+        description: "Who took the photo."
+      - name: top_story
+        label: Top story
+        type: boolean
+        description: "Tick one story each week. It becomes the large lead story at the top of the home page and leads the email."
+      - name: draft
+        label: Draft (hide from website)
+        type: boolean
+        description: "While ticked, the article is saved but not published."
+      - name: body
+        label: Article text
+        type: rich-text
+
+  # ---------------------------------------------------- Events & community notices
   - name: announcements
     label: Events & Notices
     type: collection
@@ -455,10 +554,6 @@ content:
         label: Event and notice submission form link (optional)
         type: string
         description: "A Google Form or similar. When blank, the Submit page offers a ready-made email instead."
-      - name: old_site_url
-        label: Old website address (for older articles)
-        type: string
-        description: "The Google Sites address of the previous website (sites.google.com/view/…). Turns on archive links and forwards old article links there."
       - name: print_partner_note
         label: Print partner note
         type: string

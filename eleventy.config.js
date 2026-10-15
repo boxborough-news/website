@@ -255,11 +255,19 @@ export default function (eleventyConfig) {
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(item);
     }
-    const list = [...years.entries()].map(([year, groups]) => ({
-      year,
-      url: `/archive/${year}/`,
-      issues: [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items })),
-    }));
+    const MONTHS = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+    const list = [...years.entries()].map(([year, groups]) => {
+      const issues = [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items }));
+      // "Jump to month" links: each month points at its first (latest) issue on the page.
+      const months = new Map();
+      for (const i of issues) if (!months.has(i.key.slice(5, 7))) months.set(i.key.slice(5, 7), i.key);
+      return {
+        year,
+        url: `/archive/${year}/`,
+        issues,
+        months: [...months.entries()].sort().map(([m, key]) => ({ label: MONTHS[+m - 1], key })),
+      };
+    });
     const all = list.map(({ year, url }) => ({ year, url }));
     const pages = list.map((y) => ({ ...y, all }));
     return list.length ? [{ ...pages[0], url: "/archive/", latest: true }, ...pages] : [];

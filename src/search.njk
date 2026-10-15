@@ -6,7 +6,7 @@ title: Search
 <div class="narrow">
   <header class="section-head">
     <h1>Search</h1>
-    <p>Search every article, event and notice on Boxborough News.</p>
+    <p>Search every article, event and notice on Boxborough News, from 2023 to today. Narrow the results by section or year.</p>
   </header>
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
   <div class="search-controls">
@@ -17,12 +17,22 @@ title: Search
       <button type="button" data-section="Events" aria-pressed="false">Events</button>
       <button type="button" data-section="Community notices" aria-pressed="false">Notices</button>
     </div>
+    <div class="search-selects">
+    <label class="sort-choice">Year
+      <select id="search-year">
+        <option value="">Any year</option>
+        {%- for y in collections.archiveYears[0].all %}
+        <option value="{{ y.year }}">{{ y.year }}</option>
+        {%- endfor %}
+      </select>
+    </label>
     <label class="sort-choice">Sort by
       <select id="search-sort">
         <option value="relevance">Best match</option>
         <option value="newest">Newest first</option>
       </select>
     </label>
+    </div>
   </div>
   <div id="search" class="search-ui"></div>
   <noscript><p>Search needs JavaScript turned on. You can also <a href="/archive/">browse the archive</a>.</p></noscript>
@@ -32,56 +42,96 @@ title: Search
   window.addEventListener("DOMContentLoaded", function () {
     var box = document.getElementById("search");
     var sortSel = document.getElementById("search-sort");
+    var yearSel = document.getElementById("search-year");
     var buttons = document.querySelectorAll(".search-controls .filters button");
     var params = new URLSearchParams(location.search);
-    var state = { q: params.get("q") || "", section: params.get("section") || "", sort: params.get("sort") === "newest" ? "newest" : "relevance" };
+    var state = {
+      q: params.get("q") || "",
+      section: params.get("section") || "",
+      year: /^\d{4}$/.test(params.get("year") || "") ? params.get("year") : "",
+      sort: params.get("sort") === "newest" ? "newest" : "relevance",
+    };
     var ui = null;
 
-    // Our section buttons drive Pagefind's own (hidden) filter checkboxes.
-    function applySection() {
-      var boxes = box.querySelectorAll('.pagefind-ui__filter-checkbox[name="section"]');
+    // Our buttons and menus drive Pagefind's own (hidden) filter checkboxes.
+    function applyFilter(name, value) {
+      var boxes = box.querySelectorAll('.pagefind-ui__filter-checkbox[name="' + name + '"]');
       if (!boxes.length) return false;
       boxes.forEach(function (cb) {
-        var want = cb.value === state.section;
+        var want = cb.value === value;
         if (cb.checked !== want) cb.click();
       });
       return true;
     }
-    var observer = new MutationObserver(function () { if (state.section && applySection()) observer.disconnect(); });
+    function applyAll() {
+      var a = !state.section || applyFilter("section", state.section);
+      var b = !state.year || applyFilter("year", state.year);
+      return a && b;
+    }
+    var observer = new MutationObserver(function () {
+      tidyResults();
+      if (pending && applyAll()) pending = false;
+    });
+    var pending = false;
+
+    // Show each result's date and section as one plain line under the headline:
+    // "Oct. 9, 2024 · News"
+    function tidyResults() {
+      box.querySelectorAll(".pagefind-ui__result-tags:not([data-tidy])").forEach(function (ul) {
+        ul.setAttribute("data-tidy", "");
+        var parts = [];
+        ["date", "section"].forEach(function (k) {
+          var li = ul.querySelector('[data-pagefind-ui-meta="' + k + '"]');
+          if (li) parts.push(li.textContent.replace(/^[^:]*:\s*/, "").trim());
+        });
+        var line = document.createElement("p");
+        line.className = "search-meta";
+        line.textContent = parts.join(" · ");
+        var title = ul.parentNode.querySelector(".pagefind-ui__result-title");
+        if (title) title.insertAdjacentElement("afterend", line);
+        ul.style.display = "none";
+      });
+    }
 
     function syncControls() {
       buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-section") === state.section ? "true" : "false"); });
       sortSel.value = state.sort;
+      yearSel.value = state.year;
       var url = new URL(location.href);
-      state.q ? url.searchParams.set("q", state.q) : url.searchParams.delete("q");
-      state.section ? url.searchParams.set("section", state.section) : url.searchParams.delete("section");
+      ["q", "section", "year"].forEach(function (k) { state[k] ? url.searchParams.set(k, state[k]) : url.searchParams.delete(k); });
       state.sort === "newest" ? url.searchParams.set("sort", "newest") : url.searchParams.delete("sort");
       history.replaceState(null, "", url);
     }
 
-    function build() {
+    function readInput() {
       var input = box.querySelector(".pagefind-ui__search-input");
       if (input) state.q = input.value;
+    }
+
+    function build() {
+      readInput();
       if (ui && ui._pfs) ui._pfs.$destroy();
       box.innerHTML = "";
       var opts = { element: "#search", showSubResults: false, showImages: false, resetStyles: false, autofocus: true };
       if (state.sort === "newest") opts.sort = { date: "desc" };
       ui = new PagefindUI(opts);
       if (state.q) ui.triggerSearch(state.q);
+      pending = !!(state.section || state.year);
       observer.disconnect();
-      if (state.section) observer.observe(box, { childList: true, subtree: true });
+      observer.observe(box, { childList: true, subtree: true });
+      syncControls();
+    }
+    function refilter() {
+      readInput();
+      if (!state.section) box.querySelectorAll('.pagefind-ui__filter-checkbox[name="section"]:checked').forEach(function (cb) { cb.click(); });
+      if (!state.year) box.querySelectorAll('.pagefind-ui__filter-checkbox[name="year"]:checked').forEach(function (cb) { cb.click(); });
+      pending = !applyAll();
       syncControls();
     }
     buttons.forEach(function (b) {
-      b.addEventListener("click", function () {
-        state.section = b.getAttribute("data-section");
-        var input = box.querySelector(".pagefind-ui__search-input");
-        if (input) state.q = input.value;
-        if (!applySection() && state.section) observer.observe(box, { childList: true, subtree: true });
-        if (!state.section) box.querySelectorAll(".pagefind-ui__filter-checkbox:checked").forEach(function (cb) { cb.click(); });
-        syncControls();
-      });
+      b.addEventListener("click", function () { state.section = b.getAttribute("data-section"); refilter(); });
     });
+    yearSel.addEventListener("change", function () { state.year = yearSel.value; refilter(); });
     sortSel.addEventListener("change", function () { state.sort = sortSel.value; build(); });
     build();
   });

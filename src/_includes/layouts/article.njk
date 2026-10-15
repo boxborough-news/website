@@ -8,6 +8,7 @@ layout: layouts/base.njk
 {%- if town and not ("online" in (town | lower)) and not (location and (town in location)) %}{% set place = (location + ", " + town) if location else town %}{% endif %}
 {%- set searchSection = "Events" if isEvent else ("Community notices" if isAnn else sec.name) %}
 <article class="article" data-pagefind-body data-pagefind-sort="date:{{ date | ymd }}" data-pagefind-meta="section:{{ searchSection }}" data-pagefind-filter="section:{{ searchSection }}">
+  <span hidden data-pagefind-filter="year:{{ date | ymd | truncate(4, true, '') }}"></span>
   <header class="article-head">
     <p class="kicker" data-pagefind-ignore>
       {%- if isEvent %}<a href="/events/">Events</a>

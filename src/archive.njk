@@ -11,27 +11,39 @@ eleventyComputed:
 <div class="narrow">
   <header class="section-head">
     <h1>Archive{% if not yr.latest %}: {{ yr.year }}{% endif %}</h1>
-    <p>Every News and Features article since 2023, by weekly issue. Past events and community notices are on the <a href="/events/past/">Past events</a> and <a href="/notices/">Community notices</a> pages.</p>
+    <p>Every News and Features article since 2023, by weekly issue. For past events and notices, see <a href="/events/past/">Past events</a> and <a href="/notices/">Community notices</a>.</p>
   </header>
-  <form class="search-inline" action="/search/" role="search">
-    <label for="archive-q" class="visually-hidden">Search Boxborough News</label>
-    <input id="archive-q" name="q" type="search" placeholder="Search all articles">
-    <button class="button" type="submit">Search</button>
+  <form class="search-inline archive-search" action="/search/" role="search">
+    <label for="archive-q" class="search-label">Search all articles, every year</label>
+    <div class="search-row">
+      <input id="archive-q" name="q" type="search" placeholder="For example: fire station">
+      <button class="button" type="submit">Search</button>
+    </div>
   </form>
-  <nav class="year-nav" aria-label="Archive years">
-    {%- for y in yr.all %}
-    <a href="{{ y.url }}"{% if y.year == yr.year %} aria-current="page"{% endif %}>{{ y.year }}</a>
-    {%- endfor %}
-  </nav>
-  <div class="filters" role="group" aria-label="Show">
-    <button type="button" data-filter="all" aria-pressed="true">All</button>
-    <button type="button" data-filter="news" aria-pressed="false">News</button>
-    <button type="button" data-filter="features" aria-pressed="false">Features</button>
+  <div class="archive-controls">
+    <nav class="year-nav" aria-label="Archive years">
+      {%- for y in yr.all %}
+      <a href="{{ y.url }}"{% if y.year == yr.year %} aria-current="page"{% endif %}>{{ y.year }}</a>
+      {%- endfor %}
+    </nav>
+    {%- if yr.months.length > 1 %}
+    <nav class="month-nav" aria-label="Jump to month">
+      <span>Jump to:</span>
+      {%- for m in yr.months %}
+      <a href="#issue-{{ m.key }}">{{ m.label }}</a>
+      {%- endfor %}
+    </nav>
+    {%- endif %}
+    <div class="filters" role="group" aria-label="Show">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="news" aria-pressed="false">News</button>
+      <button type="button" data-filter="features" aria-pressed="false">Features</button>
+    </div>
   </div>
   <div class="archive">
     {%- for m in yr.issues %}
     <section class="archive-month" id="issue-{{ m.key }}">
-      <h2>Issue of {{ m.label }} <span class="count">{{ m.items.length }}</span></h2>
+      <h2>Issue of {{ m.label }} <span class="count" data-total="{{ m.items.length }}">{{ m.items.length }} {{ "article" if m.items.length == 1 else "articles" }}</span></h2>
       <ul>
         {%- for item in m.items %}
         <li data-sec="{{ item.data.section }}"><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="archive-sec">{{ (item.data.section | sectionInfo(sections)).name }}</span></li>
@@ -44,23 +56,23 @@ eleventyComputed:
 <script>
   (function () {
     var buttons = document.querySelectorAll(".filters button");
-    function apply(f) {
+    function apply(f, save) {
       buttons.forEach(function (x) { x.setAttribute("aria-pressed", x.getAttribute("data-filter") === f ? "true" : "false"); });
       document.querySelectorAll(".archive-month").forEach(function (m) {
-        var n = 0;
+        var n = 0, total = +m.querySelector(".count").getAttribute("data-total");
         m.querySelectorAll("li").forEach(function (li) { var ok = f === "all" || li.getAttribute("data-sec") === f; li.hidden = !ok; if (ok) n++; });
         m.hidden = n === 0;
-        m.querySelector(".count").textContent = n;
+        m.querySelector(".count").textContent = f === "all" ? total + (total === 1 ? " article" : " articles") : n + " of " + total + " articles";
       });
-      // Keep the choice when switching years.
-      document.querySelectorAll(".year-nav a").forEach(function (a) { a.search = f === "all" ? "" : "?show=" + f; });
+      // Keep the choice in the address (so it can be bookmarked) and when switching years.
+      var q = f === "all" ? "" : "?show=" + f;
+      document.querySelectorAll(".year-nav a").forEach(function (a) { a.search = q; });
+      if (save) history.replaceState(null, "", location.pathname + q + location.hash);
     }
     var start = (location.search.match(/[?&]show=(news|features)/) || [])[1];
-    if (start) apply(start);
+    if (start) apply(start, false);
     buttons.forEach(function (b) {
-      b.addEventListener("click", function () {
-        apply(b.getAttribute("data-filter"));
-      });
+      b.addEventListener("click", function () { apply(b.getAttribute("data-filter"), true); });
     });
   })();
 </script>

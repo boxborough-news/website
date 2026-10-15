@@ -393,7 +393,15 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
   font-family: var(--sans); font-size: 14px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin: 0 0 4px;
 }
-.archive-month .count { color: var(--muted); font-weight: 600; margin-left: 6px; }
+.archive-month { scroll-margin-top: 16px; }
+.archive-month .count { color: var(--muted); font-weight: 600; margin-left: 8px; text-transform: none; letter-spacing: 0; font-size: 14px; }
+.month-nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin: -4px 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); font-family: var(--sans); font-size: 16px; }
+.month-nav span { color: var(--muted); font-weight: 600; }
+.month-nav a { color: var(--navy); font-weight: 700; padding: 4px 0; }
+.search-inline.archive-search { display: block; }
+.search-label { display: block; font-family: var(--sans); font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 8px; }
+.search-row { display: flex; gap: 8px; }
+.search-row input { flex: 1; min-width: 0; font: inherit; font-family: var(--sans); font-size: 17px; padding: 10px 12px; border: 1px solid #b9bccb; border-radius: 4px; background: var(--white); }
 .archive-month ul { list-style: none; margin: 0; padding: 0; }
 .archive-month li { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--rule); line-height: 1.35; }
 .archive-month a { color: var(--ink); text-decoration: none; font-weight: 600; }
@@ -436,6 +444,9 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .search-ui .pagefind-ui__result-link { font-family: var(--serif); font-size: 22px; color: var(--ink); }
 .search-ui .pagefind-ui__result-excerpt { font-family: var(--serif); font-size: 18px; line-height: 1.5; }
 .search-ui .pagefind-ui__message, .search-ui .pagefind-ui__result-tags { font-size: 15px; }
+.search-selects { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+.search-ui mark { background: #f6e3e6; color: inherit; padding: 0 2px; border-radius: 2px; }
+.search-ui .search-meta { margin: 2px 0 6px; font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--muted); }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--navy-dark); color: #c9cddb; font-family: var(--sans); font-size: 15.5px; }

@@ -2,7 +2,7 @@
 import { buildNewsletter } from "../../lib/newsletter.js";
 import { todayET, ymd, addDays, formatDate, continued } from "../../lib/content.js";
 
-export function makeIssue(data) {
+export function makeIssue(data, mode = "next") {
   const { collections, site, newsletter, townhall, siteUrl, townCalendar } = data;
   const abs = (u) => (u ? (/^https?:/.test(u) ? u : siteUrl + u) : "");
   const toItem = (i) => ({
@@ -27,7 +27,10 @@ export function makeIssue(data) {
     ].filter(Boolean).join(" · "),
     location: [r.location, r.town].filter(Boolean).join(", "),
   });
-  const week = collections.thisWeek;
+  // "next": the coming Friday's email (the draft editors preview and send).
+  // "latest": the most recent email already published, shown as a sample on the Subscribe page.
+  const latest = mode === "latest" ? collections.latestIssue : null;
+  const week = latest ? { end: latest.date, news: latest.news, features: latest.features, announcements: latest.announcements } : collections.thisWeek;
   const news = [...week.news];
   const topIdx = news.findIndex((i) => i.data.top_story === true);
   if (topIdx > 0) news.unshift(news.splice(topIdx, 1)[0]);
@@ -39,12 +42,14 @@ export function makeIssue(data) {
     news: news.map(toItem),
     features: week.features.map(toItem),
     announcements: week.announcements.map(toItem),
-    events: newsletter.include_events ? collections.upcomingEvents.slice(0, 6).map(toEvent) : [],
+    events: newsletter.include_events ? (latest ? latest.events : collections.upcomingEvents).slice(0, 6).map(toEvent) : [],
     site: { ...site, url: siteUrl },
     settings: newsletter,
     townhall: showTownhall ? townhall : null,
     meetings: newsletter.include_townhall && townCalendar && townCalendar.ok
-      ? townCalendar.days.filter((d) => d.date <= addDays(week.end, 7))
+      ? latest
+        ? (townCalendar.lastIssue === latest.date ? townCalendar.sinceIssue : [])
+        : townCalendar.days.filter((d) => d.date <= addDays(week.end, 7))
       : [],
     calendarLink: townCalendar ? townCalendar.link : "",
   });

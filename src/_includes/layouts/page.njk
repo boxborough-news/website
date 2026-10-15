@@ -3,6 +3,7 @@ layout: layouts/base.njk
 ---
 <div class="page-wrap{% if show_staff %} has-aside{% endif %}">
   <article class="article page-article" data-pagefind-body>
+    <span hidden data-pagefind-meta="image:-"></span>
     <header class="article-head">
       <h1 class="article-title">{{ title }}</h1>
       {%- if subtitle %}<p class="deck">{{ subtitle }}</p>{% endif %}

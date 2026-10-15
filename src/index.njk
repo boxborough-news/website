@@ -4,8 +4,12 @@ layout: layouts/base.njk
 oldPath: /home
 ---
 {%- set hs = collections.homeStories %}
+{#- The page's main heading. It looks like a small date line; screen readers hear
+    "Boxborough News: This week's issue, Friday, Oct. 9, 2026". #}
 {%- if hs.issue %}
-<p class="issue-line"><span>This week's issue</span> {{ hs.issue | date("weekday") }}</p>
+<h1 class="issue-line"><span class="visually-hidden">{{ site.title }}: </span><span class="issue-label">This week's issue</span><span class="visually-hidden">,</span> {{ hs.issue | date("weekday") }}</h1>
+{%- else %}
+<h1 class="visually-hidden">{{ site.title }}</h1>
 {%- endif %}
 
 <div class="home-top">

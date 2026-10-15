@@ -35,6 +35,14 @@ title: Search
     </div>
   </div>
   <div id="search" class="search-ui"></div>
+  <div class="search-none" id="search-none" hidden>
+    <p class="search-none-head">No results for “<span></span>”</p>
+    <ul>
+      <li>Check the spelling, or try fewer or shorter words (for example, “Steele” instead of “Steele Farm barn restoration”).</li>
+      <li>Choose <strong>All</strong> and <strong>Any year</strong> to search everything.</li>
+      <li>Or <a href="/archive/">browse the archive</a> by year and issue.</li>
+    </ul>
+  </div>
   <noscript><p>Search needs JavaScript turned on. You can also <a href="/archive/">browse the archive</a>.</p></noscript>
 </div>
 <script src="/pagefind/pagefind-ui.js"></script>
@@ -71,6 +79,62 @@ title: Search
     var observer = new MutationObserver(function () {
       tidyResults();
       if (pending && applyAll()) pending = false;
+      noResults();
+    });
+
+    // "No results" help. Pagefind also counts a page as a match when a query merely starts with
+    // a very short word on it (a search for "qwerty" matches the "Q:" in an interview), so when
+    // every match is like that, we treat the search as having no results.
+    var none = document.getElementById("search-none");
+    function showNone(term) {
+      none.querySelector("span").textContent = term;
+      none.hidden = false;
+      box.classList.add("is-empty");
+    }
+    function hideNone() { none.hidden = true; box.classList.remove("is-empty"); }
+    function noResults() {
+      var msg = box.querySelector(".pagefind-ui__message");
+      if (msg && /^No results/.test(msg.textContent.trim())) showNone(((box.querySelector(".pagefind-ui__search-input") || {}).value || state.q || "").trim());
+    }
+    var pf = null, checkTimer = null, checkId = 0;
+    function norm(w) { return String(w).toLowerCase().replace(/[^a-z0-9]/g, ""); }
+    function checkWeak(term) {
+      var id = ++checkId;
+      var words = term.split(/\s+/).map(norm).filter(Boolean);
+      if (!words.length) { hideNone(); return; }
+      var shortest = Math.min.apply(null, words.map(function (w) { return w.length; }));
+      (pf ? Promise.resolve(pf) : import({{ "/pagefind/pagefind.js" | url | dump | safe }}).then(function (m) { pf = m; return m; }))
+        .then(function (pf) {
+          var filters = {};
+          if (state.section) filters.section = state.section;
+          if (state.year) filters.year = state.year;
+          return pf.search(term, { filters: filters });
+        })
+        .then(function (res) {
+          if (id !== checkId || !res) return;
+          if (!res.results.length) return;
+          if (res.results.length > 40) { hideNone(); return; }
+          return Promise.all(res.results.map(function (r) { return r.data().then(function (d) { return { r: r, d: d }; }); })).then(function (all) {
+            if (id !== checkId) return;
+            var toks = function (d) { return d.content.split(/\s+/); };
+            var real = all.some(function (x) {
+              if (!x.r.words.length) return false;
+              var t = toks(x.d);
+              return x.r.words.some(function (i) { return norm(t[i] || "").length * 2 >= shortest; });
+            });
+            real ? hideNone() : showNone(term);
+          });
+        })
+        .catch(function () {});
+    }
+    box.addEventListener("input", function (e) {
+      if (!e.target.classList.contains("pagefind-ui__search-input")) return;
+      hideNone();
+      clearTimeout(checkTimer);
+      var term = e.target.value.trim();
+      state.q = term;
+      syncControls();
+      if (term) checkTimer = setTimeout(function () { checkWeak(term); }, 350);
     });
     var pending = false;
 
@@ -115,7 +179,8 @@ title: Search
       var opts = { element: "#search", showSubResults: false, showImages: false, resetStyles: false, autofocus: true };
       if (state.sort === "newest") opts.sort = { date: "desc" };
       ui = new PagefindUI(opts);
-      if (state.q) ui.triggerSearch(state.q);
+      hideNone();
+      if (state.q) { ui.triggerSearch(state.q); checkWeak(state.q); }
       pending = !!(state.section || state.year);
       observer.disconnect();
       observer.observe(box, { childList: true, subtree: true });
@@ -123,6 +188,8 @@ title: Search
     }
     function refilter() {
       readInput();
+      hideNone();
+      if (state.q) setTimeout(function () { checkWeak(state.q); }, 50);
       if (!state.section) box.querySelectorAll('.pagefind-ui__filter-checkbox[name="section"]:checked').forEach(function (cb) { cb.click(); });
       if (!state.year) box.querySelectorAll('.pagefind-ui__filter-checkbox[name="year"]:checked').forEach(function (cb) { cb.click(); });
       pending = !applyAll();

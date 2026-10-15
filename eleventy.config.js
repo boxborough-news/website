@@ -82,8 +82,8 @@ export default function (eleventyConfig) {
 
   // One row per date people can attend: a single event is one row, a series with
   // "sessions" is one row per session. Rows that have ended are dropped.
-  function eventRows(api) {
-    const today = todayET();
+  function eventRows(api, from) {
+    const today = from || todayET();
     const rows = [];
     for (const item of announcements(api).filter(isEvent)) {
       const d = item.data;
@@ -117,7 +117,7 @@ export default function (eleventyConfig) {
     }
     return rows.sort((a, b) => a.sort.localeCompare(b.sort) || (a.ongoing - b.ongoing) || minutes(a.time) - minutes(b.time) || a.title.localeCompare(b.title));
   }
-  eleventyConfig.addCollection("eventRows", eventRows);
+  eleventyConfig.addCollection("eventRows", (api) => eventRows(api));
 
   // Upcoming rows grouped into This week / Next week / Later (weeks run Monday to Sunday).
   eleventyConfig.addCollection("eventGroups", (api) => {
@@ -271,6 +271,24 @@ export default function (eleventyConfig) {
     const all = list.map(({ year, url }) => ({ year, url }));
     const pages = list.map((y) => ({ ...y, all }));
     return list.length ? [{ ...pages[0], url: "/archive/", latest: true }, ...pages] : [];
+  });
+
+  // The most recent issue that has been published (the latest Friday with articles), for the
+  // sample email on the Subscribe page. Its events start from the issue's own date, as sent.
+  eleventyConfig.addCollection("latestIssue", (api) => {
+    const all = articles(api);
+    if (!all.length) return null;
+    const date = issueFriday(all[0].data.date);
+    const start = addDays(date, -6);
+    const inWeek = (i) => ymd(i.data.date) >= start && ymd(i.data.date) <= date;
+    const seen = new Set();
+    return {
+      date,
+      news: all.filter((i) => i.data.section === "news" && inWeek(i)),
+      features: all.filter((i) => i.data.section === "features" && inWeek(i)),
+      announcements: announcements(api).filter(inWeek),
+      events: eventRows(api, date).filter((r) => (seen.has(r.url) ? false : seen.add(r.url))),
+    };
   });
 
   // What goes into this week's newsletter.

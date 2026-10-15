@@ -117,7 +117,7 @@ To send it:
 3. Click it and read it through. You can make small edits there if needed.
 4. Click **Send**. (You can also schedule it for a particular time.)
 
-**Want to preview the email before Friday?** Visit **boxboroughnews.org/newsletter/this-week/** at any time. It shows the coming Friday's issue as it stands: events, town meetings and anything already published that week. Stories scheduled for Friday join it early Friday morning, before the draft is made.
+**Want to preview the email before Friday?** Visit **boxboroughnews.org/newsletter/this-week/** at any time. It shows the coming Friday's issue as it stands: events, town meetings and anything already published that week. Stories scheduled for Friday join it early Friday morning, before the draft is made. (The Subscribe page links to a different page, **/newsletter/latest/**, which shows the most recent email already sent, so new readers always see a complete issue.)
 
 **Added or fixed an article after the draft was made?** In Pages CMS, look for the action button labeled **Create this week's email draft now** and click it. This refreshes the existing draft rather than making a second one. If you don't see the button, just edit the draft directly in Kit.
 

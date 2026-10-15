@@ -9,6 +9,9 @@ layout: layouts/base.njk
 {%- set searchSection = "Events" if isEvent else ("Community notices" if isAnn else sec.name) %}
 <article class="article" data-pagefind-body data-pagefind-sort="date:{{ date | ymd }}" data-pagefind-meta="section:{{ searchSection }}" data-pagefind-filter="section:{{ searchSection }}">
   <span hidden data-pagefind-filter="year:{{ date | ymd | truncate(4, true, '') }}"></span>
+  {#- Pagefind would otherwise record the photo's file name (like /img/D_WKVcQzTu-640.jpeg) as
+      searchable metadata, so nonsense searches matched it. Search results don't show photos. #}
+  <span hidden data-pagefind-meta="image:-"></span>
   <header class="article-head">
     <p class="kicker" data-pagefind-ignore>
       {%- if isEvent %}<a href="/events/">Events</a>

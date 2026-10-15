@@ -15,10 +15,15 @@ title: Subscribe
     {{ site.subscribe_embed_code | safe }}
     {%- else %}
     <a class="button button-large" href="{{ site.subscribe_url }}">Sign up for the free newsletter</a>
+    {%- if "docs.google.com/forms" in site.subscribe_url %}
+    <p class="small">The sign-up form opens in Google Forms. Just enter your email address. You don't need to sign in to Google.</p>
+    {%- endif %}
     {%- endif %}
   </div>
   <div class="prose">
-    <p><a href="/newsletter/this-week/">See this week's email</a> to get a sense of what you'll receive.</p>
+    {%- if collections.latestIssue %}
+    <p><a href="/newsletter/latest/">See a recent email</a> (the {{ collections.latestIssue.date | date("long") }} issue) to get a sense of what you'll receive.</p>
+    {%- endif %}
     <p>Prefer a feed reader? Follow our <a href="/feed.xml">RSS feed</a>. You can also find us on {% if site.facebook_url %}<a href="{{ site.facebook_url }}">Facebook</a>{% endif %}{% if site.instagram_url %} and <a href="{{ site.instagram_url }}">Instagram</a>{% endif %}.</p>
   </div>
 </article>

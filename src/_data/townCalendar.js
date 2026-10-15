@@ -5,7 +5,7 @@
 // For testing without internet access: TOWN_ICS_FILE=tools/sample-town-calendar.ics
 import fs from "node:fs";
 import ical from "node-ical";
-import { todayET, addDays, TIMEZONE } from "../../lib/content.js";
+import { todayET, addDays, issueFriday, TIMEZONE } from "../../lib/content.js";
 
 const DAYS_AHEAD = 13; // today plus the next 13 days
 const MAX_EVENTS = 14;
@@ -139,8 +139,12 @@ export default async function () {
     return empty;
   }
 
-  const first = todayET();
-  const last = addDays(first, DAYS_AHEAD);
+  const today = todayET();
+  // Also read back to the most recent Friday, so the sample of the latest email (sent that
+  // Friday) can list the meetings it showed.
+  const lastIssue = issueFriday(today) > today ? addDays(issueFriday(today), -7) : today;
+  const first = lastIssue < today ? lastIssue : today;
+  const last = addDays(today, DAYS_AHEAD);
   const from = new Date(first + "T00:00:00-05:00");
   const to = new Date(addDays(last, 1) + "T06:00:00Z");
   const events = [];
@@ -173,13 +177,22 @@ export default async function () {
   }
 
   events.sort((a, b) => a.date.localeCompare(b.date) || a.sort.localeCompare(b.sort));
-  const merged = mergeJoint(events);
+  const everything = mergeJoint(events);
+  const toDays = (list) => {
+    const days = [];
+    for (const e of list) {
+      let day = days.find((d) => d.date === e.date);
+      if (!day) days.push((day = { date: e.date, ...dayLabel(e.date), events: [] }));
+      day.events.push(e);
+    }
+    return days;
+  };
+  const merged = everything.filter((e) => e.date >= today);
   const shown = merged.slice(0, MAX_EVENTS);
-  const days = [];
-  for (const e of shown) {
-    let day = days.find((d) => d.date === e.date);
-    if (!day) days.push((day = { date: e.date, ...dayLabel(e.date), events: [] }));
-    day.events.push(e);
-  }
-  return { ok: true, days, events: shown, all: merged, more: merged.length > shown.length, link: settings.calendar_link || "" };
+  // The week covered by the latest email, for its sample on the Subscribe page.
+  const sinceIssue = toDays(everything.filter((e) => e.date >= lastIssue && e.date <= addDays(lastIssue, 7)).slice(0, MAX_EVENTS));
+  return {
+    ok: true, days: toDays(shown), events: shown, all: merged, more: merged.length > shown.length,
+    sinceIssue, lastIssue, link: settings.calendar_link || "",
+  };
 }

@@ -22,6 +22,13 @@ title: Submit an event or notice
     <p class="small">This opens an email to {{ site.email }} with the details we need already listed.</p>
     {%- endif %}
   </div>
+  <div class="copy-template">
+    <p class="copy-template-head">Email app didn't open?</p>
+    <p>Copy this list, paste it into a new email to <strong>{{ site.email }}</strong>, and fill it in.</p>
+    <pre id="submission-template">{{ body }}</pre>
+    <button type="button" class="button" data-copy-text="#submission-template">Copy the list</button>
+    <span class="copy-status" role="status" aria-live="polite"></span>
+  </div>
   <div class="prose">
     <h2>What to include</h2>
     <ul>
@@ -36,3 +43,16 @@ title: Submit an event or notice
     <p>Have a news tip or a story idea instead? See our <a href="/contact/">Contact</a> page.</p>
   </div>
 </article>
+<script>
+  document.querySelectorAll("[data-copy-text]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var text = document.querySelector(b.getAttribute("data-copy-text")).textContent;
+      var status = b.parentNode.querySelector(".copy-status");
+      navigator.clipboard.writeText(text).then(function () {
+        status.textContent = "Copied. Now paste it into a new email.";
+      }, function () {
+        status.textContent = "Couldn't copy automatically. Select the list and copy it.";
+      });
+    });
+  });
+</script>

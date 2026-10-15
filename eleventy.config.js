@@ -247,7 +247,7 @@ export default function (eleventyConfig) {
   // so on. /archive/ shows the latest year as well. Events are on /events/past/.
   eleventyConfig.addCollection("archiveYears", (api) => {
     const years = new Map();
-    for (const item of [...articles(api), ...announcements(api).filter(isNotice)].sort(byNewest)) {
+    for (const item of articles(api)) {
       const key = issueFriday(item.data.date);
       const y = key.slice(0, 4);
       if (!years.has(y)) years.set(y, new Map());

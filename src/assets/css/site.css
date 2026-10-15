@@ -350,6 +350,15 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
   .river .story-title { font-size: 21px; }
   .river .story-teaser { font-size: 16.5px; }
 }
+.section-archive-link { margin: 10px 0 0; font-family: var(--sans); font-size: 16px; font-weight: 700; }
+.section-archive-link a { color: var(--navy); }
+.older-stories { margin: 40px 0 28px; padding: 22px 24px; background: var(--white); border: 1px solid var(--rule); border-top: 4px solid var(--navy); font-family: var(--sans); }
+.older-stories p { margin: 0 0 12px; font-size: 16px; line-height: 1.5; }
+.older-stories .older-head { font-family: var(--serif); font-size: 21px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.older-stories a { font-weight: 700; color: var(--navy); }
+.older-stories .search-inline { margin: 4px 0 0; }
+.past-notices { margin-top: 28px; font-family: var(--sans); }
+.past-notices summary { cursor: pointer; font-weight: 700; color: var(--navy); font-size: 17px; padding: 8px 0; }
 .pager { display: flex; justify-content: space-between; align-items: center; font-family: var(--sans); font-size: 16px; font-weight: 700; color: var(--muted); }
 .pager a { text-decoration: none; }
 .old-site-note { margin-top: 24px; }

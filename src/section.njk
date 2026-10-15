@@ -12,6 +12,7 @@ eleventyComputed:
 <header class="section-head">
   <h1>{{ sp.section.name }}</h1>
   <p>{{ sp.section.blurb }}</p>
+  <p class="section-archive-link"><a href="{{ collections.archiveYears[0].url }}?show={{ sp.section.key }}">Browse all {{ sp.section.name }} by issue, back to 2023&nbsp;→</a></p>
 </header>
 
 <div class="section-grid">
@@ -30,6 +31,9 @@ eleventyComputed:
       <p>Nothing here yet.</p>
       {%- endfor %}
     </div>
+
+    {%- set secKey = sp.section.key %}{% set secName = sp.section.name %}{% set where = "bottom" %}
+    {% include "partials/older-stories.njk" %}
 
     {%- if sp.prev or sp.next %}
     <nav class="pager" aria-label="More stories">

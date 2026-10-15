@@ -24,6 +24,13 @@ title: Community notices
     {%- endfor %}
   </ul>
   {%- if collections.expiredNotices.length %}
-  <p class="small">Older notices whose deadlines have passed are in the <a href="/archive/">archive</a>.</p>
+  <details class="past-notices">
+    <summary>Past notices ({{ collections.expiredNotices.length }})</summary>
+    <ul class="headline-list notice-list">
+      {%- for item in collections.expiredNotices %}
+      <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{% if item.data.organizer %}{{ item.data.organizer }} · {% endif %}Posted {{ item.data.date | date }}</span></li>
+      {%- endfor %}
+    </ul>
+  </details>
   {%- endif %}
 </div>

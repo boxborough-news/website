@@ -1,0 +1,13 @@
+{#- "Find older stories" links for the News and Features pages. Set secKey and secName first. -#}
+{%- set years = collections.archiveYears[0].all if collections.archiveYears.length else [] %}
+<div class="older-stories">
+  <p class="older-head">Looking for an older {{ "story" if secKey == "news" else "feature" }}?</p>
+  <p>Browse {{ secName }} by issue:
+    {%- for y in years %} <a href="{{ y.url }}?show={{ secKey }}">{{ y.year }}</a>{% if not loop.last %} ·{% endif %}{% endfor %}
+  </p>
+  <form class="search-inline" action="/search/" role="search">
+    <label for="older-q-{{ where }}" class="visually-hidden">Search Boxborough News</label>
+    <input id="older-q-{{ where }}" name="q" type="search" placeholder="Search every article since 2023">
+    <button class="button" type="submit">Search</button>
+  </form>
+</div>

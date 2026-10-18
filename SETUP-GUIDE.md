@@ -31,7 +31,7 @@ Use a shared Boxborough News account (e.g. boxboroughnews@gmail.com) for every s
 
 1. Go to **https://app.pagescms.org** and choose **Sign in with GitHub** (use the shared GitHub account).
 2. When asked, **install the Pages CMS GitHub App** on the `boxboroughnews` organization. You can limit it to just the `website` repository.
-3. Open the **website** repository. You'll see Articles, Events & Notices, Town Hall note, Weekly email settings, Pages and Site settings. These are configured by the `.pages.yml` file, so there's nothing to set up.
+3. Open the **website** repository. You'll see Articles, Events & Notices, Town meetings note, Weekly email settings, Pages and Site settings. These are configured by the `.pages.yml` file, so there's nothing to set up.
 4. **Check the town meetings list.** The home page lists upcoming town meetings from the Town of Boxborough's own calendar feed (the same one behind the Google Calendar on the old site). It's already set up and refreshes twice a day. After the first publish, check that the **Town meetings** list appears on the home page and the Events page. If it doesn't, open **Actions → Publish website**, open the latest run, and look for a "Could not read the town calendar" message.
 5. **Invite each editor by email** from the repository's **Collaborators** screen in Pages CMS. Editors sign in with their email address and don't need a GitHub account. Send them `EDITOR-GUIDE.md`.
 
@@ -58,7 +58,7 @@ Use a shared Boxborough News account (e.g. boxboroughnews@gmail.com) for every s
 4. In Kit, open **Send → Broadcasts**. The draft should be there. Send it to yourself with **Preview → Send test email** and check it on your phone.
 5. Delete the test article, or tick **Draft**.
 
-**About the articles:** the site includes every News, Features and Community article from the old website, from June 2023 on (about 1,330 articles and 1,000 photos), each on its own page. Articles from before September 2026 are kept in a separate **Archive: articles before Sept. 2026** list in Pages CMS, so the everyday **Articles** list stays short. They can be corrected there like any other article. A handful of items needed a judgment call during the import (for example, an article with no date on the old site); Claude's notes list them. Before launch, spot-check a few against the originals.
+**About the articles:** the site includes every News, Features and Community article from the old website, from June 2023 on (about 1,330 articles and 1,000 photos), each on its own page. In Pages CMS, the **Articles** list holds the last two months; older articles are in **Archive: older articles**, in year and month folders (a single folder of 1,300 files was too big for Pages CMS to open). On the 1st of each month, the **Move older articles to the archive** action moves articles more than two months old there automatically. Website addresses don't change. They can be corrected there like any other article. A handful of items needed a judgment call during the import (for example, an article with no date on the old site); Claude's notes list them. Before launch, spot-check a few against the originals.
 
 **Photos:** all photos for the imported articles are saved, already reduced in size, in `src/media/archive`. Photos that editors upload later are shrunk automatically too: after each upload, the **Shrink uploaded photos** action resizes anything larger than 1,600 pixels or 600 KB and saves the smaller copy in place. This keeps the site's storage small enough to last for many years.
 

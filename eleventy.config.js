@@ -55,8 +55,10 @@ export default function (eleventyConfig) {
   });
 
   // ---- Collections ---------------------------------------------------------
-  // Articles: src/articles (September 2026 on) plus src/past-articles (imported from the old site).
-  const articles = (api) => api.getFilteredByGlob(["src/articles/*.md", "src/past-articles/*.md"]).sort(byNewest);
+  // Articles: src/articles holds the last two months; older ones live in src/past-articles/YEAR/MONTH/
+  // (moved there automatically each month, see scripts/archive-old-articles.js). Where a file
+  // lives makes no difference to the website: addresses, sections and search are the same.
+  const articles = (api) => api.getFilteredByGlob(["src/articles/*.md", "src/past-articles/**/*.md"]).sort(byNewest);
   const announcements = (api) => api.getFilteredByGlob("src/announcements/*.md").sort(byNewest);
 
   eleventyConfig.addCollection("articles", articles);

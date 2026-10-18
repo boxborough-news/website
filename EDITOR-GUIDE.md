@@ -9,7 +9,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 | When | What to do |
 |---|---|
 | Monday to Thursday | Add articles as they're ready, with **Friday's date** as the publication date so they appear together on Friday morning. Add events and notices as they arrive. |
-| Thursday | Tick one **Top story** for the week. Update the **Town Hall note** for the week ahead. |
+| Thursday | Tick one **Top story** for the week. Optional: add a **Town meetings note** if a meeting next week deserves a heads-up. |
 | **Friday morning** | Open **Kit**, review the email draft that was created automatically, and click **Send**. |
 
 ---
@@ -57,7 +57,10 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 - To add a photo *inside* the article text, click the image button in the toolbar.
 
 ### Fixing a mistake
-Open the article, make the correction, and click **Save**. Articles from before September 2026 (imported from the old website) are under **Archive: articles before Sept. 2026** in the left menu. The live site updates in about two minutes. For a significant correction, add a line at the end of the article, e.g. *"Correction: An earlier version of this article misstated the meeting date."*
+Open the article, make the correction, and click **Save**. The **Articles** list holds the last two months. Older articles are under **Archive: older articles** in the left menu, in a folder for each year and month (for example, **2025** → **06**). The live site updates in about two minutes. For a significant correction, add a line at the end of the article, e.g. *"Correction: An earlier version of this article misstated the meeting date."*
+
+### Where older articles go
+On the 1st of each month, articles more than two months old move automatically from **Articles** to **Archive: older articles**, into a folder for their year and month. This only tidies the editors' list. Nothing changes on the website: each article keeps its address, its place in News or Features, and its spot in search and the Archive pages. To move them right away, use **Move older articles to the archive** under Actions.
 
 ### Taking an article down
 Open it and tick **Draft**, then **Save**. It disappears from the website but isn't deleted. (The **Delete** button removes it permanently.)
@@ -95,21 +98,22 @@ The **Submit an event or notice** page (linked from the Events page, the footer 
 
 ---
 
-## The Town Hall note
+## Town meetings and the optional note
 
-A sentence or two about the week's most important town meetings. It appears at the top of the **Town meetings** list on the home page and the Events page, and in the email.
+The list of upcoming town meetings on the home page, the Events page and in the email comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain.
 
-1. Click **Town Hall note** in the left menu.
-2. Edit the text. Set **Hide automatically after** to the last day it applies, usually the next Saturday. The note then disappears by itself, so it never shows out-of-date information.
-3. Untick **Show the note** to hide it straight away.
+When a meeting deserves a heads-up (a big vote, a public hearing), you can add a short note above that list. Most weeks, leave it off.
 
-The list of upcoming town meetings comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain. The website tidies up the town's titles (for example, a joint meeting listed separately by three boards appears once).
+1. Click **Town meetings note** in the left menu.
+2. Tick **Show a note above the town meetings list** and write a sentence or two.
+3. Set **Hide automatically after** to the last day it applies, usually the next Saturday. The note then disappears by itself, so it never shows out-of-date information.
+4. Leave the two calendar settings at the bottom as they are. The website tidies up the town's titles (for example, a joint meeting listed separately by three boards appears once).
 
 ---
 
 ## The Friday email
 
-**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email: headlines, photos, summaries, and "Read more" links to each article, plus the Town Hall note, upcoming town meetings and upcoming events. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
+**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email: headlines, photos, summaries, and "Read more" links to each article, plus the town meetings note (if any), upcoming town meetings and upcoming events. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
 
 To send it:
 1. Log in to **Kit** (https://app.kit.com) with the Boxborough News account.
@@ -138,7 +142,7 @@ To send it:
 | Problem | What to check |
 |---|---|
 | I saved, but my article isn't on the site | Wait two or three minutes, then refresh the page. Check that **Draft** is unticked and the **Publication date** isn't in the future. |
-| The home page still shows last week's Town Hall note | Check **Hide automatically after** in the Town Hall note. |
+| The home page still shows last week's town meetings note | Check **Hide automatically after** in **Town meetings note**, or untick **Show a note**. |
 | An event is missing from the Events page | Check that **Kind** is *Event*, the **Event: date** is filled in, and its last day hasn't passed. |
 | There's no email draft in Kit on Friday | If nothing was published that week, no draft is made. Otherwise click **Create this week's email draft now**, or ask the site administrator. |
 | Anything else | Contact the site administrator. Every change is saved in the site's history, so nothing is ever truly lost. |

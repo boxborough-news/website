@@ -1,0 +1,36 @@
+# Once a month, moves articles more than two months old from the editors' "Articles" list
+# into the "Archive" list in Pages CMS (src/past-articles/YEAR/MONTH/). The website itself
+# doesn't change: addresses, sections, search and the Archive pages stay the same.
+name: Move older articles to the archive
+
+on:
+  schedule:
+    - cron: "30 7 1 * *" # 1st of each month, 3:30 a.m. Boston time (2:30 a.m. in winter)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-old-articles
+  cancel-in-progress: false
+
+jobs:
+  move:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/archive-old-articles.js
+      - name: Save the move
+        run: |
+          if [ -n "$(git status --porcelain src/articles src/past-articles)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git add -A src/articles src/past-articles
+            git commit -m "Move articles older than two months to the archive"
+            git pull --rebase
+            git push
+          fi

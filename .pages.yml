@@ -10,11 +10,12 @@ media:
 content:
   # ---------------------------------------------------------------- Articles
   - name: articles
-    label: Articles (News & Features)
+    label: Articles (News & Features, last two months)
     type: collection
     path: src/articles
     format: yaml-frontmatter
     exclude: [articles.11tydata.js]
+    subfolders: false
     filename:
       template: "{year}-{month}-{day}-{title}.md"
       field: false
@@ -109,11 +110,12 @@ content:
 
   # ---------------------------------------------------- Events & community notices
   - name: past-articles
-    label: "Archive: articles before Sept. 2026"
+    label: "Archive: older articles (by year and month)"
     type: collection
     path: src/past-articles
     format: yaml-frontmatter
     exclude: [past-articles.11tydata.js]
+    subfolders: true
     filename:
       template: "{year}-{month}-{day}-{title}.md"
       field: false
@@ -374,16 +376,17 @@ content:
 
   # ------------------------------------------------------------ Town Hall note
   - name: townhall
-    label: Town Hall note (top of the town meetings list)
+    label: Town meetings note (optional)
     type: file
     path: src/_data/townhall.json
     format: json
     fields:
       - name: show
-        label: Show the note
+        label: Show a note above the town meetings list
         type: boolean
+        description: "Optional. Use it when a meeting deserves a heads-up (a big vote, a public hearing). Most weeks, leave it off. The meetings list itself appears automatically either way."
       - name: heading
-        label: Heading (used in the weekly email)
+        label: Note heading (shown in the weekly email)
         type: string
         default: Town Hall note
       - name: body
@@ -400,11 +403,11 @@ content:
         options:
           format: yyyy-MM-dd
       - name: calendar_feed
-        label: Town calendar feed (set up once; leave as is)
+        label: Town calendar feed (technical setting; leave as is)
         type: string
         description: "The iCal link for the Town of Boxborough's meetings calendar. Clear it to hide the meetings list."
       - name: calendar_link
-        label: Link to the full town calendar
+        label: Link to the full town calendar (leave as is)
         type: string
 
   # --------------------------------------------------------- Weekly newsletter
@@ -548,8 +551,8 @@ content:
         description: "Where the 'Subscribe' buttons go (your email service's sign-up page)."
       - name: subscribe_embed_code
         label: Newsletter sign-up form code (optional)
-        type: code
-        description: "Paste the 'embed' HTML from your email service to show a sign-up form right on the site instead of a button."
+        type: text
+        description: "Paste the 'embed' HTML from your email service to show a sign-up form right on the site instead of a button. Leave blank to use the Sign-up page link above."
       - name: submit_form_url
         label: Event and notice submission form link (optional)
         type: string
@@ -581,14 +584,14 @@ actions:
       title: Create email draft?
       message: This builds this week's newsletter and saves it as a draft in Kit. Nothing is sent.
       button: Create draft
-  - name: save-photos
-    label: Save imported photos (one-time)
-    workflow: save-photos.yml
+  - name: archive-old
+    label: Move older articles to the archive
+    workflow: archive-old-articles.yml
     ref: current
     confirm:
-      title: Save imported photos?
-      message: Downloads photos that imported articles still load from the old website and saves them in the site. Takes about a minute.
-      button: Save photos
+      title: Move older articles to the archive?
+      message: Moves articles more than two months old from the Articles list to the Archive list. This also happens automatically on the 1st of each month. Nothing changes on the website.
+      button: Move articles
   - name: rebuild
     label: Rebuild the website
     workflow: publish.yml

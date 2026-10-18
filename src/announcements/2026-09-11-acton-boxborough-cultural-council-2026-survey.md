@@ -11,7 +11,7 @@ organizer: "Acton-Boxborough Cultural Council"
 cost: ""
 registration: ""
 link: "https://www.actonboxboroughculturalcouncil.org/"
-expires: ""
+expires: 2026-10-15
 summary: ""
 image: "/media/announcements/21-cultural-council-survey-01.jpg"
 image_alt: "Acton-Boxborough Cultural Council flyer: 2026 Community Input Survey"

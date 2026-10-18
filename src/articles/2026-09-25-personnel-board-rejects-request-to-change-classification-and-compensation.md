@@ -14,7 +14,7 @@ draft: false
 ---
 At the Boxborough Personnel Board meeting on September 15, Assistant Town Administrator Rajon Hudson presented a proposal on behalf of the Town Planner to make changes to the Classification and Compensation Schedule at Fall Town Meeting (November 16). The proposal would change the way wiring, plumbing, and gas inspectors are paid.
 
-Currently, inspectors receive 90% of the permit fees. Under the proposed change, the inspector would receive $60/visit with a minimum of two visits.
+Currently, inspectors receive 90% of the permit fees. Under the proposed change, the inspector would receive $60/visit.
 
 The Personnel Board, which is responsible for proposed changes to the Personnel Plan, which includes the classification and compensation schedule, rejected the proposal primarily because they were not given sufficient time to review the merits of the proposal. Board members said that making the change mid-cycle was not "imperative" and could wait until Annual Town Meeting in May 2027. The Personnel Plan runs on a fiscal year cycle (July 1 to June 30) and is typically voted at Annual Town Meeting each year.
 
@@ -23,3 +23,5 @@ The board also discussed the labor market salary survey and agreed that current 
 The next step is to complete something called a "dot plot" where individual employee wages are plotted on the classification and compensation schedule. The "dot plot" tool provides another data point in the analysis of employee compensation as a guide to recommend changes. The board plans to reach out to the Collins Center, who completed the market survey, to determine the cost of developing the "dot plot" for the town.
 
 The next Personnel Board meeting is scheduled for Tuesday October 27 at 5:30 p.m.
+
+*This version reflects a correction as of October 2, 2026.*

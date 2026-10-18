@@ -11,7 +11,7 @@ organizer: "Minute Man Arc"
 cost: ""
 registration: ""
 link: "https://www.minutemanarc.org/"
-expires: ""
+expires: 2026-10-15
 summary: ""
 image: "/media/announcements/06-minute-man-march-recap-01.jpg"
 image_alt: "State Senator Jamie Eldridge addresses the crowd ahead of the Minute Man March at Alcott School in Concord"

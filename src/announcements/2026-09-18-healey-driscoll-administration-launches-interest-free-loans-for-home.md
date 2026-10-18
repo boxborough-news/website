@@ -11,7 +11,7 @@ organizer: "Massachusetts Department of Energy Resources"
 cost: ""
 registration: ""
 link: "https://www.mass.gov/doer-mlp-zloan"
-expires: ""
+expires: 2026-10-15
 summary: ""
 image: ""
 image_alt: ""

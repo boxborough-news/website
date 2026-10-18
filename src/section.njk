@@ -22,10 +22,10 @@ eleventyComputed:
       {%- for item in sp.items %}
       {%- set iss = item.data.date | issueOf %}
       {%- if iss != lastIssue %}
-      <h2 class="issue-head" id="issue-{{ iss }}">{{ iss | date("long") }} issue</h2>
+      <h2 class="issue-head" id="issue-{{ iss }}">{% if iss | isUpcomingIssue %}New this week{% else %}{{ iss | date("long") }} issue{% endif %}</h2>
       {%- set lastIssue = iss %}
       {%- endif %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 40 %}{% set hideDate = true %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 40 %}{% set hideDate = not (iss | isUpcomingIssue) %}
       {% include "partials/story.njk" %}
       {%- else %}
       <p>Nothing here yet.</p>

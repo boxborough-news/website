@@ -528,3 +528,5 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .copy-template-head { font-weight: 700; color: var(--ink); }
 .copy-template pre { white-space: pre-wrap; font-family: var(--sans); font-size: 15px; line-height: 1.6; background: var(--tint); padding: 12px 14px; margin: 0 0 12px; border-radius: 4px; }
 .copy-status { margin-left: 10px; color: var(--muted); font-weight: 600; }
+
+.new-tag { color: var(--red); font-weight: 800; }

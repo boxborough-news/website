@@ -374,7 +374,7 @@ content:
         label: Details
         type: rich-text
 
-  # ------------------------------------------------------------ Town Hall note
+  # ------------------------------------------------------- Town meetings note
   - name: townhall
     label: Town meetings note (optional)
     type: file
@@ -388,7 +388,7 @@ content:
       - name: heading
         label: Note heading (shown in the weekly email)
         type: string
-        default: Town Hall note
+        default: This week at Town Hall
       - name: body
         label: Note
         type: rich-text
@@ -429,8 +429,9 @@ content:
         label: Closing line
         type: text
       - name: include_townhall
-        label: Include the Town Hall notice
+        label: Include upcoming town meetings
         type: boolean
+        description: "The list of town meetings from the town calendar, plus the town meetings note when one is turned on."
       - name: include_events
         label: Include upcoming events
         type: boolean

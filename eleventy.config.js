@@ -18,6 +18,18 @@ const byNewest = (a, b) =>
   (b.data.top_story === true) - (a.data.top_story === true) ||
   a.data.title.localeCompare(b.data.title);
 
+// The most recent Friday on or before today: the latest issue that has come out.
+const lastFriday = () => {
+  const f = issueFriday(todayET());
+  return f === todayET() ? f : addDays(f, -7);
+};
+// The newest issue (Friday) with articles that has come out. Falls back to the newest issue.
+const currentIssue = (all) => {
+  const last = lastFriday();
+  const out = all.find((i) => issueFriday(i.data.date) <= last);
+  return issueFriday((out || all[0]).data.date);
+};
+
 export default function (eleventyConfig) {
   eleventyConfig.setLibrary("md", md);
 
@@ -199,15 +211,21 @@ export default function (eleventyConfig) {
   //   earlier   stories from previous issues, as a compact list
   eleventyConfig.addCollection("homeStories", (api) => {
     const all = articles(api);
-    if (!all.length) return { lead: null, issue: "", news: [], features: [], featuresAreCurrent: false, earlier: [] };
-    const issue = issueFriday(all[0].data.date);
+    if (!all.length) return { lead: null, issue: "", news: [], features: [], featuresAreCurrent: false, earlier: [], fresh: [] };
+    // The current issue is the latest Friday issue that has come out. Articles published
+    // after it (dated between Fridays, e.g. breaking news) belong to next Friday's issue; until
+    // then they're shown at the top of the current issue, marked "New", instead of replacing it.
+    const issue = currentIssue(all);
     const inIssue = all.filter((i) => issueFriday(i.data.date) === issue);
+    const fresh = all.filter((i) => issueFriday(i.data.date) > issue);
     const lead =
+      fresh.find((i) => i.data.top_story === true) ||
       inIssue.find((i) => i.data.top_story === true) ||
       inIssue.find((i) => i.data.section === "news" && i.data.image) ||
-      inIssue.find((i) => i.data.image) || inIssue[0];
-    const news = inIssue.filter((i) => i !== lead && i.data.section === "news");
-    let features = inIssue.filter((i) => i !== lead && i.data.section === "features");
+      inIssue.find((i) => i.data.image) || inIssue[0] || fresh[0];
+    const pick = (sec) => [...fresh, ...inIssue].filter((i) => i !== lead && i.data.section === sec);
+    const news = pick("news");
+    let features = pick("features");
     const featuresAreCurrent = features.length > 0;
     if (!featuresAreCurrent) features = all.filter((i) => i !== lead && i.data.section === "features").slice(0, 3);
     const shown = new Set([lead, ...news, ...features]);
@@ -219,7 +237,7 @@ export default function (eleventyConfig) {
       if (!g) { if (earlier.length === 2) break; earlier.push((g = { issue: key, items: [] })); }
       g.items.push(i);
     }
-    return { lead, issue, news, features, featuresAreCurrent, earlier };
+    return { lead, issue, news, features, featuresAreCurrent, earlier, fresh: fresh.map((i) => i.url) };
   });
 
   // Section listing pages (News, Features), 20 stories per page: /news/, /news/page-2/ …
@@ -259,7 +277,10 @@ export default function (eleventyConfig) {
     }
     const MONTHS = ["Jan.", "Feb.", "March", "April", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
     const list = [...years.entries()].map(([year, groups]) => {
-      const issues = [...groups.entries()].map(([key, items]) => ({ key, label: formatDate(key, "long"), items }));
+      const issues = [...groups.entries()].map(([key, items]) => ({
+        key, items,
+        label: formatDate(key, "long") + (key > lastFriday() ? " (coming Friday; new so far)" : ""),
+      }));
       // "Jump to month" links: each month points at its first (latest) issue on the page.
       const months = new Map();
       for (const i of issues) if (!months.has(i.key.slice(5, 7))) months.set(i.key.slice(5, 7), i.key);
@@ -280,7 +301,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("latestIssue", (api) => {
     const all = articles(api);
     if (!all.length) return null;
-    const date = issueFriday(all[0].data.date);
+    const date = currentIssue(all);
     const start = addDays(date, -6);
     const inWeek = (i) => ymd(i.data.date) >= start && ymd(i.data.date) <= date;
     const seen = new Set();
@@ -345,6 +366,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("longDate", () => formatDate(todayET(), "weekday"));
   eleventyConfig.addFilter("range", (a, b) => formatRange(a, b));
   eleventyConfig.addFilter("issueOf", (v) => issueFriday(v));
+  // True for an issue that hasn't come out yet (its Friday is still ahead).
+  eleventyConfig.addFilter("isUpcomingIssue", (key) => key > lastFriday());
   eleventyConfig.addFilter("rangeLong", (a, b) => (ymd(a) ? formatRange(a, b) + ", " + ymd(b || a).slice(0, 4) : ""));
   eleventyConfig.addFilter("plusDays", (v, n) => addDays(ymd(v), n));
   eleventyConfig.addFilter("uniqueBy", (arr, key) => {

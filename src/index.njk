@@ -15,7 +15,7 @@ oldPath: /home
 <div class="home-top">
   {%- if hs.lead %}
   <div class="home-lead">
-    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = true %}{% set hideDate = true %}
+    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = true %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
     {% include "partials/story.njk" %}
   </div>
   {%- endif %}
@@ -28,7 +28,7 @@ oldPath: /home
     </div>
     <div class="story-grid{% if hs.news.length is odd %} is-odd{% endif %}">
       {%- for item in hs.news %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set hideDate = true %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
       {% include "partials/story.njk" %}
       {%- endfor %}
     </div>
@@ -48,7 +48,7 @@ oldPath: /home
     </div>
     <div class="story-grid {{ 'story-grid-3' if (fc % 3 == 0 or fc == 5) else ('story-grid-2' if fc != 1 else 'story-grid-1') }}">
       {%- for item in hs.features %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set hideDate = hs.featuresAreCurrent %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = hs.featuresAreCurrent and not isNew %}
       {% include "partials/story.njk" %}
       {%- endfor %}
     </div>

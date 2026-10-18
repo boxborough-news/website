@@ -1,4 +1,4 @@
-{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserWords, hideDate.
+{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserWords, hideDate, isNew.
     Without an editor's summary, the teaser is the story's opening, so it ends with "…" to show it continues. -#}
 {%- set d = item.data %}
 <article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% endif %}">
@@ -12,8 +12,8 @@
   </a>
   {%- endif %}
   <div class="story-text">
-    {%- if showSection %}
-    <p class="kicker">{{ (d.section | sectionInfo(sections)).name }}</p>
+    {%- if showSection or isNew %}
+    <p class="kicker">{% if showSection %}{{ (d.section | sectionInfo(sections)).name }}{% endif %}{% if isNew %}{% if showSection %} · {% endif %}<span class="new-tag">New</span>{% endif %}</p>
     {%- endif %}
     <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
     {%- set isExcerpt = not (d.summary and (d.summary | trim)) %}

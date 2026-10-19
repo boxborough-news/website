@@ -104,7 +104,7 @@ try {
     `## Newsletter draft ${existing ? "updated" : "created"} in Kit`,
     `**${issue.subject}**. ${issue.count} stories. Draft #${id}.`,
     "",
-    "Next: log in to Kit, open **Send → Broadcasts**, find the draft, check it, and click **Send**.",
+    "Next: log in to Kit, click **Broadcasts** in the menu on the left, find the draft, check it, and click **Send**.",
     `Web preview: ${previewUrl}`,
   ]);
 } catch (err) {

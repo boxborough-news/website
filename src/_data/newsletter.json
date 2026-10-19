@@ -1,8 +1,11 @@
 {
   "subject": "Boxborough News – {date}",
   "intro": "",
+  "intro_issue": "",
+  "intro_signature": "Cassie LaRussa & Abby Reip, Editors",
   "closing": "Boxborough News is written and edited by volunteers. Have a news tip or story idea? Just reply to this email.",
   "include_townhall": true,
   "include_events": true,
-  "kit_email_template_id": ""
+  "kit_email_template_id": "",
+  "include_outside_the_box": true
 }

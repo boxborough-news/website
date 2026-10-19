@@ -113,11 +113,11 @@ When a meeting deserves a heads-up (a big vote, a public hearing), you can add a
 
 ## The Friday email
 
-**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email: headlines, photos, summaries, and "Read more" links to each article, plus the town meetings note (if any), upcoming town meetings and upcoming events. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
+**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email, in the same order as the home page: the **Top story** with a large photo, then the week's News and Features (headline, photo, opening sentences and a "Read more" link), then a short list of the coming week's events (Boxborough first, then nearby towns, plus events newly announced for later dates), the headlines of new community notices, and finally the town meetings note (if any) and upcoming town meetings. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
 
 To send it:
 1. Log in to **Kit** (https://app.kit.com) with the Boxborough News account.
-2. Go to **Send → Broadcasts**. This week's draft is at the top, titled like *"Boxborough News – September 18, 2026"*.
+2. Click **Broadcasts** in the menu on the left. This week's draft is at the top, titled like *"Boxborough News – September 18, 2026"*.
 3. Click it and read it through. You can make small edits there if needed.
 4. Click **Send**. (You can also schedule it for a particular time.)
 
@@ -125,7 +125,7 @@ To send it:
 
 **Added or fixed an article after the draft was made?** In Pages CMS, look for the action button labeled **Create this week's email draft now** and click it. This refreshes the existing draft rather than making a second one. If you don't see the button, just edit the draft directly in Kit.
 
-**To add a personal note at the top of an issue,** open **Weekly email settings**, type it in **Note at the top of this week's email**, and save before Friday morning. Remember to clear it afterwards, or it will appear again the following week.
+**To add the editors' note at the top of an issue** (a few friendly lines pointing readers to the week's stories, like the note in the old newsletter): open **Weekly email settings**, write it in **Editors' note**, set **The note is for the issue dated** to that Friday, and save before Friday morning. To link to a story, select the words, click the link button and paste the story's web address. The note is signed with the name in **Signed by**. Because it's tied to that Friday, it won't appear again the following week, so there's nothing to clear. If you add or change the note after the draft has been made, click **Create this week's email draft now** to refresh the draft.
 
 ---
 

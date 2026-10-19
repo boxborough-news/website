@@ -422,9 +422,20 @@ content:
         type: string
         description: "{date} is replaced with the issue date, e.g. 'Boxborough News – {date}'."
       - name: intro
-        label: Note at the top of this week's email (optional)
+        label: Editors' note at the top of this week's email (optional)
         type: text
-        description: "Clear this after the email goes out, or it will appear again next week."
+        description: "A few friendly lines about this week's stories, like the note in the old newsletter. Links work: select words and add a link to a story."
+      - name: intro_issue
+        label: The note is for the issue dated
+        type: date
+        default: ""
+        description: "The Friday this note belongs to. It appears only in that issue, so there's no need to clear it afterwards. Leave blank to show it every week."
+        options:
+          format: yyyy-MM-dd
+      - name: intro_signature
+        label: Signed by
+        type: string
+        description: "Shown under the editors' note, e.g. 'Cassie LaRussa & Abby Reip, Editors'."
       - name: closing
         label: Closing line
         type: text
@@ -435,6 +446,10 @@ content:
       - name: include_events
         label: Include upcoming events
         type: boolean
+      - name: include_outside_the_box
+        label: Include a link to Outside the Box
+        type: boolean
+        description: "A short line near the end pointing readers to news from neighboring towns."
       - name: kit_email_template_id
         label: Kit email template ID (set up once; leave as is)
         type: string

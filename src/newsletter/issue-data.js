@@ -1,6 +1,6 @@
 // Collects this week's stories and turns them into the newsletter.
 import { buildNewsletter } from "../../lib/newsletter.js";
-import { todayET, ymd, addDays, formatDate, continued } from "../../lib/content.js";
+import { todayET, ymd, addDays, formatDate, formatRange, continued } from "../../lib/content.js";
 
 export function makeIssue(data, mode = "next") {
   const { collections, site, newsletter, townhall, siteUrl, townCalendar } = data;
@@ -15,10 +15,20 @@ export function makeIssue(data, mode = "next") {
     event_date: i.data.start_date,
     event_time: i.data.time,
     location: [i.data.location, i.data.town].filter(Boolean).join(", "),
+    type: i.data.type,
+    organizer: i.data.organizer || "",
+    start: ymd(i.data.start_date),
+    end: ymd(i.data.end_date),
+    topStory: i.data.top_story === true,
   });
   // Upcoming events come as rows (one per date; a series shows its next session).
+  // A session of a series shows the series name on its detail line, unless the two say the same thing.
+  const seriesNote = (r) => (r.series && r.series !== r.title && !r.series.includes(r.title) ? r.series : "");
   const toEvent = (r) => ({
-    title: r.series ? `${r.title} (${r.series})` : r.title,
+    title: r.series && !seriesNote(r) ? r.series : r.title,
+    series: seriesNote(r),
+    date: r.date,
+    town: r.town || "",
     url: abs(r.url),
     when: r.ongoing ? `Through ${formatDate(r.end, "eventday")}` : formatDate(r.date, "eventday"),
     event_time: [
@@ -31,18 +41,46 @@ export function makeIssue(data, mode = "next") {
   // "latest": the most recent email already published, shown as a sample on the Subscribe page.
   const latest = mode === "latest" ? collections.latestIssue : null;
   const week = latest ? { end: latest.date, news: latest.news, features: latest.features, announcements: latest.announcements } : collections.thisWeek;
-  const news = [...week.news];
-  const topIdx = news.findIndex((i) => i.data.top_story === true);
-  if (topIdx > 0) news.unshift(news.splice(topIdx, 1)[0]);
+  // The lead story, as on the home page: the one ticked "Top story", otherwise the first
+  // News story with a photo. It opens the email with a large picture.
+  const stories = [...week.news, ...week.features];
+  const lead =
+    stories.find((i) => i.data.top_story === true) ||
+    week.news.find((i) => i.data.image) ||
+    stories.find((i) => i.data.image) ||
+    null;
+  const news = week.news.filter((i) => i !== lead);
+  const features = week.features.filter((i) => i !== lead);
+
+  // The coming week's events (the seven days from the issue date), Boxborough first.
+  const weekEnd = addDays(week.end, 6);
+  const eventRows = latest ? latest.events : collections.upcomingEvents;
+  const thisWeekEvents = eventRows.filter((r) => r.sort <= weekEnd).map(toEvent);
+  const isBox = (ev) => /boxborough/i.test(ev.town);
+  const shownEvents = new Set(thisWeekEvents.map((ev) => ev.url));
+  const newItems = week.announcements.map(toItem);
+  // Events announced this week that happen later: listed briefly with their date.
+  const laterEvents = newItems
+    .filter((a) => a.type === "event" && !shownEvents.has(a.url) && a.start && a.start > weekEnd)
+    .sort((a, b) => a.start.localeCompare(b.start));
+  const notices = newItems.filter((a) => a.type !== "event");
   const showTownhall =
     newsletter.include_townhall && townhall.show && townhall.body && (!townhall.hide_after || ymd(townhall.hide_after) >= todayET());
 
   return buildNewsletter({
     issueDate: week.end,
+    lead: lead ? toItem(lead) : null,
     news: news.map(toItem),
-    features: week.features.map(toItem),
-    announcements: week.announcements.map(toItem),
-    events: newsletter.include_events ? (latest ? latest.events : collections.upcomingEvents).slice(0, 6).map(toEvent) : [],
+    features: features.map(toItem),
+    announcements: newItems,
+    notices,
+    events: newsletter.include_events
+      ? {
+          boxborough: thisWeekEvents.filter(isBox).slice(0, 6),
+          nearby: thisWeekEvents.filter((ev) => !isBox(ev)).slice(0, 3),
+          later: laterEvents.map((a) => ({ ...a, when: a.end && a.end > a.start ? formatRange(a.start, a.end) : formatDate(a.start, "eventday") })),
+        }
+      : { boxborough: [], nearby: [], later: [] },
     site: { ...site, url: siteUrl },
     settings: newsletter,
     townhall: showTownhall ? townhall : null,

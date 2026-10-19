@@ -5,6 +5,8 @@
 // Settings:
 //   KIT_API_KEY   (GitHub secret)  Kit → Settings → Developer → "Add a new key" (V4)
 //   --dry-run                      print what would be sent without contacting Kit
+//   NEWSLETTER_TEST=1              make a test draft ("TEST – …") from the most recent published
+//                                  issue instead of the coming Friday's (for trying it out)
 import fs from "node:fs";
 
 const API = process.env.KIT_API_BASE || "https://api.kit.com/v4";
@@ -18,7 +20,8 @@ function report(lines) {
   if (summaryFile) fs.appendFileSync(summaryFile, text + "\n");
 }
 
-const issuePath = "_site/newsletter/this-week.json";
+const TEST = Boolean(process.env.NEWSLETTER_TEST);
+const issuePath = TEST ? "_site/newsletter/latest.json" : "_site/newsletter/this-week.json";
 if (!fs.existsSync(issuePath)) {
   console.error(`Couldn't find ${issuePath}. Build the site first (npx eleventy).`);
   process.exit(1);
@@ -26,8 +29,12 @@ if (!fs.existsSync(issuePath)) {
 const issue = JSON.parse(fs.readFileSync(issuePath, "utf8"));
 const settings = JSON.parse(fs.readFileSync("src/_data/newsletter.json", "utf8"));
 const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
-const previewUrl = (process.env.SITE_URL || site.url).replace(/\/$/, "") + "/newsletter/this-week/";
+const previewUrl = (process.env.SITE_URL || site.url).replace(/\/$/, "") + (TEST ? "/newsletter/latest/" : "/newsletter/this-week/");
 
+if (!issue.count && TEST) {
+  report(["## No test draft", "There is no published issue yet to make a test draft from."]);
+  process.exit(0);
+}
 if (!issue.count) {
   report([
     "## No newsletter draft this week",
@@ -37,10 +44,12 @@ if (!issue.count) {
 }
 
 const payload = {
-  subject: issue.subject,
+  subject: (TEST ? "TEST – " : "") + issue.subject,
   preview_text: issue.previewText.length > 140 ? issue.previewText.slice(0, 140).replace(/\s+\S*$/, "") + "…" : issue.previewText,
   content: issue.bodyHtml,
-  description: `Weekly newsletter for ${issue.issueDate} (created automatically)`,
+  description: TEST
+    ? `Test copy of the ${issue.issueDate} newsletter (safe to delete)`
+    : `Weekly newsletter for ${issue.issueDate} (created automatically)`,
   public: false,
   published_at: new Date().toISOString(),
   send_at: null,

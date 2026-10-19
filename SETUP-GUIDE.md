@@ -56,6 +56,7 @@ Use a shared Boxborough News account (e.g. boxboroughnews@gmail.com) for every s
 1. In Pages CMS, add a test article with today's date and a photo, and click **Save**.
 2. In GitHub, the **Actions** tab shows **Publish website** running. When it finishes, the article is on the site.
 3. In Pages CMS, click the **Create this week's email draft now** action (or in GitHub: Actions → **Weekly newsletter draft** → Run workflow).
+   *To test on any day,* even when nothing has been published yet for the coming Friday: in GitHub, open **Actions → Weekly newsletter draft → Run workflow**, tick **Test with the most recent issue**, and click **Run workflow**. This makes a draft titled *TEST – Boxborough News – (last Friday's date)* from the last issue. Delete it in Kit when you're done.
 4. In Kit, open **Send → Broadcasts**. The draft should be there. Send it to yourself with **Preview → Send test email** and check it on your phone.
 5. Delete the test article, or tick **Draft**.
 

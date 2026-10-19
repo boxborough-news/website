@@ -42,6 +42,7 @@ Use a shared Boxborough News account (e.g. boxboroughnews@gmail.com) for every s
 3. **Bring over your current subscribers.** Open the Google Sheet that collects responses from the current Google Form, choose **File → Download → CSV**, then in Kit go to **Grow → Subscribers → Import** and upload the file.
 4. **Create a sign-up form:** **Grow → Landing Pages & Forms → Create new → Form → Inline**. Pick a simple style and save it. Then:
    - Click **Publish → HTML**, copy the code, and in Pages CMS open **Site settings** and paste it into **Newsletter sign-up form code**. A sign-up form now appears on the site.
+   - The form's own headline and description lead the website's **Subscribe** page, so write them in Kit (for example, *Get Boxborough News every Friday* and *The week's town news, features and upcoming events, free in your inbox.*). The smaller sign-up box on the home page and article pages has its own headline, so the website hides Kit's headline and description there.
    - Also copy the form's **hosted link** (under Publish → Share) into **Newsletter sign-up link**.
    - Once this works, stop accepting responses on the old Google Form.
 5. **Connect Kit to the website** so the Friday draft can be created:

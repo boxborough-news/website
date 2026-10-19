@@ -553,7 +553,7 @@ content:
       - name: subscribe_embed_code
         label: Newsletter sign-up form code (optional)
         type: text
-        description: "Paste the 'embed' HTML from your email service to show a sign-up form right on the site instead of a button. Leave blank to use the Sign-up page link above."
+        description: "Paste the 'embed' HTML from your email service to show a sign-up form right on the site instead of a button. The form's own headline and description lead the Subscribe page (edit them in Kit); the sign-up box on other pages shows only the email field. Leave blank to use the Sign-up page link above."
       - name: submit_form_url
         label: Event and notice submission form link (optional)
         type: string

@@ -269,6 +269,26 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .newsletter-title { font-family: var(--serif); font-size: 26px; line-height: 1.2; color: #fff; margin: 0 0 6px; font-weight: 650; }
 .newsletter-band p { margin: 0; font-size: 17px; }
 .newsletter-band .embed { background: #fff; color: var(--text); padding: 8px; border-radius: 4px; }
+/* Kit sign-up form in this box: the box already has its own headline and description,
+   so Kit's are hidden here. They still show on the Subscribe page and Kit's own page. */
+.newsletter-band.has-embed > div:first-child { flex: 1 1 300px; }
+.newsletter-band.has-embed .newsletter-action { flex: 1 1 440px; max-width: 560px; }
+.newsletter-band .embed:has(.formkit-form) { padding: 0; }
+.newsletter-band .formkit-form { max-width: none !important; border: 0 !important; }
+.newsletter-band .formkit-header,
+.newsletter-band .formkit-subheader { display: none !important; }
+.newsletter-band .formkit-form [data-style="minimal"] { padding: 18px 18px 8px !important; }
+.newsletter-band .formkit-fields { margin-top: 0 !important; }
+.newsletter-band .formkit-guarantee { margin: 4px 0 6px !important; }
+.newsletter-band .formkit-powered-by-convertkit-container { margin: 0 !important; }
+/* The Subscribe page: the Kit form leads the page, so it needs the space a page title would have. */
+.subscribe-panel-embed { margin: 26px 0 28px; }
+.subscribe-panel-embed .formkit-form { max-width: none !important; }
+.subscribe-panel-embed .formkit-header h2 { font-size: 34px; line-height: 1.2; margin: 0; font-weight: 650; }
+.subscribe-panel-embed .formkit-subheader { line-height: 1.5; }
+@media (max-width: 640px) { .subscribe-panel-embed .formkit-header h2 { font-size: 28px; } }
+/* Kit's (empty) error area keeps a margin, leaving a gap above the email field. */
+.formkit-form .formkit-alert:empty { display: none !important; }
 .newsletter-band :focus-visible { outline-color: #fff; }
 
 /* ---------- Article ---------- */

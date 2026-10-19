@@ -4,6 +4,14 @@ permalink: /subscribe/
 title: Subscribe
 ---
 <article class="article page-article">
+  {%- if site.subscribe_embed_code %}
+  {#- The sign-up form from Kit carries its own headline and description,
+      so the page doesn't repeat them. Edit that wording in Kit. #}
+  <h1 class="visually-hidden">Subscribe to the Boxborough News newsletter</h1>
+  <div class="subscribe-panel subscribe-panel-embed">
+    {{ site.subscribe_embed_code | safe }}
+  </div>
+  {%- else %}
   <header class="article-head">
     <h1 class="article-title">Get Boxborough News every Friday</h1>
   </header>
@@ -11,16 +19,16 @@ title: Subscribe
     <p>Our free email newsletter arrives every Friday with the week's town news, features, and upcoming events. You can unsubscribe at any time, and we never share your email address.</p>
   </div>
   <div class="subscribe-panel">
-    {%- if site.subscribe_embed_code %}
-    {{ site.subscribe_embed_code | safe }}
-    {%- else %}
     <a class="button button-large" href="{{ site.subscribe_url }}">Sign up for the free newsletter</a>
     {%- if "docs.google.com/forms" in site.subscribe_url %}
     <p class="small">The sign-up form opens in Google Forms. Just enter your email address. You don't need to sign in to Google.</p>
     {%- endif %}
-    {%- endif %}
   </div>
+  {%- endif %}
   <div class="prose">
+    {%- if site.subscribe_embed_code %}
+    <p>We never share your email address.</p>
+    {%- endif %}
     {%- if collections.latestIssue %}
     <p><a href="/newsletter/latest/">See a recent email</a> (the {{ collections.latestIssue.date | date("long") }} issue) to get a sense of what you'll receive.</p>
     {%- endif %}

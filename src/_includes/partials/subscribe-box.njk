@@ -1,7 +1,12 @@
-<section class="newsletter-band" aria-labelledby="newsletter-head">
+<section class="newsletter-band{% if site.subscribe_embed_code %} has-embed{% endif %}" aria-labelledby="newsletter-head">
   <div>
     <h2 id="newsletter-head" class="newsletter-title">Boxborough News in your inbox every Friday</h2>
+    {%- if site.subscribe_embed_code %}
+    {#- The sign-up form below already says you can unsubscribe at any time. #}
+    <p>The week's town news, features and upcoming events, free.</p>
+    {%- else %}
     <p>The week's town news, features and upcoming events. Free, and you can unsubscribe at any time.</p>
+    {%- endif %}
   </div>
   <div class="newsletter-action">
     {%- if site.subscribe_embed_code %}

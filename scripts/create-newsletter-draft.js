@@ -96,6 +96,12 @@ try {
   } catch (err) {
     console.warn("Could not list existing broadcasts, will create a new draft:", err.message);
   }
+  // The second Friday-morning run leaves an existing draft alone, so it never overwrites
+  // changes an editor has already made in Kit. (The Pages CMS button still refreshes it.)
+  if (existing && process.env.SCHEDULED_RUN) {
+    report([`## Draft already in Kit`, `**${payload.subject}** was already created this morning; it was left as is.`]);
+    process.exit(0);
+  }
   const result = existing
     ? await kit("PUT", `/broadcasts/${existing.id}`, payload)
     : await kit("POST", "/broadcasts", payload);

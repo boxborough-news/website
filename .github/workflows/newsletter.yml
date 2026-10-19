@@ -1,4 +1,4 @@
-# Every Friday morning: build this week's newsletter and save it as a DRAFT in Kit.
+# Every Friday morning (about 6:20 a.m.): build this week's newsletter and save it as a DRAFT in Kit.
 # An editor then reviews it in Kit and presses Send. Nothing is sent automatically.
 # Editors can also run this any time with the "Create this week's email draft now"
 # button in Pages CMS. To try the whole email before a real Friday, run it from the
@@ -7,7 +7,10 @@ name: Weekly newsletter draft
 
 on:
   schedule:
-    - cron: "0 10 * * 5" # Fridays, 6:00 a.m. Boston time (5:00 a.m. in winter)
+    # Just after Friday's articles go live at 6 a.m. Two runs cover summer and winter time;
+    # the later one does nothing if the first already made the draft, so edits made in Kit are kept.
+    - cron: "20 10 * * 5" # Fridays, 6:20 a.m. Boston time in summer (5:20 a.m. in winter: too early, nothing yet)
+    - cron: "20 11 * * 5" # Fridays, 6:20 a.m. Boston time in winter (7:20 a.m. in summer)
   workflow_dispatch:
     inputs:
       payload:
@@ -47,3 +50,4 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           NEWSLETTER_TEST: ${{ inputs.test && '1' || '' }}
+          SCHEDULED_RUN: ${{ github.event_name == 'schedule' && '1' || '' }}

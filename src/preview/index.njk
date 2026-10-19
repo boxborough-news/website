@@ -1,0 +1,44 @@
+---
+layout: layouts/base.njk
+permalink: /preview/
+title: Preview
+noindex: true
+eleventyExcludeFromCollections: true
+---
+{#- Unlisted page for editors: everything saved in Pages CMS that isn't on the website yet.
+    Not linked from the site and hidden from search engines. -#}
+{%- set scheduled = [] %}{% set drafts = [] %}
+{%- for p in previewItems %}{% if p.status == "draft" %}{% set drafts = (drafts.push(p), drafts) %}{% else %}{% set scheduled = (scheduled.push(p), scheduled) %}{% endif %}{% endfor %}
+<article class="article page-article">
+  <header class="article-head">
+    <h1 class="article-title">Preview</h1>
+  </header>
+  <div class="prose">
+    <p>This page shows everything saved in Pages CMS that isn't on the website yet, so you can check how it will look. It updates about two minutes after you click Save. Readers can't find this page: it isn't linked from the website or listed in search engines.</p>
+    <p><a href="/preview/email/">Preview the coming Friday's email</a>, including articles scheduled for that day.</p>
+  </div>
+
+  <h2 class="label">Scheduled</h2>
+  {%- if scheduled.length %}
+  <ul class="preview-list">
+    {%- for p in scheduled %}
+    <li><span class="preview-tag scheduled">Scheduled</span><a href="{{ p.url }}">{{ p.data.title | smart }}</a>
+      <span class="meta">{% if p.isAnn %}{{ "Event" if p.kind == "event" else "Community notice" }}{% else %}{{ (p.data.section | sectionInfo(sections)).name }}{% endif %} · Goes live {{ p.date | date("weekday") }}, 6 a.m.{% if p.data.top_story %} · Top story{% endif %}</span></li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="small">Nothing is scheduled right now.</p>
+  {%- endif %}
+
+  <h2 class="label">Drafts</h2>
+  {%- if drafts.length %}
+  <ul class="preview-list">
+    {%- for p in drafts %}
+    <li><span class="preview-tag draft">Draft</span><a href="{{ p.url }}">{{ p.data.title | smart }}</a>
+      <span class="meta">{% if p.isAnn %}{{ "Event" if p.kind == "event" else "Community notice" }}{% else %}{{ (p.data.section | sectionInfo(sections)).name }}{% endif %}{% if p.date %} · Dated {{ p.date | date("long") }}{% endif %} · Won't appear until Draft is unticked</span></li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="small">There are no drafts right now.</p>
+  {%- endif %}
+</article>

@@ -8,9 +8,9 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 
 | When | What to do |
 |---|---|
-| Monday to Thursday | Add articles as they're ready, with **Friday's date** as the publication date so they appear together on Friday morning. Add events and notices as they arrive. |
-| Thursday | Tick one **Top story** for the week. Optional: add a **Town meetings note** if a meeting next week deserves a heads-up. |
-| **Friday morning** | Open **Kit**, review the email draft that was created automatically, and click **Send**. |
+| Monday to Thursday | Add articles as they're ready, with **Friday's date** as the publication date so they appear together at 6 a.m. Friday. Add events and notices as they arrive. You can keep working late Thursday night: nothing dated Friday goes live before 6 a.m. |
+| Thursday | Check the week's articles on the **Preview** page (see below). Tick one **Top story** for the week. Optional: write the **Editors' note** for the email (see *The Friday email*), and add a **Town meetings note** if a meeting next week deserves a heads-up. |
+| **Friday morning** | Shortly after 6 a.m., the articles go live and an email draft appears in **Kit**. Review it and click **Send**. |
 
 ---
 
@@ -34,7 +34,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 |---|---|
 | **Headline** | The article's headline. |
 | **Section** | **News** for town government, schools and public safety. **Features** for people, events and community life. |
-| **Publication date** | Use the **Friday** of the issue. A future date schedules the article; it goes live early that morning. (Today's date publishes it right away.) |
+| **Publication date** | Use the **Friday** of the issue. A future date schedules the article: it goes live at 6 a.m. that day. Today's date publishes it within a couple of minutes (or at 6 a.m., if you save before then). For an article between issues (around Town Meeting, say), use the day you publish it: it appears at the top of the home page marked "New" and goes into the next Friday's email. |
 | **Byline** | Optional, e.g. *By Jane Smith*. |
 | **Summary** | Optional. One or two sentences shown on the home page and in the email. If you leave it blank, the first couple of sentences of the article are used, which usually works well. (Those opening sentences end with "…" so readers know the story continues.) |
 | **Main photo** | Optional. Click to upload (see *Photos* below). |
@@ -43,17 +43,20 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 | **Keep in view when trimmed** | Leave as **Center** for most photos. The home page and section pages trim photos to a standard shape; for a portrait or a tall subject, choose **Top** so heads aren't cut off. |
 | **Photo caption / credit** | Optional. Shown under the photo. |
 | **Top story** | Tick **one** story each week. It becomes the large lead story at the top of the home page and leads the email. If nothing is ticked, the issue's first News story with a photo is used. The rest of the issue's News and Features follow it; stories from earlier issues move to a short "Earlier issues" list. |
-| **Draft** | Tick to save your work without publishing it. Untick when it's ready. |
+| **Draft** | Tick to save your work without publishing it. Untick when it's ready. (The website's files are stored publicly on GitHub, so a determined person could read a draft there. Don't save anything confidential, such as an embargoed story or someone's private details, until it's ready to publish.) |
 | **Article text** | Type or paste the article. Pasting from Word or Google Docs works. Use the toolbar for **bold**, *italics*, headings, lists and links. |
 
 4. Click **Save**. About two minutes later, the article is on the website, on the home page, in its section, in the archive, and in search. Nothing else needs updating.
 
 **Tip:** to link to a town document or agenda, highlight the words, click the link button, and paste the web address.
 
+### Previewing before it goes live
+Articles, events and notices that are scheduled or saved as drafts don't appear on the website, but you can see exactly how they'll look on the **Preview** page: **boxboroughnews.org/preview/** (until the boxboroughnews.org address moves to the new website, **boxborough-news.github.io/website/preview/**). It lists everything that isn't live yet, with a link to each item's preview, and a preview of the coming Friday's email. It updates about two minutes after you click **Save**. The page isn't linked from the website and is hidden from search engines, so readers won't come across it.
+
 ### Photos
 - JPG or PNG photos straight from a phone or camera are fine. The website automatically makes small, fast-loading copies.
 - Any size is fine. A minute or two after you save, the website automatically shrinks large photos so they don't fill up the site's free storage.
-- Always fill in the **photo credit**, and get permission for photos you didn't take.
+- Get permission for photos you didn't take. A caption or credit is optional; add a credit when the photographer or source asks for one.
 - To add a photo *inside* the article text, click the image button in the toolbar.
 
 ### Fixing a mistake
@@ -71,7 +74,7 @@ Open it and tick **Draft**, then **Save**. It disappears from the website but is
 
 Use **Events & Notices** in the left menu for everything submitted by community groups. Each entry is one of two kinds:
 
-- **Event**: something people can attend on a date. Events are listed on the **Events** page by date (this week, next week, later), in the "This week in Boxborough" box on the home page and in the Friday email. They drop off by themselves once their last day has passed, and move to **Past events**.
+- **Event**: something people can attend on a date. Events are listed on the **Events** page by date (this week, next week, later), in the "This week" box on the home page and in the Friday email. They drop off by themselves once their last day has passed, and move to **Past events**.
 - **Community notice**: a news release, a message from an organization, a call for volunteers. Notices are listed on the **Community notices** page, newest first.
 
 | Field | What to put |
@@ -113,19 +116,19 @@ When a meeting deserves a heads-up (a big vote, a public hearing), you can add a
 
 ## The Friday email
 
-**Every Friday at about 6 a.m.**, the system gathers everything published in the past seven days into a formatted email, in the same order as the home page: the **Top story** with a large photo, then the week's News and Features (headline, photo, opening sentences and a "Read more" link), then a short list of the coming week's events (Boxborough first, then nearby towns, plus events newly announced for later dates), the headlines of new community notices, and finally the town meetings note (if any) and upcoming town meetings. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
+**Every Friday shortly after 6 a.m.** (once the issue has gone live), the system gathers everything published in the past seven days into a formatted email, in the same order as the home page: the **Top story** with a large photo, then the week's News and Features (headline, photo, opening sentences and a "Read more" link), then a short list of the coming week's events (Boxborough first, then nearby towns, plus events newly announced for later dates), the headlines of new community notices, and finally the town meetings note (if any) and upcoming town meetings. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
 
 To send it:
-1. Log in to **Kit** (https://app.kit.com) with the Boxborough News account.
+1. Log in to **Kit** (https://app.kit.com) with the Boxborough News account. (Ask the site administrator for the login.)
 2. Click **Broadcasts** in the menu on the left. This week's draft is at the top, titled like *"Boxborough News – September 18, 2026"*.
 3. Click it and read it through. You can make small edits there if needed.
 4. Click **Send**. (You can also schedule it for a particular time.)
 
-**Want to preview the email before Friday?** Visit **boxboroughnews.org/newsletter/this-week/** at any time. It shows the coming Friday's issue as it stands: events, town meetings and anything already published that week. Stories scheduled for Friday join it early Friday morning, before the draft is made. (The Subscribe page links to a different page, **/newsletter/latest/**, which shows the most recent email already sent, so new readers always see a complete issue.)
+**Want to preview the email before Friday?** Open the **Preview** page (see *Previewing before it goes live*) and click **Preview the coming Friday's email**. It shows the coming issue as it stands, including the stories scheduled for Friday. (The Subscribe page links to a different page, **/newsletter/latest/**, which shows the most recent email already sent, so new readers always see a complete issue.)
 
 **Added or fixed an article after the draft was made?** In Pages CMS, look for the action button labeled **Create this week's email draft now** and click it. This refreshes the existing draft rather than making a second one. If you don't see the button, just edit the draft directly in Kit.
 
-**To add the editors' note at the top of an issue** (a few friendly lines pointing readers to the week's stories, like the note in the old newsletter): open **Weekly email settings**, write it in **Editors' note**, set **The note is for the issue dated** to that Friday, and save before Friday morning. To link to a story, select the words, click the link button and paste the story's web address. The note is signed with the name in **Signed by**. Because it's tied to that Friday, it won't appear again the following week, so there's nothing to clear. If you add or change the note after the draft has been made, click **Create this week's email draft now** to refresh the draft.
+**To add the editors' note at the top of an issue** (a few friendly lines pointing readers to the week's stories, like the note in the old newsletter): open **Weekly email settings**, write it in **Editors' note**, set **The note is for the issue dated** to that Friday, and save before Friday morning. To link to a story, select the words, click the link button and paste the story's web address: open the story on the new website and copy the address from your browser's address bar. (Don't copy links out of an old newsletter; those go through the old email service.) The note is signed with the name in **Signed by**. Because it's tied to that Friday, it won't appear again the following week, so there's nothing to clear. If you add or change the note after the draft has been made, click **Create this week's email draft now** to refresh the draft.
 
 ---
 
@@ -141,8 +144,9 @@ To send it:
 
 | Problem | What to check |
 |---|---|
-| I saved, but my article isn't on the site | Wait two or three minutes, then refresh the page. Check that **Draft** is unticked and the **Publication date** isn't in the future. |
+| I saved, but my article isn't on the site | Wait two or three minutes, then refresh the page. Check that **Draft** is unticked and the **Publication date** isn't in the future. Anything dated today appears from 6 a.m. Until then, it's on the **Preview** page. |
 | The home page still shows last week's town meetings note | Check **Hide automatically after** in **Town meetings note**, or untick **Show a note**. |
 | An event is missing from the Events page | Check that **Kind** is *Event*, the **Event: date** is filled in, and its last day hasn't passed. |
 | There's no email draft in Kit on Friday | If nothing was published that week, no draft is made. Otherwise click **Create this week's email draft now**, or ask the site administrator. |
+| Pages CMS won't save my changes | Someone else probably saved the same item while you had it open. Copy your text, reload the page, paste your changes back in and save again. |
 | Anything else | Contact the site administrator. Every change is saved in the site's history, so nothing is ever truly lost. |

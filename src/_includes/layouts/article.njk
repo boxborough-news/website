@@ -7,11 +7,19 @@ layout: layouts/base.njk
 {%- set place = location %}
 {%- if town and not ("online" in (town | lower)) and not (location and (town in location)) %}{% set place = (location + ", " + town) if location else town %}{% endif %}
 {%- set searchSection = "Events" if isEvent else ("Community notices" if isAnn else sec.name) %}
-<article class="article" data-pagefind-body data-pagefind-sort="date:{{ date | ymd }}" data-pagefind-meta="section:{{ searchSection }}" data-pagefind-filter="section:{{ searchSection }}">
+{#- Preview pages (src/preview/) use this layout too, but stay out of the site's search. #}
+<article class="article"{% if not preview %} data-pagefind-body{% endif %} data-pagefind-sort="date:{{ date | ymd }}" data-pagefind-meta="section:{{ searchSection }}" data-pagefind-filter="section:{{ searchSection }}">
   <span hidden data-pagefind-filter="year:{{ date | ymd | truncate(4, true, '') }}"></span>
   {#- Pagefind would otherwise record the photo's file name (like /img/D_WKVcQzTu-640.jpeg) as
       searchable metadata, so nonsense searches matched it. Search results don't show photos. #}
   <span hidden data-pagefind-meta="image:-"></span>
+  {%- if preview %}
+  <p class="preview-banner">
+    {%- if pv.status == "draft" %}<strong>Preview of a draft.</strong> This won't appear on the website until <em>Draft</em> is unticked in Pages CMS.
+    {%- else %}<strong>Preview.</strong> This goes live on {{ pv.date | date("weekday") }}, at 6 a.m.{% endif %}
+    <a href="/preview/">All previews</a>
+  </p>
+  {%- endif %}
   <header class="article-head">
     <p class="kicker" data-pagefind-ignore>
       {%- if isEvent %}<a href="/events/">Events</a>
@@ -46,7 +54,7 @@ layout: layouts/base.njk
     {%- if cost %}<div><dt>Cost</dt><dd>{{ cost }}</dd></div>{% endif %}
     {%- if registration %}<div><dt>Registration</dt><dd>{{ registration }}</dd></div>{% endif %}
     {%- if link %}<div><dt>More info</dt><dd><a href="{{ link }}">{{ link | replace("https://", "") | replace("http://", "") | replace("www.", "") | truncate(44) }}</a></dd></div>{% endif %}
-    <div class="event-facts-cal"><dt>Calendar</dt><dd><a href="{{ page.url }}event.ics">Add to Apple or Outlook calendar</a> · <a href="{{ title | gcal(start_date, end_date, time, place, page.url | absolute, weekdays) }}">Add to Google Calendar</a></dd></div>
+    {%- if not preview %}<div class="event-facts-cal"><dt>Calendar</dt><dd><a href="{{ page.url }}event.ics">Add to Apple or Outlook calendar</a> · <a href="{{ title | gcal(start_date, end_date, time, place, page.url | absolute, weekdays) }}">Add to Google Calendar</a></dd></div>{% endif %}
   </dl>
   {%- if sessions and sessions.length %}
   <section class="sessions" aria-labelledby="schedule">
@@ -85,6 +93,7 @@ layout: layouts/base.njk
   </figure>
   {%- endif %}
 
+  {%- if not preview %}
   <footer class="article-foot" data-pagefind-ignore>
     {%- if isAnn %}<p class="disclaimer small">{{ announcements_page.disclaimer }}</p>{% endif %}
     <div class="share">
@@ -95,6 +104,7 @@ layout: layouts/base.njk
     </div>
     <p class="correction">See an error or have a news tip? <a href="mailto:{{ site.email }}?subject=Correction:%20{{ title | encode }}">Let us know</a>.</p>
   </footer>
+  {%- endif %}
 </article>
 
 <div class="after-article">

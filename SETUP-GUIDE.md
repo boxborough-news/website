@@ -103,14 +103,15 @@ Editor clicks Save in Pages CMS
         ▼
 GitHub Actions "Publish website" runs  ──►  builds the site with Eleventy  ──►  GitHub Pages (the live site)
         ▲
-        └── also runs twice a day (~5 a.m. and ~1 p.m.) so scheduled articles appear, the Town Hall box expires, and town meetings refresh
+        └── also runs every morning just after 6 a.m. and at ~1 p.m., so scheduled articles appear (articles dated today go live at 6 a.m.), the Town Hall box expires, and town meetings refresh
 
-Friday ~6 a.m.: GitHub Actions "Weekly newsletter draft"
+Friday ~6:20 a.m.: GitHub Actions "Weekly newsletter draft"
         builds the site, takes /newsletter/this-week.json  ──►  Kit API: creates (or updates) a DRAFT broadcast
 ```
 
 - **Content** is plain text files in `src/articles`, `src/announcements` and `src/pages`, plus settings in `src/_data/*.json`. Because the content is just files, the paper can never be locked into any service.
 - **Every change is versioned.** Anything can be restored from the repository's history on GitHub.
+- **Go-live time and previews.** Articles and announcements dated today appear from 6 a.m. Boston time (`GO_LIVE_HOUR` in `lib/content.js`). Anything not live yet (drafts, future dates) is shown on the unlisted, no-index `/preview/` pages (`src/_data/previewItems.js`, `src/preview/`), including `/preview/email/`, the coming Friday's email with scheduled stories.
 - **Photos:** editors' uploads go in `src/media`. The build publishes resized copies (640 px and 1280 px, WebP and JPEG) plus a 1200 px image for email and Facebook previews. Full-size originals are not published, which keeps the site small.
 - **Search** uses Pagefind and runs entirely inside the static site, with no outside service.
 

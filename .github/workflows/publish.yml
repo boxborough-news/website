@@ -1,13 +1,16 @@
 # Builds the website and publishes it to GitHub Pages.
 # Runs whenever an editor saves in Pages CMS, and again every morning so that
-# articles scheduled for today appear and stale notices disappear.
+# articles scheduled for today appear (from 6 a.m.; see GO_LIVE_HOUR in lib/content.js)
+# and stale notices disappear.
 name: Publish website
 
 on:
   push:
     branches: [main]
   schedule:
-    - cron: "15 9 * * *" # 5:15 a.m. Boston time (4:15 a.m. in winter)
+    # GitHub schedules use UTC, so two runs cover summer and winter time:
+    - cron: "7 10 * * *" # 6:07 a.m. Boston time in summer (5:07 a.m. in winter, a harmless extra run)
+    - cron: "7 11 * * *" # 6:07 a.m. Boston time in winter (7:07 a.m. in summer)
     - cron: "15 17 * * *" # 1:15 p.m. Boston time, to pick up newly posted town meetings
   workflow_dispatch:
     inputs:

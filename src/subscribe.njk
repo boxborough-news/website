@@ -26,9 +26,6 @@ title: Subscribe
   </div>
   {%- endif %}
   <div class="prose">
-    {%- if site.subscribe_embed_code %}
-    <p>We never share your email address.</p>
-    {%- endif %}
     {%- if collections.latestIssue %}
     <p><a href="/newsletter/latest/">See a recent email</a> (the {{ collections.latestIssue.date | date("long") }} issue) to get a sense of what you'll receive.</p>
     {%- endif %}

@@ -423,8 +423,10 @@ content:
         description: "{date} is replaced with the issue date, e.g. 'Boxborough News – {date}'."
       - name: intro
         label: Editors' note at the top of this week's email (optional)
-        type: text
-        description: "A few friendly lines about this week's stories, like the note in the old newsletter. Links work: select words and add a link to a story."
+        type: rich-text
+        description: "A few friendly lines about this week's stories, like the note in the old newsletter. To link to a story, select the words and click the link button."
+        options:
+          media: false
       - name: intro_issue
         label: The note is for the issue dated
         type: date
@@ -450,9 +452,6 @@ content:
         label: Include a link to Outside the Box
         type: boolean
         description: "A short line near the end pointing readers to news from neighboring towns."
-      - name: kit_email_template_id
-        label: Kit email template ID (set up once; leave as is)
-        type: string
 
   # --------------------------------------------------------------- Pages
   - name: pages

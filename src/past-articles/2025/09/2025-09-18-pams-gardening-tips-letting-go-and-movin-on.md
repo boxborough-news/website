@@ -22,4 +22,4 @@ I have also loved being a part of the Boxborough News. I hope that another garde
 
 There is never a dull moment in the life of a gardener. Keep on gardening!
 
-*Editor’s Note: We would like to thank Pam Collins for being a regular contributor to Boxborough News and serving as our first garden columnist. Interested in taking the reins as our next garden columnist? Contact us at* [*BoxboroughNews@gmail.com*](mailto:BoxboroughNews@gmail.com)*.*
+*Editor’s Note: We would like to thank Pam Collins for being a regular contributor to Boxborough News and serving as our first garden columnist. Interested in taking the reins as our next garden columnist? Contact us at* [*info@boxboroughnews.org*](mailto:info@boxboroughnews.org)*.*

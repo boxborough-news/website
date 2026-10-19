@@ -14,4 +14,4 @@ draft: false
 ---
 A three-week-old foal spends the morning near her mom at Wetherbee Farm on Hill Road. Born on July 12 to mare Sunny and sire Cofactor, Boxborough’s cutest new resident is already quite popular, given the number of cars that slow down and stop along the fence on Hill Road.
 
-Her owner reports that she doesn’t have a name yet. Have a suggestion? Send your ideas to [BoxboroughNews@gmail.com](mailto:BoxboroughNews@gmail.com). We’ll pass them along, and we’ll be sure to publish them on our website.
+Her owner reports that she doesn’t have a name yet. Have a suggestion? Send your ideas to [info@boxboroughnews.org](mailto:info@boxboroughnews.org). We’ll pass them along, and we’ll be sure to publish them on our website.

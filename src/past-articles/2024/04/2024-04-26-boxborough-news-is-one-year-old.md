@@ -30,7 +30,7 @@ We are now on the list of independent hyperlocal news organizations in Massachus
 
 We are thrilled to be part of a growing movement of community news projects across the country, and we can’t wait to see what year two will bring.
 
-And finally, we want to thank Carol Toomey and the Action Unlimited team for giving Boxborough News a hard-copy home and allowing us to reach every residence in Boxborough. Want to join us? Send us a note at [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com).
+And finally, we want to thank Carol Toomey and the Action Unlimited team for giving Boxborough News a hard-copy home and allowing us to reach every residence in Boxborough. Want to join us? Send us a note at [info@boxboroughnews.org](mailto:info@boxboroughnews.org).
 
 Abby Reip and Cassie LaRussa
 

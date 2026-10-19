@@ -18,4 +18,4 @@ Boxborough News is, above all, a community project – a true group effort that 
 
 ## Get involved
 
-We're always looking for volunteer writers, photographers and editors. If you'd like to help, see [how to get involved](/contact/#get-involved) or email [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com).
+We're always looking for volunteer writers, photographers and editors. If you'd like to help, see [how to get involved](/contact/#get-involved) or email [info@boxboroughnews.org](mailto:info@boxboroughnews.org).

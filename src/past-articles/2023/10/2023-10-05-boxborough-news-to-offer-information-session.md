@@ -18,4 +18,4 @@ We are holding a 45-minute information/orientation session on Sunday, October 15
 
 Boxborough News is committed to independent reporting of town news and information. We are not affiliated with the Town of Boxborough or any political or community group. Our number one priority is publishing accurate and neutral content, and we ask that all volunteers agree to maintain this critical neutrality.
 
-To attend the information session, send an email to [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com), and we’ll send you the Zoom link and agenda. We look forward to meeting you online.
+To attend the information session, send an email to [info@boxboroughnews.org](mailto:info@boxboroughnews.org), and we’ll send you the Zoom link and agenda. We look forward to meeting you online.

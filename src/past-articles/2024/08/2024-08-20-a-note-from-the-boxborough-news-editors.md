@@ -18,4 +18,4 @@ Returning from summer travels? Check out BoxboroughNews.org to get caught up on 
 
 And while you’re on the website, don’t forget to sign up for our free weekly newsletter, check out our updated “About Us” page, and follow our new Facebook and Instagram accounts.
 
-Comments, questions, or suggestions for Boxborough News? Curious about how to get involved? Don’t hesitate to reach out at [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com). We’re always looking for new ideas and volunteers.
+Comments, questions, or suggestions for Boxborough News? Curious about how to get involved? Don’t hesitate to reach out at [info@boxboroughnews.org](mailto:info@boxboroughnews.org). We’re always looking for new ideas and volunteers.

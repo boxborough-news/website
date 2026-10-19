@@ -94,7 +94,7 @@ Use **Events & Notices** in the left menu for everything submitted by community 
 
 ### Submissions
 
-The **Submit an event or notice** page (linked from the Events page, the footer and Contact) asks organizations for exactly these details. Until a submission form is set up, its button opens an email to boxboroughnews@gmail.com with the questions already filled in. To use a Google Form instead, paste its link into **Site settings → Event and notice submission form link**.
+The **Submit an event or notice** page (linked from the Events page, the footer and Contact) asks organizations for exactly these details. Until a submission form is set up, its button opens an email to info@boxboroughnews.org with the questions already filled in. To use a Google Form instead, paste its link into **Site settings → Event and notice submission form link**.
 
 ---
 

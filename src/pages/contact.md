@@ -4,10 +4,10 @@ menu_order: 6
 show_in_menu: false
 show_staff: false
 ---
-Email us at [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com). We read every message.
+Email us at [info@boxboroughnews.org](mailto:info@boxboroughnews.org). We read every message.
 
-- **Send a news tip or story idea:** [email us](mailto:boxboroughnews@gmail.com?subject=News%20tip)
-- **Report an error:** [request a correction](mailto:boxboroughnews@gmail.com?subject=Correction)
+- **Send a news tip or story idea:** [email us](mailto:info@boxboroughnews.org?subject=News%20tip)
+- **Report an error:** [request a correction](mailto:info@boxboroughnews.org?subject=Correction)
 - **Share an event or announcement:** [submit an event or notice](/submit/)
 - **Submit an article:** see the guidelines below
 - **Volunteer:** see [Get involved](#get-involved)
@@ -22,7 +22,7 @@ We welcome:
 
 ## Submission guidelines
 
-**Send.** Email your article, or attach it as a Microsoft Word document, to [boxboroughnews@gmail.com](mailto:boxboroughnews@gmail.com) no later than one week before the Friday you want it published.
+**Send.** Email your article, or attach it as a Microsoft Word document, to [info@boxboroughnews.org](mailto:info@boxboroughnews.org) no later than one week before the Friday you want it published.
 
 **Include.** A title identifying the subject and/or a possible headline, which edition(s) you want the item published in, and the contributor's name, address, phone, and email.
 

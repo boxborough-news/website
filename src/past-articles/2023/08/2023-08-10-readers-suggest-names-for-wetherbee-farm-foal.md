@@ -14,7 +14,7 @@ draft: false
 ---
 Last week, Boxborough News invited readers to suggest names for the young foal at Wetherbee Farm. Born on July 12 to mare Sunny and sire Cofactor, the foal has a regular audience of drivers, cyclists, and pedestrians who stop to watch her run, play, and eat with her mom along Hill Road.
 
-A number of folks reached out to us about how much their families enjoy visiting her! Here are the suggested names so far. Keep them coming! Email [BoxboroughNews@gmail.com](mailto:BoxboroughNews@gmail.com)
+A number of folks reached out to us about how much their families enjoy visiting her! Here are the suggested names so far. Keep them coming! Email [info@boxboroughnews.org](mailto:info@boxboroughnews.org)
 
 Sally
 

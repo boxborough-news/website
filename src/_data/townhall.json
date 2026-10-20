@@ -1,5 +1,5 @@
 {
-  "show": false,
+  "show": true,
   "heading": "This week at Town Hall",
   "body": "come to the meeting tomorrow night!",
   "calendar_feed": "https://www.boxborough-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",

@@ -9,7 +9,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 | When | What to do |
 |---|---|
 | Monday to Thursday | Add articles as they're ready, with **Friday's date** as the publication date so they appear together at 6 a.m. Friday. Add events and notices as they arrive. You can keep working late Thursday night: nothing dated Friday goes live before 6 a.m. |
-| Thursday | Check the week's articles on the **Preview** page (see below). Tick one **Top story** for the week. Optional: write the **Editors' note** for the email (see *The Friday email*), and add a **Town meetings note** if a meeting next week deserves a heads-up. |
+| Thursday | When the week's stories are approved on the tracker sheet, click **Import stories from the tracker sheet** in Pages CMS (see below), then check them on the **Preview** page. Tick one **Top story** for the week. Optional: write the **Editors' note** for the email (see *The Friday email*), and add a **Town meetings note** if a meeting next week deserves a heads-up. |
 | **Friday morning** | Shortly after 6 a.m., the articles go live and an email draft appears in **Kit**. Review it and click **Send**. |
 
 ---
@@ -23,6 +23,19 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 *(If you've never been invited, ask the site administrator to add your email address.)*
 
 ---
+
+## Importing stories from the tracker sheet
+
+Instead of typing each article into Pages CMS, you can bring the week's News and Features stories in from the editors' tracker sheet (BoxNews Content Tracker), where each story's Google Doc and photos are already linked.
+
+1. On the tracker sheet's articles tab, make sure each story's row has its **Content type** (News or Feature), its **Publication date(s)** (the Friday), a link in **Link to document**, any photos in **Link to photo, if applicable**, and initials in **Abby/ Cassie review**. Only rows with the review filled in are imported. Optional: "Yes" in **Top story?**, and "Yes" in **Flyer, chart, or logo? (no trimming of photo)** for a picture that must be shown whole.
+2. In Pages CMS, click **Import stories from the tracker sheet** (under Actions) and confirm.
+3. About three minutes later, open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared.
+4. Fix anything either in the Doc (then click **Import** again) or directly in Pages CMS. Once an item has been edited in Pages CMS, later imports leave it alone, so your changes are never overwritten.
+
+How a story is read: the headline is the Doc's bold first line (or the Doc's title); a "By …" line becomes the byline; the photo labeled "top photo" (or the first photo) is the main photo, and any others go at the end of the article with their labels as captions. Docs, Word files and photos must be shared so that anyone with the link can view them, as they are now. iPhone HEIC photos can't be read; save them as JPG.
+
+Events and notices are still entered in Pages CMS as before. Imported stories are scheduled like any others: they stay on the Preview page until 6 a.m. on their Friday. If you import after the Friday email draft has been made, click **Create this week's email draft now** to refresh it.
 
 ## Writing an article
 

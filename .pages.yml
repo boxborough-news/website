@@ -591,6 +591,14 @@ content:
             type: string
 
 actions:
+  - name: import-stories
+    label: Import stories from the tracker sheet
+    workflow: import-stories.yml
+    ref: current
+    confirm:
+      title: Import stories from the tracker sheet?
+      message: Brings in the approved News and Features stories (Abby/ Cassie review filled in) from the tracker sheet. In about three minutes they're on the Preview page, scheduled to go live at 6 a.m. on their Friday. Anything already edited in Pages CMS is left as it is. Safe to run again after fixing a Doc.
+      button: Import
   - name: newsletter-draft
     label: Create this week's email draft now
     workflow: newsletter.yml

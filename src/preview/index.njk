@@ -18,6 +18,21 @@ eleventyExcludeFromCollections: true
     <p><a href="/preview/email/">Preview the coming Friday's email</a>, including articles scheduled for that day.</p>
   </div>
 
+  {%- if importReport and importReport.ran_at %}
+  {%- set ir = importReport %}
+  <section class="import-report" aria-labelledby="import-head">
+    <h2 class="label" id="import-head">Last import from the tracker sheet</h2>
+    <p>{{ ir.ran_at_text }}: {{ ir.added.length }} new, {{ ir.updated.length }} updated, {{ ir.unchanged.length }} unchanged{% if ir.kept.length %}, {{ ir.kept.length }} kept as edited in Pages CMS{% endif %}.</p>
+    {%- if ir.problems.length %}
+    <p><strong>Needs attention:</strong></p>
+    <ul>{% for p in ir.problems %}<li><strong>{{ p.title | smart }}</strong>: {{ p.message }}</li>{% endfor %}</ul>
+    {%- endif %}
+    {%- if ir.kept.length %}
+    <p class="small">Kept as edited: {% for t in ir.kept %}{{ t | smart }}{% if not loop.last %}; {% endif %}{% endfor %}. Changes made in Pages CMS are never overwritten. To bring in the Doc's latest text instead, delete the article in Pages CMS and import again.</p>
+    {%- endif %}
+  </section>
+  {%- endif %}
+
   <h2 class="label">Scheduled</h2>
   {%- if scheduled.length %}
   <ul class="preview-list">

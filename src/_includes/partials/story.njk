@@ -1,7 +1,7 @@
 {#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserWords, hideDate, isNew.
     Without an editor's summary, the teaser is the story's opening, so it ends with "…" to show it continues. -#}
 {%- set d = item.data %}
-<article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% endif %}">
+<article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% if d.image_fit == 'full' %} has-full-image{% endif %}{% endif %}">
   {%- if showImage and d.image %}
   <a class="story-image{% if d.image_fit == 'full' %} is-full{% endif %}{% if d.image_focus and d.image_focus != 'center' %} focus-{{ d.image_focus }}{% endif %}" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
     {%- if size == 'lead' %}

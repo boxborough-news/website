@@ -154,25 +154,41 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 /* ---------- Home ---------- */
 .issue-line { font-family: var(--sans); font-size: 15px; font-weight: 400; line-height: 1.4; letter-spacing: 0; color: var(--muted); margin: 0 0 18px; }
 .issue-line .issue-label { font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); font-size: 13.5px; margin-right: 8px; }
-.home-top {
-  display: grid; grid-template-columns: minmax(0, 1fr) 340px; column-gap: 48px;
-  /* Features sits under News in the main column, so a short News section leaves no gap;
-     the This week and Town meetings column runs down the right beside both. */
-  grid-template-areas: "lead rail" "news rail" "feat rail" "earlier earlier";
-  grid-template-rows: auto auto 1fr auto;
-  margin-bottom: 44px;
-}
-.home-lead { grid-area: lead; }
-.home-news { grid-area: news; }
-.home-features { grid-area: feat; }
-.home-rail { grid-area: rail; }
-.home-earlier { grid-area: earlier; }
+/* ---------- Home page layout ----------
+   Desktop: three equal columns 32px apart. The lead story takes the left two; This week (the
+   rail) floats in the right one. News and Features cards are inline blocks one column wide, so
+   the browser fits two in a row beside the rail and three in a row once the rail ends, however
+   many stories there are. Earlier issues also tucks in beside the rail if the stories run out.
+   A small script in home-body.njk then widens a lone last card to fill its row and evens out
+   the heights in each row. Phones and tablets: one column, with This week after Features. */
+.home-top { margin-bottom: 44px; }
 .home-news, .home-features { margin-top: 8px; margin-bottom: 18px; }
 .home-features { margin-top: 20px; padding-top: 4px; }
 .home-earlier { margin-top: 18px; }
+@media (min-width: 981px) {
+  .home-top { display: flow-root; }
+  .home-lead { float: left; width: calc((100% - 64px) * 2 / 3 + 32px); }
+  .home-rail { float: right; width: calc((100% - 64px) / 3); margin-bottom: 28px; }
+  .home-news, .home-features { clear: left; }
+  .home-earlier { clear: left; display: flow-root; }
+  /* Headings span the room they have: beside the rail, up to its edge; below it, the full width. */
+  .home-news .label-row, .home-features .label-row { margin-right: -32px; padding-right: 32px; }
+  .story-flow.story-grid { display: block; margin-right: -32px; font-size: 0; line-height: 0; }
+  .story-flow > .story {
+    display: inline-block; vertical-align: top; box-sizing: border-box;
+    width: calc((100% - 96px) / 3 - 0.1px); margin-right: 32px;
+    font-size: 18px; line-height: 1.55;
+  }
+  .story-flow > .story.span-2 { width: calc((100% - 96px) * 2 / 3 + 32px - 0.1px); }
+  .story-flow > .story.span-3 { width: calc(100% - 32px - 0.1px); }
+}
 @media (max-width: 980px) {
-  .home-top { grid-template-columns: 1fr; grid-template-areas: "lead" "news" "feat" "rail" "earlier"; grid-template-rows: none; }
-  .home-rail { margin: 8px 0 30px; }
+  .home-top { display: flex; flex-direction: column; }
+  .home-lead { order: 1; }
+  .home-news { order: 2; }
+  .home-features { order: 3; }
+  .home-rail { order: 4; margin: 8px 0 30px; }
+  .home-earlier { order: 5; }
 }
 /* Older stories: small and quiet, below the current issue. */
 .label-quiet { color: var(--muted); border-top-color: var(--rule); }
@@ -517,10 +533,19 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 /* ---------- Story grids: 1, 2 or 3 across; an odd last story spans the row ---------- */
 .story-grid-1 { grid-template-columns: minmax(0, 1fr); }
 .story-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-@media (min-width: 761px) {
-  .story-grid.is-odd > .story:last-child.has-image { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-items: start; }
-  .story-grid.is-odd > .story:last-child.has-image .story-image { margin-bottom: 0; }
-  .story-grid-1 > .story.has-image { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; }
+@media (min-width: 761px) and (max-width: 980px) {
+  .story-grid.is-odd > .story:last-child { grid-column: 1 / -1; }
+  .story-grid.is-odd > .story:last-child.has-image,
+  .story-grid-1 > .story.has-image { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .story-grid.is-odd > .story:last-child.has-image .story-image,
+  .story-grid-1 > .story.has-image .story-image { margin-bottom: 0; }
+}
+/* Desktop: a card widened to fill its row shows the picture beside the text. */
+@media (min-width: 981px) {
+  .story-flow > .story.has-image.span-2 { display: inline-grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .story-flow > .story.has-image.span-3 { display: inline-grid; grid-template-columns: calc((100% - 64px) / 3) minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .story-flow > .story.has-image.span-2 .story-image,
+  .story-flow > .story.has-image.span-3 .story-image { margin-bottom: 0; }
 }
 
 /* ---------- Home "This week" box ---------- */
@@ -584,9 +609,27 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .story-lead .story-image.is-full img { position: static; max-height: 440px; }
 /* Where the picture sits beside the text, it lines up with the top of the headline. */
 .river .story-image.is-full img { top: 0; bottom: auto; }
-@media (min-width: 761px) {
-  .story-grid.is-odd > .story:last-child .story-image.is-full img,
-  .story-grid-1 > .story .story-image.is-full img { top: 0; bottom: auto; }
+/* When the picture sits beside the text, a flyer's column is only as wide as the flyer
+   (at most one column), so the headline sits right next to it instead of across a gap. */
+@media (min-width: 761px) and (max-width: 980px) {
+  .story-grid.is-odd > .story:last-child.has-full-image,
+  .story-grid-1 > .story.has-full-image { grid-template-columns: fit-content(calc((100% - 32px) / 2)) minmax(0, 1fr); }
+}
+@media (min-width: 981px) {
+  .story-flow > .story.has-full-image.span-2 { grid-template-columns: fit-content(calc((100% - 32px) / 2)) minmax(0, 1fr); }
+  .story-flow > .story.has-full-image.span-3 { grid-template-columns: fit-content(calc((100% - 64px) / 3)) minmax(0, 1fr); }
+}
+@media (min-width: 761px) and (max-width: 980px) {
+  .story-grid.is-odd > .story:last-child.has-full-image .story-image.is-full,
+  .story-grid-1 > .story.has-full-image .story-image.is-full { position: static; aspect-ratio: auto; }
+  .story-grid.is-odd > .story:last-child.has-full-image .story-image.is-full img,
+  .story-grid-1 > .story.has-full-image .story-image.is-full img { position: static; max-height: 260px; }
+}
+@media (min-width: 981px) {
+  .story-flow > .story.has-full-image.span-2 .story-image.is-full,
+  .story-flow > .story.has-full-image.span-3 .story-image.is-full { position: static; aspect-ratio: auto; }
+  .story-flow > .story.has-full-image.span-2 .story-image.is-full img,
+  .story-flow > .story.has-full-image.span-3 .story-image.is-full img { position: static; max-height: 260px; }
 }
 @media (max-width: 760px) {
   .story-grid .story.has-image .story-image.is-full { aspect-ratio: 1 / 1; }

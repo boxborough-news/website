@@ -16,13 +16,21 @@
   </div>
   {%- endif %}
 
+  {#- On desktop, This week is one of three equal columns on the right. The stories after it
+      run two across beside it and three across once it ends (see "Home page layout" in
+      site.css), so the page has no blank column however many stories there are. On phones
+      and tablets it comes after Features. #}
+  <aside class="home-rail">
+    {% include "partials/this-week.njk" %}
+  </aside>
+
   {%- if hs.news.length %}
   <section class="home-news" aria-labelledby="latest-news">
     <div class="label-row">
       <h2 class="label" id="latest-news"><a href="/news/">News</a></h2>
       <a class="label-more" href="/news/">All news →</a>
     </div>
-    <div class="story-grid{% if hs.news.length is odd %} is-odd{% endif %}">
+    <div class="story-grid story-flow{% if hs.news.length is odd %} is-odd{% endif %}">
       {%- for item in hs.news %}
       {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
       {% include "partials/story.njk" %}
@@ -31,10 +39,6 @@
   </section>
   {%- endif %}
 
-  <aside class="home-rail">
-    {% include "partials/this-week.njk" %}
-  </aside>
-
   {%- if hs.features.length %}
   {%- set fc = hs.features.length %}
   <section class="home-features" aria-labelledby="latest-features">
@@ -42,7 +46,7 @@
       <h2 class="label" id="latest-features"><a href="/features/">{{ "Features" if hs.featuresAreCurrent else "Recent features" }}</a></h2>
       <a class="label-more" href="/features/">All features →</a>
     </div>
-    <div class="story-grid{% if fc == 1 %} story-grid-1{% elif fc is odd %} is-odd{% endif %}">
+    <div class="story-grid story-flow{% if fc == 1 %} story-grid-1{% elif fc is odd %} is-odd{% endif %}">
       {%- for item in hs.features %}
       {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = hs.featuresAreCurrent and not isNew %}
       {% include "partials/story.njk" %}
@@ -73,3 +77,50 @@
 </div>
 
 {% include "partials/subscribe-box.njk" %}
+
+{#- Desktop finishing touches, done after the browser has laid out the page:
+    1. if a section's last row isn't full, its last story widens to fill the row (picture beside text);
+    2. stories in the same row get the same height, so the lines under them meet. #}
+<script>
+(function () {
+  var top = document.querySelector(".home-top");
+  var rail = top && top.querySelector(".home-rail");
+  if (!rail) return;
+  function rows(cards) {
+    var out = [];
+    cards.forEach(function (c) {
+      var y = Math.round(c.getBoundingClientRect().top);
+      var r = out[out.length - 1];
+      if (r && Math.abs(r.y - y) < 3) r.cards.push(c); else out.push({ y: y, cards: [c] });
+    });
+    return out;
+  }
+  function arrange() {
+    var flows = [].slice.call(top.querySelectorAll(".story-flow"));
+    flows.forEach(function (f) {
+      [].forEach.call(f.children, function (c) { c.classList.remove("span-2", "span-3"); c.style.minHeight = ""; });
+    });
+    if (getComputedStyle(rail).float === "none") return;
+    flows.forEach(function (f) {
+      var cards = [].slice.call(f.children);
+      if (!cards.length) return;
+      var all = rows(cards), last = all[all.length - 1];
+      // Two places in a row beside This week, three below it.
+      var railEnd = rail.getBoundingClientRect().bottom + parseFloat(getComputedStyle(rail).marginBottom);
+      var slots = last.y < railEnd - 1 ? 2 : 3;
+      var spare = slots - last.cards.length;
+      if (spare > 0) last.cards[last.cards.length - 1].classList.add("span-" + (spare + 1));
+      rows(cards).forEach(function (r) {
+        if (r.cards.length < 2) return;
+        var h = Math.max.apply(null, r.cards.map(function (c) { return c.getBoundingClientRect().height; }));
+        r.cards.forEach(function (c) { c.style.minHeight = h + "px"; });
+      });
+    });
+  }
+  arrange();
+  var t;
+  window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(arrange, 100); });
+  window.addEventListener("load", arrange);
+  if (document.fonts) document.fonts.ready.then(arrange);
+})();
+</script>

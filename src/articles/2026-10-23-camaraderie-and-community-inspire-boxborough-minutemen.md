@@ -12,7 +12,7 @@ image_credit: ""
 top_story: false
 draft: false
 import_source: "doc:1HWb2QS9plI5-dLpASxrcMcZGC5k41IPsYnuEl-KQEf4"
-import_hash: "03a62444d8ffd3cf"
+import_hash: "2fa7bf0e3600b37b"
 ---
 Ceremonies and celebrations in Boxborough almost always include the Boxborough District Minutemen Company. With their tricorn hats and replica 18th century muskets, the omnipresent Minutemen are part of Boxborough’s identity.
 
@@ -30,6 +30,8 @@ The Company meets monthly at the Boxborough Community Center.  Anyone aged 18 or
 
 At its most recent meeting on October 18, the Company elected new officers to its executive board. Boxborough News reached out to the newly elected leaders, Captain Tim Blankenship and Lieutenant Nathan Soule, to congratulate them and learn what inspires their membership.
 
+![Tim Blankenship](/media/camaraderie-and-community-inspire-boxborough-minutemen-3.jpg)
+
 **Captain Tim Blankenship:**
 
 **1\. This is your second time as captain. Has the role changed since you last held it (2014)?**   
@@ -40,6 +42,8 @@ I first joined the Minuteman in 1997 so will be celebrating my 30th year next ye
 >   
 **3\. What do you like about being a member of the Company?**  
 The best part of being a Minuteman is the good we can do for the community as well as the camaraderie with our fellow members. Even the parades are a lot of fun, though my uniform is a bit more snug than it was.
+
+![Nathan Soule](/media/camaraderie-and-community-inspire-boxborough-minutemen-2.jpg)
 
 **Lieutenant Nathan Soule:**
 
@@ -54,11 +58,3 @@ My father was a member of the Company throughout the 1980s and 1990s, so in many
 **3\. What do you like about being a member of the Company?**
 
 The Company feels like an extended family. We celebrate each other's milestones while also supporting one another through difficult times. At the same time, we're connected by a shared mission of serving our community while honoring and preserving our local history.
-
-![Nathan Soule](/media/camaraderie-and-community-inspire-boxborough-minutemen-2.jpg)
-
-*Nathan Soule*
-
-![Tim Blankenship](/media/camaraderie-and-community-inspire-boxborough-minutemen-3.jpg)
-
-*Tim Blankenship*

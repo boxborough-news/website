@@ -33,7 +33,9 @@ Instead of typing each article into Pages CMS, you can bring the week's News and
 3. About three minutes later, open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared.
 4. Fix anything either in the Doc (then click **Import** again) or directly in Pages CMS. Once an item has been edited in Pages CMS, later imports leave it alone, so your changes are never overwritten.
 
-How a story is read: the headline is the Doc's bold first line (or the Doc's title); a "By …" line becomes the byline; the photo labeled "top photo" (or the first photo) is the main photo, and any others go at the end of the article with their labels as captions. Docs, Word files and photos must be shared so that anyone with the link can view them, as they are now. iPhone HEIC photos can't be read; save them as JPG.
+How a story is read: the headline is the Doc's bold first line (or the Doc's title); a "By …" line becomes the byline; the photo labeled "top photo" (or the first photo) is the main photo.
+
+Other photos are placed in the text. A photo labeled with a name in the photo cell (for example *Nathan Soule: https://drive…*) goes just above the first short or bold line in the Doc that contains that name, such as "Lieutenant Nathan Soule:". To put a photo somewhere specific, type a line like **[Photo: Nathan Soule]** (using the photo's label) or **[Photo 2]** (its place in the photo cell) on its own line in the Doc, where the photo should go. A photo that can't be placed goes at the end of the article, and the Preview page's summary says so. Docs, Word files and photos must be shared so that anyone with the link can view them, as they are now. iPhone HEIC photos can't be read; save them as JPG.
 
 Events and notices are still entered in Pages CMS as before. Imported stories are scheduled like any others: they stay on the Preview page until 6 a.m. on their Friday. If you import after the Friday email draft has been made, click **Create this week's email draft now** to refresh it.
 

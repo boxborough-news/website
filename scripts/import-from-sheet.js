@@ -292,6 +292,50 @@ function labeledLinks(cell) {
   return out;
 }
 
+// Puts the article's other photos where they belong in the text:
+//  1. where the Doc has a line like "[Photo: Nathan Soule]" or "[Photo 2]" (2 = its place in the
+//     sheet's photo cell), the photo replaces that line;
+//  2. otherwise just above the first short or bold line that contains the photo's label, such as
+//     "Captain Tim Blankenship:" for a photo labeled "Tim Blankenship";
+//  3. otherwise at the end of the article, with its label as a caption (and a note in the summary).
+function placePhotos(story, extras) {
+  const blocks = story.body ? story.body.split(/\n\n/) : [];
+  const labelOf = (x) => (x.label && !/\b(photo|image|picture)\b/i.test(x.label) ? x.label : "");
+  const picture = (x, caption) => `![${labelOf(x) || story.title}](${x.saved})${caption && labelOf(x) ? `\n\n*${labelOf(x)}*` : ""}`;
+  const marker = (b) => (plain(b).match(/^\[\s*(?:photo|picture|image)\s*(?:#|no\.?)?\s*:?\s*([^\]]*)\]$/i) || [])[1];
+  const isPicture = (b) => b.trim().startsWith("![");
+  const atEnd = [];
+  for (const x of extras) {
+    const label = norm(labelOf(x));
+    let i = blocks.findIndex((b) => {
+      const m = marker(b);
+      return m !== undefined && ((label && norm(m) === label) || norm(m) === String(x.n));
+    });
+    if (i >= 0) {
+      const next = blocks[i + 1] || "";
+      blocks[i] = picture(x, !(label && norm(next).includes(label)));
+      continue;
+    }
+    if (label) {
+      i = blocks.findIndex((b, k) => {
+        if (k === 0 || isPicture(b) || marker(b) !== undefined || !norm(b).includes(label)) return false;
+        const lead = (b.match(/^\s*(\*\*|__)(.+?)\1/) || [])[2];
+        return plain(b).split(" ").length <= 12 || (lead && norm(lead).includes(label));
+      });
+      if (i >= 0) {
+        blocks.splice(i, 0, picture(x, false));
+        continue;
+      }
+    }
+    atEnd.push(x);
+  }
+  for (const x of atEnd) {
+    blocks.push(picture(x, true));
+    problem(story.title, `photo ${x.n}${labelOf(x) ? ` (${labelOf(x)})` : ""} was put at the end of the article. To place it, type [Photo: ${labelOf(x) || x.n}] on its own line in the Doc where it belongs, then import again.`);
+  }
+  return blocks.join("\n\n");
+}
+
 // ---------------------------------------------------------------- Writing files
 const DATE_FIELDS = new Set(["date", "start_date", "end_date", "expires"]);
 function frontMatter(data) {
@@ -383,13 +427,12 @@ async function importArticles() {
         try {
           const saved = await fetchPicture(p.url, path.join("src/media", i === mainIdx ? base : `${base}-${extras.length + 2}`));
           if (i === mainIdx) image = saved;
-          else extras.push({ ...p, saved });
+          else extras.push({ ...p, saved, n: i + 1 });
         } catch (err) {
           problem(story.title, `photo ${i + 1}: ${err.message}`);
         }
       }
-      let body = story.body;
-      for (const x of extras) body += `\n\n![${x.label || story.title}](${x.saved})${x.label && !/\b(photo|image)\b/i.test(x.label) ? `\n\n*${x.label}*` : ""}`;
+      const body = placePhotos(story, extras);
       save({
         dir: "src/articles",
         file,

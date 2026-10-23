@@ -156,8 +156,10 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .issue-line .issue-label { font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); font-size: 13.5px; margin-right: 8px; }
 .home-top {
   display: grid; grid-template-columns: minmax(0, 1fr) 340px; column-gap: 48px;
-  grid-template-areas: "lead rail" "news rail" "feat feat" "earlier earlier";
-  grid-template-rows: auto 1fr auto auto;
+  /* Features sits under News in the main column, so a short News section leaves no gap;
+     the This week and Town meetings column runs down the right beside both. */
+  grid-template-areas: "lead rail" "news rail" "feat rail" "earlier earlier";
+  grid-template-rows: auto auto 1fr auto;
   margin-bottom: 44px;
 }
 .home-lead { grid-area: lead; }

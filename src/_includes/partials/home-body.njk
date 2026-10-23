@@ -42,7 +42,7 @@
       <h2 class="label" id="latest-features"><a href="/features/">{{ "Features" if hs.featuresAreCurrent else "Recent features" }}</a></h2>
       <a class="label-more" href="/features/">All features →</a>
     </div>
-    <div class="story-grid {{ 'story-grid-3' if (fc % 3 == 0 or fc == 5) else ('story-grid-2' if fc != 1 else 'story-grid-1') }}">
+    <div class="story-grid{% if fc == 1 %} story-grid-1{% elif fc is odd %} is-odd{% endif %}">
       {%- for item in hs.features %}
       {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = hs.featuresAreCurrent and not isNew %}
       {% include "partials/story.njk" %}

@@ -566,3 +566,32 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .import-report ul { margin: 0 0 12px; padding-left: 22px; }
 .import-report li { margin: 4px 0; }
 .preview-banner-home { max-width: 1180px; margin: 14px auto 18px; }
+
+/* ---------- Flyers, charts and logos ("Flyer, chart or logo" in Pages CMS) ----------
+   Shown whole at their own shape, on no background box, with a hairline edge so white charts
+   and logos don't float on the page. In story cards the picture sits at the bottom-left of the
+   usual picture area, so it stays right above its headline and headlines line up across a row. */
+.story .story-image.is-full { position: relative; aspect-ratio: 3 / 2; }
+.story .story-image.is-full img {
+  position: absolute; left: 0; bottom: 0;
+  width: auto; height: auto; max-width: 100%; max-height: 100%; aspect-ratio: auto;
+  object-fit: initial; padding: 0; background: none; border: 1px solid var(--rule); box-sizing: border-box;
+}
+/* The lead story stands alone, so its picture simply keeps its own shape (up to 440px tall). */
+.story-lead .story-image.is-full { position: static; aspect-ratio: auto; }
+.story-lead .story-image.is-full img { position: static; max-height: 440px; }
+/* Where the picture sits beside the text, it lines up with the top of the headline. */
+.river .story-image.is-full img { top: 0; bottom: auto; }
+@media (min-width: 761px) {
+  .story-grid.is-odd > .story:last-child .story-image.is-full img,
+  .story-grid-1 > .story .story-image.is-full img { top: 0; bottom: auto; }
+}
+@media (max-width: 760px) {
+  .story-grid .story.has-image .story-image.is-full { aspect-ratio: 1 / 1; }
+  .story-grid .story.has-image .story-image.is-full img { top: 0; bottom: auto; left: auto; right: 0; }
+}
+@media (max-width: 640px) {
+  .story-lead .story-image.is-full img { max-height: 360px; }
+  .river .story.has-image .story-image.is-full { aspect-ratio: 1 / 1; }
+  .river .story.has-image .story-image.is-full img { left: auto; right: 0; }
+}

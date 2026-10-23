@@ -1,0 +1,75 @@
+{#- The home page's contents, shared by the home page (src/index.njk) and its preview
+    (src/preview/home.njk). The caller sets hs: the stories to show (see buildHomeStories). -#}
+{#- The page's main heading. It looks like a small date line; screen readers hear
+    "Boxborough News: This week's issue, Friday, Oct. 9, 2026". #}
+{%- if hs.issue %}
+<h1 class="issue-line"><span class="visually-hidden">{{ site.title }}: </span><span class="issue-label">This week's issue</span><span class="visually-hidden">,</span> {{ hs.issue | date("weekday") }}</h1>
+{%- else %}
+<h1 class="visually-hidden">{{ site.title }}</h1>
+{%- endif %}
+
+<div class="home-top">
+  {%- if hs.lead %}
+  <div class="home-lead">
+    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = true %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
+    {% include "partials/story.njk" %}
+  </div>
+  {%- endif %}
+
+  {%- if hs.news.length %}
+  <section class="home-news" aria-labelledby="latest-news">
+    <div class="label-row">
+      <h2 class="label" id="latest-news"><a href="/news/">News</a></h2>
+      <a class="label-more" href="/news/">All news →</a>
+    </div>
+    <div class="story-grid{% if hs.news.length is odd %} is-odd{% endif %}">
+      {%- for item in hs.news %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
+      {% include "partials/story.njk" %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  <aside class="home-rail">
+    {% include "partials/this-week.njk" %}
+  </aside>
+
+  {%- if hs.features.length %}
+  {%- set fc = hs.features.length %}
+  <section class="home-features" aria-labelledby="latest-features">
+    <div class="label-row">
+      <h2 class="label" id="latest-features"><a href="/features/">{{ "Features" if hs.featuresAreCurrent else "Recent features" }}</a></h2>
+      <a class="label-more" href="/features/">All features →</a>
+    </div>
+    <div class="story-grid {{ 'story-grid-3' if (fc % 3 == 0 or fc == 5) else ('story-grid-2' if fc != 1 else 'story-grid-1') }}">
+      {%- for item in hs.features %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 28 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = hs.featuresAreCurrent and not isNew %}
+      {% include "partials/story.njk" %}
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if hs.earlier.length %}
+  <section class="home-earlier" aria-labelledby="earlier">
+    <h2 class="label label-quiet" id="earlier">Earlier issues</h2>
+    <div class="earlier-issues">
+      {%- for g in hs.earlier %}
+      <div class="earlier-issue">
+        <h3 class="earlier-head">{{ g.issue | date("long") }} issue</h3>
+        <ul class="compact-list">
+          {%- for item in g.items %}
+          <li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ (item.data.section | sectionInfo(sections)).name }}</span></li>
+          {%- endfor %}
+        </ul>
+        <p class="more"><a href="{{ g.issue | issueUrl(collections.archiveYears) }}">View the {{ g.issue | date("short") }} issue →</a></p>
+      </div>
+      {%- endfor %}
+    </div>
+    <p class="more"><a class="more-secondary" href="/archive/">Browse the archive</a></p>
+  </section>
+  {%- endif %}
+</div>
+
+{% include "partials/subscribe-box.njk" %}

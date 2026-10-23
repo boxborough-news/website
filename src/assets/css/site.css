@@ -565,3 +565,4 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 .import-report .label { margin-top: 14px; }
 .import-report ul { margin: 0 0 12px; padding-left: 22px; }
 .import-report li { margin: 4px 0; }
+.preview-banner-home { max-width: 1180px; margin: 14px auto 18px; }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- set pageTitle = (title + " | " + site.title) if title else (site.title + " – " + site.tagline) %}
   {%- set pageDescription = (teaser or summary or site.description) | plain %}
-  {%- set isHome = page.url == "/" %}
+  {%- set isHome = page.url == "/" or homePreview %}
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDescription }}">
   <link rel="canonical" href="{{ page.url | absolute }}">

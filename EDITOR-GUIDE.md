@@ -66,7 +66,7 @@ Events and notices are still entered in Pages CMS as before. Imported stories ar
 **Tip:** to link to a town document or agenda, highlight the words, click the link button, and paste the web address.
 
 ### Previewing before it goes live
-Articles, events and notices that are scheduled or saved as drafts don't appear on the website, but you can see exactly how they'll look on the **Preview** page: **boxboroughnews.org/preview/** (until the boxboroughnews.org address moves to the new website, **boxborough-news.github.io/website/preview/**). It lists everything that isn't live yet, with a link to each item's preview, and a preview of the coming Friday's email. It updates about two minutes after you click **Save**. The page isn't linked from the website and is hidden from search engines, so readers won't come across it.
+Articles, events and notices that are scheduled or saved as drafts don't appear on the website, but you can see exactly how they'll look on the **Preview** page: **boxboroughnews.org/preview/** (until the boxboroughnews.org address moves to the new website, **boxborough-news.github.io/website/preview/**). It lists everything that isn't live yet, with a link to each item's preview. It also has a preview of the **home page** as it will look at 6 a.m. on the coming Friday (the Top story, the photos and their trimming, and the order of the stories), and of the coming Friday's email. It updates about two minutes after you click **Save**. The page isn't linked from the website and is hidden from search engines, so readers won't come across it.
 
 ### Photos
 - JPG or PNG photos straight from a phone or camera are fine. The website automatically makes small, fast-loading copies.

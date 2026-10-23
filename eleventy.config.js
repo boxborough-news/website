@@ -24,8 +24,7 @@ const lastFriday = () => {
   return f === todayET() ? f : addDays(f, -7);
 };
 // The newest issue (Friday) with articles that has come out. Falls back to the newest issue.
-const currentIssue = (all) => {
-  const last = lastFriday();
+const currentIssue = (all, last = lastFriday()) => {
   const out = all.find((i) => issueFriday(i.data.date) <= last);
   return issueFriday((out || all[0]).data.date);
 };
@@ -209,13 +208,13 @@ export default function (eleventyConfig) {
   //   news      the rest of that issue's News stories
   //   features  that issue's Features (or the three most recent, if the issue has none)
   //   earlier   stories from previous issues, as a compact list
-  eleventyConfig.addCollection("homeStories", (api) => {
-    const all = articles(api);
+  // Shared by the home page and its preview (/preview/home/).
+  function buildHomeStories(all, last) {
     if (!all.length) return { lead: null, issue: "", news: [], features: [], featuresAreCurrent: false, earlier: [], fresh: [] };
     // The current issue is the latest Friday issue that has come out. Articles published
     // after it (dated between Fridays, e.g. breaking news) belong to next Friday's issue; until
     // then they're shown at the top of the current issue, marked "New", instead of replacing it.
-    const issue = currentIssue(all);
+    const issue = currentIssue(all, last);
     const inIssue = all.filter((i) => issueFriday(i.data.date) === issue);
     const fresh = all.filter((i) => issueFriday(i.data.date) > issue);
     const lead =
@@ -238,6 +237,19 @@ export default function (eleventyConfig) {
       g.items.push(i);
     }
     return { lead, issue, news, features, featuresAreCurrent, earlier, fresh: fresh.map((i) => i.url) };
+  }
+  eleventyConfig.addCollection("homeStories", (api) => buildHomeStories(articles(api), lastFriday()));
+
+  // The home page as it will look when the coming issue goes live at 6 a.m. Friday: the published
+  // articles plus those scheduled (not drafts) from src/_data/previewItems.js, whose links go to
+  // their preview pages.
+  eleventyConfig.addCollection("previewHomeStories", (api) => {
+    const previewItems = (api.getAll()[0] && api.getAll()[0].data.previewItems) || [];
+    const scheduled = previewItems
+      .filter((p) => !p.isAnn && p.status === "scheduled" && p.date)
+      .map((p) => ({ url: p.url, preview: true, data: { ...p.data, date: p.date, teaser: p.teaser, shareImage: p.shareImage, top_story: p.data.top_story === true } }));
+    const all = [...articles(api), ...scheduled].sort(byNewest);
+    return buildHomeStories(all, issueFriday(todayET()));
   });
 
   // Section listing pages (News, Features), 20 stories per page: /news/, /news/page-2/ …

@@ -1,0 +1,14 @@
+---
+layout: layouts/base.njk
+permalink: /preview/home/
+title: Preview of the home page
+noindex: true
+homePreview: true
+eleventyExcludeFromCollections: true
+---
+{#- The home page as it will look when the coming issue goes live, including scheduled stories. -#}
+{%- set hs = collections.previewHomeStories %}
+<p class="preview-banner preview-banner-home">
+  <strong>Preview of the home page</strong> as it will look on {{ hs.issue | date("weekday") }}, at 6 a.m., including the stories scheduled for that day. Drafts aren't shown. <a href="/preview/">All previews</a>
+</p>
+{% include "partials/home-body.njk" %}

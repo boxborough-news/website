@@ -50,6 +50,24 @@ export default function (eleventyConfig) {
 
   // ---- Plugins -------------------------------------------------------------
   eleventyConfig.addPlugin(HtmlBasePlugin);
+
+  // Links to other websites open in a new tab, so readers keep our page open (as on the old
+  // site). Links within this site, including boxboroughnews.org addresses, stay in the same tab.
+  const ownHosts = new Set([new URL(siteUrl).host, "boxboroughnews.org", "www.boxboroughnews.org"]);
+  eleventyConfig.addTransform("external-links-new-tab", function (content) {
+    if (!(this.page.outputPath || "").endsWith(".html")) return content;
+    return content.replace(/<a\s[^>]*>/gi, (tag) => {
+      const href = (tag.match(/\shref\s*=\s*["']([^"']*)["']/i) || [])[1] || "";
+      if (!/^https?:\/\//i.test(href) || /\starget\s*=/i.test(tag)) return tag;
+      let host = "";
+      try { host = new URL(href).host.toLowerCase(); } catch { return tag; }
+      if (ownHosts.has(host)) return tag;
+      const withRel = /\srel\s*=/i.test(tag)
+        ? tag.replace(/\srel\s*=\s*(["'])(.*?)\1/i, (m, q, v) => (/\bnoopener\b/.test(v) ? m : ` rel=${q}${v} noopener${q}`))
+        : tag.replace(/>$/, ' rel="noopener">');
+      return withRel.replace(/>$/, ' target="_blank">');
+    });
+  });
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     ...imageOptions,

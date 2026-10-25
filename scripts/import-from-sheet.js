@@ -336,6 +336,48 @@ function placePhotos(story, extras) {
   return blocks.join("\n\n");
 }
 
+// Photos already on the site that match the words of a note like "use firestation": each
+// photo is known by its file name and by the headline and description of the stories that use
+// it. Best matches first, then the most recently used. Returns up to three short descriptions.
+let photoIndex = null;
+function suggestPhotos(note) {
+  const compact = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const STOP = new Set(["use", "used", "using", "same", "photo", "photos", "picture", "pic", "pics", "image", "images", "the", "a", "an", "of", "from",
+    "as", "at", "for", "and", "or", "one", "old", "last", "week", "weeks", "see", "existing", "file", "jpg", "jpeg", "png", "please", "our", "in", "on", "with", "to"]);
+  const words = [...new Set(String(note).toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 3 && !STOP.has(w)))];
+  if (!words.length) return [];
+  if (!photoIndex) {
+    photoIndex = new Map();
+    const walk = (dir) => (fs.existsSync(dir) ? fs.readdirSync(dir, { withFileTypes: true }) : []).flatMap((e) =>
+      e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]);
+    for (const f of walk("src/media")) if (/\.(jpe?g|png|gif|webp)$/i.test(f)) {
+      photoIndex.set("/" + path.relative("src", f).split(path.sep).join("/"), { text: path.basename(f), used: "", title: "" });
+    }
+    for (const f of [...walk("src/articles"), ...walk("src/past-articles"), ...walk("src/announcements")]) {
+      if (!f.endsWith(".md")) continue;
+      let d;
+      try { d = matter(fs.readFileSync(f, "utf8")).data; } catch { continue; }
+      const p = photoIndex.get(d.image);
+      if (!p) continue;
+      p.text += ` ${d.title || ""} ${d.image_alt || ""}`;
+      const when = ymd(d.date);
+      if (when > p.used) Object.assign(p, { used: when, title: d.title || "" });
+    }
+  }
+  const scored = [];
+  // Long words may run together ("firestation" finds fire-station); short ones must be whole words.
+  const need = words.length <= 2 ? words.length : Math.ceil(words.length / 2);
+  for (const [src, p] of photoIndex) {
+    const text = compact(p.text), own = new Set(p.text.toLowerCase().split(/[^a-z0-9]+/));
+    const hits = words.filter((w) => (w.length >= 5 ? text.includes(w) : own.has(w))).length;
+    if (hits >= need) scored.push({ src, hits, ...p });
+  }
+  scored.sort((a, b) => b.hits - a.hits || b.used.localeCompare(a.used) || a.src.localeCompare(b.src));
+  const best = scored.length ? scored[0].hits : 0;
+  return scored.filter((x) => x.hits === best).slice(0, 3).map((x) =>
+    `${x.src.replace(/^\/media\//, "")}${x.title ? ` (used with "${x.title}", ${formatDate(x.used)})` : ""}`);
+}
+
 // ---------------------------------------------------------------- Writing files
 const DATE_FIELDS = new Set(["date", "start_date", "end_date", "expires"]);
 function frontMatter(data) {
@@ -422,6 +464,15 @@ async function importArticles() {
       let image = "";
       const extras = [];
       const photos = labeledLinks(cell(c.photo));
+      // A photo cell with words but no link (e.g. "use firestation"): say so on the Preview page
+      // and suggest photos already on the site that match, so an editor can pick one.
+      const photoNote = cell(c.photo).trim();
+      if (!photos.length && photoNote) {
+        const matches = suggestPhotos(photoNote);
+        problem(story.title, `the photo cell says "${photoNote}" but has no link, so the story came in without a photo. ` +
+          `Choose one in Pages CMS (open the article, click Main photo and pick it from the photo library).` +
+          (matches.length ? ` Photos already on the site that may match: ${matches.join("; ")}.` : ` No photo on the site has a name matching those words.`));
+      }
       const mainIdx = Math.max(0, photos.findIndex((p) => /\b(top|thumbnail|main|lead)\b/i.test(p.label)));
       for (const [i, p] of photos.entries()) {
         try {

@@ -25,5 +25,3 @@ Boxborough Town Administrator and veteran Michael Johns is also expected to part
 The ceremony will also involve local scouts, the Boxborough Minutemen Company, and the Acton-Boxborough High School Madrigal Singers.
 
 Information about Boxborough’s veterans’ services can be found at [https//wwwboxborough-ma.gov/281/Veterans-Services](https://www.boxborough-ma.gov/281/Veterans-Services). Boxborough Veterans’ Services Officer James MacRae (978-929-6614) is available by appointment and has regular office hours at Boxborough Town Hall every Tuesday from 10 a.m. to 2 p.m.
-
-/image **bloom-dance.jpg**

@@ -1,29 +1,21 @@
 ---
 title: "Fall Used Book Sale: A Decades-Long Community Tradition Continues"
+section: features
 date: 2026-10-30
-section: "features"
-byline: ""
-summary: ""
-image: "/media/fall-used-book-sale-a-decades-long-community-tradition.jpg"
-image_alt: ""
-image_caption: ""
-image_fit: "photo"
-image_credit: ""
+byline: by Lucy Meng
+image: /media/fall-used-book-sale-a-decades-long-community-tradition.jpg
+image_fit: photo
+image_focus: center
 top_story: false
 draft: false
-import_source: "doc:1-glfnlt53ITZ625GszRX4ExhMt-iOyH8Ni4jn1MXsio"
-import_hash: "904b630713c7fb38"
 ---
-**Fall Used Book Sale: A Decades-Long Community Tradition Continues**  
-By Lucy Meng
-
-Continuing a longstanding community tradition that raises thousands of dollars for library programs, museum passes, and other educational initiatives, the Friends of the Boxborough Library (FOBL or Friends) will open the doors to a waiting crowd on Friday, November 6 at 5 p.m. for the FOBL’s fall used book sale (See [https\://boxlib.org/news-events/events](https://boxlib.org/news-events/events) for complete information).
+Continuing a longstanding community tradition that raises thousands of dollars for library programs, museum passes, and other educational initiatives, the Friends of the Boxborough Library (FOBL or Friends) will open the doors to a waiting crowd on Friday, November 6 at 5 p.m. for the FOBL’s fall used book sale (See [https//boxlib.org/news-events/events](https://boxlib.org/news-events/events) for complete information).
 
 Preparing for the event begins months in advance, with dates selected in coordination with library staff and consideration of holidays and other community activities. In the week leading up to each sale, around 20 volunteers collect, sort, and arrange donated materials in the library’s meeting room.
 
 Shoppers can generally expect a selection of fiction, nonfiction, and children’s books, alongside cookbooks and titles covering gardening, travel, art, technology, spirituality, health, and crafts. Depending on donations, the sale may also include puzzles, board games, audiobooks, CDs, DVDs, music, and other audiovisual materials.
 
-According to John Fallon, treasurer of the FOBL, the organization typically raises around \$2,500 to \$3,000 at each book sale. The Friends hold two sales annually, one in the fall and one in the spring, and the sales account for approximately 40% of the organization’s total revenue. These funds help sustain a range of library services. Over the past three years, the Friends have purchased nearly \$22,000 in museum passes and contributed \$15,000 toward library programs and activities, including the library's summer reading programs.
+According to John Fallon, treasurer of the FOBL, the organization typically raises around 2,500 to 3,000 at each book sale. The Friends hold two sales annually, one in the fall and one in the spring, and the sales account for approximately 40% of the organization’s total revenue. These funds help sustain a range of library services. Over the past three years, the Friends have purchased nearly 22,000 in museum passes and contributed 15,000 toward library programs and activities, including the library's summer reading programs.
 
 “The museum passes that we offer to our patrons are fully financed by the Friends,” said Peishan Bartley, Director of the Sargent Memorial Library.
 
@@ -43,4 +35,4 @@ The Friends welcome new members throughout the year. Residents and local busines
 
 For the Friends of the Boxborough Library, the fall sale offers residents more than an opportunity to find affordable reading material. It is also a chance to support the library’s services, give books a second life, and contribute to a community tradition that has endured for decades.
 
-For complete information, visit  [https\://boxlib.org/news-events/events](https://boxlib.org/news-events/events)
+For complete information, visit  [https//boxlib.org/news-events/events](https://boxlib.org/news-events/events)

@@ -9,7 +9,7 @@ image_focus: center
 top_story: false
 draft: false
 ---
-**School Committee Notes, Oct. 1 and Oct. 15, 2026: DESE “Unfunded Mandate,” Rising Costs Put Additional Financial Pressure on School District**  
+  
 *Reprinted from the [Acton Exchange](https://www.actonexchange.org/school-committee-notes-oct-1-and-oct-15-2026/); originally published October 24, 2026*
 
 *DESE mandate for more instructional hours*

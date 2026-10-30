@@ -1,6 +1,6 @@
 ---
-title: "**School Committee Notes, Oct. 1 and Oct. 15, 2026: DESE “Unfunded
-  Mandate,” Rising Costs Put Additional Financial Pressure on School District**"
+title: "School Committee Notes, Oct. 1 and Oct. 15, 2026: DESE “Unfunded
+  Mandate,” Rising Costs Put Additional Financial Pressure on School District"
 section: news
 date: 2026-10-30
 image: /media/school-committee-notes-oct.jpg

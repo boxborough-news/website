@@ -265,7 +265,7 @@ content:
         label: "Event: last day (optional)"
         type: date
         default: ""
-        description: "Only for events that run several days, such as a show's run or a weekly market. Leave blank for one-day events."
+        description: "Only for events that run several days, such as a show's run or a weekly market. Leave blank for one-day events. (Safari shows today's date in grey in an empty box; that isn't saved.)"
         options:
           format: yyyy-MM-dd
       - name: weekdays

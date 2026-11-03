@@ -1,4 +1,4 @@
-import { teaser, readBody, ymd } from "../../lib/content.js";
+import { teaser, readBody, ymd, cleanTitle } from "../../lib/content.js";
 import { shareImage } from "../../lib/share-image.js";
 
 // Announcements come in two kinds:
@@ -8,6 +8,10 @@ export default {
   layout: "layouts/article.njk",
   section: "announcements",
   eleventyComputed: {
+    title: (data) => cleanTitle(data.title),
+    // A last day that isn't after the first day is ignored, so a date filled in by mistake can't
+    // end an event before it starts.
+    end_date: (data) => (ymd(data.end_date) > ymd(data.start_date) ? data.end_date : ""),
     permalink: (data) => `/announcements/${data.page.fileSlug}/`,
     teaser: (data) => teaser(data.summary, readBody(data.page.inputPath), 36),
     shareImage: async (data) => shareImage(data.image),

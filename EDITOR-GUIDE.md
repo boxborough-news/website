@@ -30,10 +30,13 @@ Instead of typing each article into Pages CMS, you can bring the week's News and
 
 1. On the tracker sheet's articles tab, make sure each story's row has its **Content type** (News or Feature), its **Publication date(s)** (the Friday), a link in **Link to document**, any photos in **Link to photo, if applicable**, and initials in **Abby/ Cassie review**. Only rows with the review filled in are imported. Optional: "Yes" in **Top story?**, and "Yes" in **Flyer, chart, or logo? (no trimming of photo)** for a picture that must be shown whole.
 2. In Pages CMS, click **Import stories from the tracker sheet** (under Actions) and confirm.
-3. About three minutes later, open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared.
-4. Fix anything either in the Doc (then click **Import** again) or directly in Pages CMS. Once an item has been edited in Pages CMS, later imports leave it alone, so your changes are never overwritten.
+3. About five minutes later, open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared. (If a page still looks unchanged, reload it: your browser can keep showing its saved copy of a page for up to 10 minutes.)
+4. Look over each imported story: the **headline**, the **byline** (if the story has one), that the headline isn't repeated at the top of the story text, and the photos.
+5. Fix anything either in the Doc (then click **Import** again) or directly in Pages CMS. Once an item has been edited in Pages CMS, later imports leave it alone, so your changes are never overwritten.
 
-How a story is read: the headline is the Doc's bold first line (or the Doc's title); a "By …" line becomes the byline; the photo labeled "top photo" (or the first photo) is the main photo.
+How a story is read: the headline is the Doc's bold first line (or, failing that, the Doc's name); a line starting "By …" just below it becomes the byline; the photo labeled "top photo" (or the first photo) is the main photo. So the surest way to set up a Doc is: headline in bold on the first line, then "By Jane Smith" on the next line (if there's a byline), then the story. Bylines written any other way (at the end of the story, for example) aren't picked up; type them into **Byline** in Pages CMS instead. The headline is typed into **Headline** as plain words, without the ** marks you may see in the text.
+
+Importing on the Friday itself, after 6 a.m.: the stories go straight onto the live website (there's nothing left to preview), about five minutes after you click **Import**. Anything you save in Pages CMS after that also goes live within a few minutes.
 
 Other photos are placed in the text. A photo labeled with a name in the photo cell (for example *Nathan Soule: https://drive…*) goes just above the first short or bold line in the Doc that contains that name, such as "Lieutenant Nathan Soule:". To put a photo somewhere specific, type a line like **[Photo: Nathan Soule]** (using the photo's label) or **[Photo 2]** (its place in the photo cell) on its own line in the Doc, where the photo should go. These [Photo] lines are typed in the **Google Doc** only; in Pages CMS you place photos as described under *Photos* below. Photo lines typed one right after another (with nothing between them but an optional caption line in italics) show **side by side** on the website. A photo that can't be placed goes at the end of the article, and the Preview page's summary says so. Docs, Word files and photos must be shared so that anyone with the link can view them, as they are now. iPhone HEIC photos can't be read; save them as JPG.
 
@@ -104,7 +107,7 @@ Use **Events & Notices** in the left menu for everything submitted by community 
 | **Date posted** | The Friday of the issue it belongs to. |
 | **Submitted by** | The organization, e.g. *Sargent Memorial Library*. Shown as "Submitted by …". |
 | **Event: date** | The day of the event, or the first day of a run. |
-| **Event: last day** | Only for multi-day events (a show's run, a weekly market). Leave blank for one-day events. |
+| **Event: last day** | Only for multi-day events (a show's run, a weekly market). Leave blank for one-day events. In Safari, an empty date box shows today's date in grey; that isn't saved, so you can leave it. If you type a date by mistake, click each part of the date and press Delete. (A last day on or before the first day is ignored.) |
 | **Event: repeats on** | Only for runs that happen on certain days each week (a Saturday market, a show Thursday to Sunday). Tick the days; the event is then listed on its next actual date, with "Runs through …". |
 | **Event: time** | Written like *7 p.m.*, *10:30 a.m.–noon* or *3–6 p.m.* Written this way, it also goes into readers' calendar apps correctly. |
 | **Event: place** and **town** | The place (e.g. *Blanchard Memorial School, 493 Massachusetts Ave.*) and the town (*Boxborough*, *Acton*, … or *Online*). The town drives the Boxborough / Nearby towns filter. |
@@ -168,5 +171,5 @@ To send it:
 | The home page still shows last week's town meetings note | Check **Hide automatically after** in **Town meetings note**, or untick **Show a note**. |
 | An event is missing from the Events page | Check that **Kind** is *Event*, the **Event: date** is filled in, and its last day hasn't passed. |
 | There's no email draft in Kit on Friday | If nothing was published that week, no draft is made. Otherwise click **Create this week's email draft now**, or ask the site administrator. |
-| Pages CMS won't save my changes | Someone else probably saved the same item while you had it open. Copy your text, reload the page, paste your changes back in and save again. |
+| Pages CMS won't save my changes, or says the file has changed | Usually something else saved at the same moment: someone else editing the same item, or the site automatically shrinking a photo you just uploaded (it does this within about 30 seconds of an upload). Wait half a minute and click **Save** again. If it's still refused, copy your text, reload the page, paste your changes back in and save. |
 | Anything else | Contact the site administrator. Every change is saved in the site's history, so nothing is ever truly lost. |

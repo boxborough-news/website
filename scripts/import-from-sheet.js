@@ -210,25 +210,53 @@ function blocksOf(markdown) {
 }
 
 // Splits a story into headline, byline and body. The headline is the Doc's first line when it's
-// short and bold (or a heading); otherwise the Doc's title; otherwise the sheet's working title.
+// bold (or a heading); otherwise the Doc's title; otherwise the sheet's working title. A line
+// starting "By …" right after it becomes the byline.
+const BYLINE = /^(?:by|written by|story by|article by|reported by)\s+\S/i;
+const isByline = (b) => b && !b.includes("\n") && BYLINE.test(plain(b)) && plain(b).split(" ").length <= 12;
+// A line that is all bold, or a heading: "**Title**", "## Title".
+const isBoldLine = (b) => b && !b.includes("\n") && (/^#{1,3}\s+\S/.test(b) || /^(\*\*|__)(?:(?!\1).)+\1$/.test(b));
 function splitStory(markdown, docTitleText, fallbackTitle) {
   const blocks = blocksOf(markdown);
   const dateLine = /^\(?\s*\d{1,2}[-\s][a-z]{3,9}\.?[-\s]\d{2,4}\s*\)?$/i;
-  for (let i = 0; i < Math.min(3, blocks.length); i++) if (dateLine.test(plain(blocks[i]))) blocks.splice(i--, 1);
-  const shortLine = (b) => b && !b.includes("\n") && plain(b).split(" ").length <= 22 && !/[.!?:]["”’)]?$/.test(plain(b));
+  // The headline, byline and date are often typed on back-to-back lines (Shift+Enter or a line
+  // break) rather than as separate paragraphs. Give each of those leading lines its own block.
+  for (let k = 0; k < Math.min(2, blocks.length); k++) {
+    const raw = blocks[k].split("\n");
+    if (raw.length < 2) continue;
+    const clean = (l) => l.replace(/\\$/, "").trim();
+    let n = 0;
+    while (n < raw.length && (isBoldLine(clean(raw[n])) || isByline(clean(raw[n])) || dateLine.test(plain(raw[n])))) n++;
+    if (!n) continue;
+    const rest = raw.slice(n).join("\n").trim();
+    blocks.splice(k, 1, ...raw.slice(0, n).map(clean), ...(rest ? [rest] : []));
+    k += n - 1;
+  }
+  for (let i = 0; i < Math.min(4, blocks.length); i++) if (dateLine.test(plain(blocks[i]))) blocks.splice(i--, 1);
+  const words = (b) => plain(b).split(" ").length;
+  const shortLine = (b) => b && !b.includes("\n") && words(b) <= 22 && !/[.!?:]["”’)]?$/.test(plain(b));
   const dt = (docTitleText || "").replace(/\.(docx?|pdf|txt)$/i, "").trim();
   const usefulDocTitle = dt && !/^(untitled|copy of)/i.test(dt);
   let title = "";
-  if (blocks.length && shortLine(blocks[0]) && (/^(#{1,3}\s|\*\*|__)/.test(blocks[0]) || (usefulDocTitle && norm(blocks[0]) === norm(dt)))) {
+  if (blocks.length && isBoldLine(blocks[0]) && words(blocks[0]) <= 40 && !/:["”’)]?$/.test(plain(blocks[0]))) {
     title = plain(blocks.shift());
-  } else if (usefulDocTitle) {
-    title = dt;
-    if (blocks.length && norm(blocks[0]) === norm(dt)) blocks.shift();
+  } else if (blocks.length && usefulDocTitle && shortLine(blocks[0]) && norm(blocks[0]) === norm(dt)) {
+    title = plain(blocks.shift());
   } else {
-    title = fallbackTitle;
+    title = usefulDocTitle ? dt : fallbackTitle;
+  }
+  // Don't repeat the headline at the top of the story: drop a first line that is the headline, or
+  // a bold first line that starts the same way (the Doc's title is often a shortened headline).
+  const same = (b) => {
+    const a = norm(b), t = norm(title);
+    return a && t && (a === t || (isBoldLine(b) && (a.startsWith(t) || t.startsWith(a))));
+  };
+  while (blocks.length && same(blocks[0])) {
+    const b = blocks.shift();
+    if (norm(b).length > norm(title).length) title = plain(b);
   }
   let byline = "";
-  if (blocks.length && /^by\s+\S/i.test(plain(blocks[0])) && plain(blocks[0]).split(" ").length <= 10) byline = plain(blocks.shift());
+  if (blocks.length && isByline(blocks[0])) byline = plain(blocks.shift()).replace(/^(?:(?:written|story|article|reported)\s+)?by\s+/i, "By ");
   if (blocks.length) blocks[0] = blocks[0].replace(/^\(\s*\d{1,2}-[a-z]{3}-\d{2}\s*\)\s*/i, "");
   return { title, byline, body: blocks.join("\n\n") };
 }

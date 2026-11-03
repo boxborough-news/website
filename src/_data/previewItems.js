@@ -4,7 +4,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { isPublished, ymd, teaser, wordCount, issueFriday } from "../../lib/content.js";
+import { isPublished, ymd, teaser, wordCount, issueFriday, cleanTitle } from "../../lib/content.js";
 import { shareImage } from "../../lib/share-image.js";
 
 function mdFiles(dir) {
@@ -31,6 +31,8 @@ export default async function () {
       continue;
     }
     const data = parsed.data || {};
+    if (typeof data.title === "string") data.title = cleanTitle(data.title);
+    if (data.end_date && !(ymd(data.end_date) > ymd(data.start_date))) data.end_date = "";
     if (isPublished(data) || !data.title) continue;
     // Like Eleventy's page.fileSlug: a leading "2026-10-23-" date is not part of the address.
     const slug = path.basename(file, ".md").replace(/^\d{4}-\d{2}-\d{2}-/, "");

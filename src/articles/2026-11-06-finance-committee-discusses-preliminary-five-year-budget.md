@@ -1,18 +1,13 @@
 ---
-title: "Finance Committee Discusses Preliminary Five-Year Budget Forecast for Fiscal 2028"
+title: Finance Committee Discusses Preliminary Five-Year Budget Forecast for
+  Fiscal 2028
+section: news
 date: 2026-11-06
-section: "news"
-byline: ""
-summary: ""
-image: ""
-image_alt: ""
-image_caption: ""
-image_fit: "photo"
-image_credit: ""
+image: /media/free-cash-oct16.jpg
+image_fit: photo
+image_focus: center
 top_story: false
 draft: false
-import_source: "doc:10IHq9wTGtFDMTp6WkJxamTT9nQXRX4oP"
-import_hash: "cf3db221cec5060f"
 ---
 At its meeting on November 3, the Boxborough Finance Committee (FinCom) discussed a revised five-year budget forecast developed using historical performance of revenues and new growth over the same timeframes.
 

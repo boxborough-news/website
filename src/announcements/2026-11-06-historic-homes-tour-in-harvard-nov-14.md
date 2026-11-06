@@ -1,5 +1,5 @@
 ---
-title: Historic Homes Tour in Harvard Nov 14
+title: Historic Homes Tour in Harvard
 type: event
 date: 2026-11-06
 start_date: 2026-11-14

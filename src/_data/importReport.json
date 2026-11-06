@@ -1,20 +1,30 @@
 {
-  "ran_at": "2026-10-30T21:43:20.593Z",
-  "ran_at_text": "Fri., Oct. 30, 5:43 p.m.",
-  "issue": "2026-10-30",
+  "ran_at": "2026-11-06T15:30:31.219Z",
+  "ran_at_text": "Fri., Nov. 6, 10:30 a.m.",
+  "issue": "2026-11-06",
   "added": [
-    "School Committee Notes, Oct",
-    "Water Resources Committee Discusses Proposed Land Purchase, Regional Water Supply, Localized PFAS Contamination",
-    "Fall Used Book Sale: A Decades-Long Community Tradition Continues",
-    "In Advance of Fall Town Meeting, Town Looks to Reduce $1.8 Million Price Tag of Proposed Middle Road Land Acquisition",
-    "Flerra Playground Remains Closed for Additional Renovation Work",
-    "Town of Boxborough’s Redesigned Website Now Live",
-    "Select Board Conducts Tax Classification Hearing, Appoints New Police Officer",
-    "Sustainability and Sharing: Boxborough Swap Shed Wraps Up Second Year",
-    "Record Turnout for Early Voting in Boxborough"
+    "Neither a Trick nor a Treat: Boxborough Minutemen Clean Up Route 111 on Halloween",
+    "Town to Host Info Session on November 9 to Help Voters Prepare for Fall Town Meeting",
+    "Blanchard PTF “Fun Run” Raises More Than $33,000",
+    "Town of Boxborough Publishes Preliminary State and Federal Election Results",
+    "New Bicycle Shop Opening December 1 on Summer Road",
+    "Finance Committee Discusses Preliminary Five-Year Budget Forecast for Fiscal 2028",
+    "Planning Board Conducts Hearing for Stone Wall Alteration on Old Harvard Road",
+    "One Year of Thinking Flower: A Conversation with Owner Divya Suryaprasad",
+    "Community Preservation Committee Holds Public Hearing and Approves Funding for Middle Road Acquisition",
+    "Fire Station Building Committee Recaps Site Walk, Selects Building Facade Materials and Colors"
   ],
   "updated": [],
   "unchanged": [],
   "kept": [],
-  "problems": []
+  "problems": [
+    {
+      "title": "Town to Host Info Session on November 9 to Help Voters Prepare for Fall Town Meeting",
+      "message": "the photo cell says \"photo of past town meeting\" but has no link, so the story came in without a photo. Choose one in Pages CMS (open the article, click Main photo and pick it from the photo library). Photos already on the site that may match: in-advance-of-fall-town-meeting-town-looks-to-reduce-1-8.jpg (used with \"In Advance of Fall Town Meeting, Town Looks to Reduce $1.8 Million Price Tag of Proposed Middle Road Land Acquisition\", Oct. 30, 2026); personnel-board-votes-to-recommend-warrant-article-to-change.jpg (used with \"Personnel Board Votes to Recommend Warrant Article to Change the Classification and Compensation Plan at Fall Town Meeting\", Oct. 9, 2026); select-board-votes-half-of-fall-town-meeting-warrant-defers.jpg (used with \"Select Board Votes Half of Fall Town Meeting Warrant, Defers Vote on Climate Action Plan\", Oct. 2, 2026)."
+    },
+    {
+      "title": "Finance Committee Discusses Preliminary Five-Year Budget Forecast for Fiscal 2028",
+      "message": "the photo cell says \"used Town Hall\" but has no link, so the story came in without a photo. Choose one in Pages CMS (open the article, click Main photo and pick it from the photo library). Photos already on the site that may match: free-cash-oct16.jpg (used with \"Boxborough’s Free Cash Certified at $5.078 Million\", Oct. 16, 2026); announcements/11-senate-candidate-forum-01.jpg (used with \"Middlesex and Worcester Senate District Candidate Forum\", Sept. 25, 2026); archive/2026/08-finance-committee-proposes-policy-to-prevent-deficit.jpg (used with \"Finance Committee Proposes Policy to Prevent Deficit Spending\", Aug. 6, 2026)."
+    }
+  ]
 }

@@ -6,6 +6,7 @@ import { imageOptions } from "./lib/share-image.js";
 import {
   md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words, sentences,
   weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel, continued,
+  agendasLink,
 } from "./lib/content.js";
 
 const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
@@ -54,10 +55,27 @@ export default function (eleventyConfig) {
   // Links to other websites open in a new tab, so readers keep our page open (as on the old
   // site). Links within this site, including boxboroughnews.org addresses, stay in the same tab.
   const ownHosts = new Set([new URL(siteUrl).host, "boxboroughnews.org", "www.boxboroughnews.org"]);
+  // Links to a story on the old Google Sites site (boxboroughnews.org/…#h.code) are pointed
+  // straight at that story on this site, using the list of old codes made by the import. Other
+  // old-site addresses with a known new home (src/_data/redirects.json) are pointed there too.
+  const oldCodes = JSON.parse(fs.readFileSync("src/_data/oldLinks.json", "utf8"));
+  const oldPages = new Map(JSON.parse(fs.readFileSync("src/_data/redirects.json", "utf8")).map((r) => [r.from, r.to]));
+  const prefix = (pathPrefix || "/").replace(/\/$/, "");
+  const newHomeFor = (href) => {
+    let u;
+    try { u = new URL(href); } catch { return null; }
+    if (!/^(www\.)?boxboroughnews\.org$/i.test(u.host)) return null;
+    const code = decodeURIComponent(u.hash.slice(1)).toLowerCase();
+    if (oldCodes[code]) return prefix + oldCodes[code];
+    const page = u.pathname.replace(/\/?$/, "/").toLowerCase();
+    return !u.hash && oldPages.has(page) ? prefix + oldPages.get(page) : null;
+  };
   eleventyConfig.addTransform("external-links-new-tab", function (content) {
     if (!(this.page.outputPath || "").endsWith(".html")) return content;
     return content.replace(/<a\s[^>]*>/gi, (tag) => {
       const href = (tag.match(/\shref\s*=\s*["']([^"']*)["']/i) || [])[1] || "";
+      const moved = /^https?:\/\//i.test(href) && newHomeFor(href);
+      if (moved) return tag.replace(href, moved);
       if (!/^https?:\/\//i.test(href) || /\starget\s*=/i.test(tag)) return tag;
       let host = "";
       try { host = new URL(href).host.toLowerCase(); } catch { return tag; }
@@ -386,6 +404,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("absolute", (url) => (/^https?:/.test(url) ? url : siteUrl + String(url).replace(pathPrefix, "/")));
   eleventyConfig.addFilter("encode", (s) => encodeURIComponent(String(s)));
   eleventyConfig.addFilter("afterToday", (v) => !v || ymd(v) >= todayET());
+  // { url, label } for the weekly agendas link; issue = the issue Friday (defaults to the current one).
+  eleventyConfig.addFilter("agendasLink", (searchUrl, issue) => agendasLink(searchUrl, issue));
   eleventyConfig.addFilter("teaser", (data, body) => teaser(data.summary, body));
   eleventyConfig.addFilter("topStoryFirst", (arr) => {
     const list = [...(arr || [])];

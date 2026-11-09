@@ -409,6 +409,14 @@ content:
       - name: calendar_link
         label: Link to the full town calendar (leave as is)
         type: string
+      - name: agendas_link
+        label: Show the weekly agendas link
+        type: boolean
+        default: true
+        description: "Adds a link under the town meetings list (home page, Events page and email) to the agendas the town has posted for the Thursday before the issue through the Friday after it. The dates update by themselves each week."
+      - name: agendas_url
+        label: Town agenda search page (technical setting; leave as is)
+        type: string
 
   # --------------------------------------------------------- Weekly newsletter
   - name: newsletter

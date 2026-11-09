@@ -1,5 +1,7 @@
 {#- Compact list of upcoming town meetings. Set: tmDays (how many days ahead), tmMax (rows) -#}
 {%- set thNote = townhall.show and townhall.body and (townhall.hide_after | afterToday) %}
+{#- The week's agendas on the town website: Thursday before the issue to the Friday after. -#}
+{%- set agendas = (townhall.agendas_url | agendasLink(hs.issue if hs else "")) if (townhall.agendas_link != false and townhall.agendas_url) else null %}
 <section class="meetings" aria-labelledby="meetings-head">
   <h2 class="label" id="meetings-head">Town meetings</h2>
   {%- if thNote %}
@@ -21,9 +23,10 @@
   {%- endif %}
   <p class="meetings-foot">
     {%- if later > 0 %}{{ later }} more meeting{{ "s" if later != 1 }} in the next two weeks. {% endif %}
+    {%- if agendas %}<a href="{{ agendas.url }}">Agendas posted for {{ agendas.label }} →</a><br>{% endif %}
     {%- if townCalendar.link %}<a href="{{ townCalendar.link }}">Full town calendar and agendas →</a>{% endif %}
   </p>
   {%- else %}
-  <p class="meetings-foot">{% if townCalendar.link %}See the <a href="{{ townCalendar.link }}">Town of Boxborough calendar</a> for upcoming meetings and agendas.{% endif %}</p>
+  <p class="meetings-foot">{% if townCalendar.link %}See the <a href="{{ townCalendar.link }}">Town of Boxborough calendar</a> for upcoming meetings and agendas.{% endif %}{% if agendas %} <a href="{{ agendas.url }}">Agendas posted for {{ agendas.label }} →</a>{% endif %}</p>
   {%- endif %}
 </section>

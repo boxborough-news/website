@@ -8,6 +8,8 @@ eleventyExcludeFromCollections: true
 noindex: true
 ---
 {#- Small forwarding pages for addresses used by the old website (and the old /announcements/ list). -#}
+{#- The script needs the full address (the site prefix added by | url); in the HTML itself the
+    site adds the prefix on its own, so the link and the no-script refresh use r.to as is. #}
 {%- set target = r.to | url %}
 <!doctype html>
 <html lang="en">
@@ -21,7 +23,7 @@ noindex: true
       {% set fallback = target %}{% include "partials/old-links-script.njk" %}
     } else location.replace({{ target | dump | safe }});
   </script>
-  <noscript><meta http-equiv="refresh" content="0; url={{ target }}"></noscript>
+  <noscript><meta http-equiv="refresh" content="0; url={{ r.to }}"></noscript>
 </head>
-<body><p>This page has moved. <a href="{{ target }}">Continue</a>.</p></body>
+<body><p>This page has moved. <a href="{{ r.to }}">Continue</a>.</p></body>
 </html>

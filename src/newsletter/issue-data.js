@@ -1,6 +1,6 @@
 // Collects this week's stories and turns them into the newsletter.
 import { buildNewsletter } from "../../lib/newsletter.js";
-import { todayET, ymd, addDays, formatDate, formatRange, continued } from "../../lib/content.js";
+import { todayET, ymd, addDays, formatDate, formatRange, continued, agendasLink } from "../../lib/content.js";
 
 export function makeIssue(data, mode = "next") {
   const { collections, site, newsletter, townhall, siteUrl, townCalendar } = data;
@@ -90,5 +90,6 @@ export function makeIssue(data, mode = "next") {
         : townCalendar.days.filter((d) => d.date <= addDays(week.end, 7))
       : [],
     calendarLink: townCalendar ? townCalendar.link : "",
+    agendas: townhall.agendas_link !== false && townhall.agendas_url ? agendasLink(townhall.agendas_url, week.end) : null,
   });
 }

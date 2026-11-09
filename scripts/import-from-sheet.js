@@ -216,8 +216,27 @@ const BYLINE = /^(?:by|written by|story by|article by|reported by)\s+\S/i;
 const isByline = (b) => b && !b.includes("\n") && BYLINE.test(plain(b)) && plain(b).split(" ").length <= 12;
 // A line that is all bold, or a heading: "**Title**", "## Title".
 const isBoldLine = (b) => b && !b.includes("\n") && (/^#{1,3}\s+\S/.test(b) || /^(\*\*|__)(?:(?!\1).)+\1$/.test(b));
+// Some writers end paragraphs with a line break (Shift+Return) instead of a new paragraph, so a
+// whole story arrives as one paragraph with line breaks in it. A line break after a full sentence
+// (or after a long line) becomes a paragraph break; short lines without a full stop, such as an
+// address or a sign-off, keep their line breaks. Tables, lists and quotes are left alone.
+function paragraphsFromLineBreaks(markdown) {
+  return String(markdown || "").split(/\n{2,}/).map((block) => {
+    if (/^\s*(\||[-*+]\s|\d+[.)]\s|>|```)/.test(block) || !/( {2,}|\\)\n/.test(block)) return block;
+    const lines = block.split(/( {2,}|\\)\n/);
+    let out = lines[0];
+    for (let i = 1; i < lines.length; i += 2) {
+      const prev = out.slice(out.lastIndexOf("\n") + 1).replace(/[\s\\]+$/, "");
+      const next = (lines[i + 1] || "").replace(/^[ \t]+/, "");
+      const endsParagraph = /[.!?:]["”’)\]*_]*$/.test(prev) || prev.length >= 120;
+      out = out.replace(/[ \t]+$/, "") + (endsParagraph ? "\n\n" : "  \n") + next;
+    }
+    return out;
+  }).join("\n\n");
+}
+
 function splitStory(markdown, docTitleText, fallbackTitle) {
-  const blocks = blocksOf(markdown);
+  const blocks = blocksOf(paragraphsFromLineBreaks(markdown));
   const dateLine = /^\(?\s*\d{1,2}[-\s][a-z]{3,9}\.?[-\s]\d{2,4}\s*\)?$/i;
   // The headline, byline and date are often typed on back-to-back lines (Shift+Enter or a line
   // break) rather than as separate paragraphs. Give each of those leading lines its own block.

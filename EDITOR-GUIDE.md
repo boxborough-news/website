@@ -30,8 +30,8 @@ Instead of typing each article into Pages CMS, you can bring the week's News and
 
 1. On the tracker sheet's articles tab, make sure each story's row has its **Content type** (News or Feature), its **Publication date(s)** (the Friday), a link in **Link to document**, any photos in **Link to photo, if applicable**, and initials in **Abby/ Cassie review**. Only rows with the review filled in are imported. Optional: "Yes" in **Top story?**, and "Yes" in **Flyer, chart, or logo? (no trimming of photo)** for a picture that must be shown whole.
 2. In Pages CMS, click **Import stories from the tracker sheet** (under Actions) and confirm.
-3. About five minutes later (up to ten when there are many new photos), open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared. (If a page still looks unchanged, reload it: your browser can keep showing its saved copy of a page for up to 10 minutes.)
-4. Look over each imported story: the **headline**, the **byline** (if the story has one), that the headline isn't repeated at the top of the story text, and the photos.
+3. About five minutes later (up to ten when there are many new photos), check that all the stories came in. One way is to reload the Pages CMS window and look at **Articles**: the new stories are listed there, and you can open them to look them over. Or just open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared. (If a page still looks unchanged, reload it: your browser can keep showing its saved copy of a page for up to 10 minutes.)
+4. Look over each imported story: the **headline**, the **byline** (if the story has one), that the headline isn't repeated at the top of the story text, the paragraph breaks, and the photos. (If a writer ended paragraphs with Shift+Return instead of a new paragraph, the import turns those line breaks back into paragraphs; short lines such as an address keep their line breaks.)
 5. Fix anything either in the Doc (then click **Import** again) or directly in Pages CMS. Once an item has been edited in Pages CMS, later imports leave it alone, so your changes are never overwritten.
 
 How a story is read: the headline is the Doc's bold first line (or, failing that, the Doc's name); a line starting "By …" just below it becomes the byline; the photo labeled "top photo" (or the first photo) is the main photo. So the surest way to set up a Doc is: headline in bold on the first line, then "By Jane Smith" on the next line (if there's a byline), then the story. Bylines written any other way (at the end of the story, for example) aren't picked up; type them into **Byline** in Pages CMS instead. The headline is typed into **Headline** as plain words, without the ** marks you may see in the text.
@@ -70,6 +70,8 @@ Events and notices are still entered in Pages CMS as before. Imported stories ar
 
 **Tip:** to link to a town document or agenda, highlight the words, click the link button, and paste the web address. Links to other websites open in a new tab automatically, so readers keep our page open.
 
+**Links to past stories:** link to the story on this website: open it here and copy the address from the browser. If a story (or its Doc) links to a past story on the old Google Sites site (an address with **#h.** in it), the website switches the link to the same story here automatically when it knows the story, which is most of the time. To check, open the published story and point at the link: the address shown should not start with boxboroughnews.org/archives or have #h. in it.
+
 ### Previewing before it goes live
 Articles, events and notices that are scheduled or saved as drafts don't appear on the website, but you can see exactly how they'll look on the **Preview** page: **boxboroughnews.org/preview/** (until the boxboroughnews.org address moves to the new website, **boxborough-news.github.io/website/preview/**). It lists everything that isn't live yet, with a link to each item's preview. It also has a preview of the **home page** as it will look at 6 a.m. on the coming Friday (the Top story, the photos and their trimming, and the order of the stories), and of the coming Friday's email. It updates about two minutes after you click **Save**. The page isn't linked from the website and is hidden from search engines, so readers won't come across it.
 
@@ -79,7 +81,10 @@ Articles, events and notices that are scheduled or saved as drafts don't appear 
 - Get permission for photos you didn't take. A caption or credit is optional; add a credit when the photographer or source asks for one.
 - **Photos inside the article text:** click at the start of an empty line where the photo should go, type **/** and choose **Image**, then pick a photo from the library or upload one. You can also drag a photo file from your computer into the text. To add a caption, type it on the next line in italics.
 - **Several photos side by side:** put the photos right after one another, each on its own line, with nothing between them except an optional italic caption line. On a computer they show side by side (up to three in a row, more rows if needed), all the same height and never trimmed; on a phone they stack. A single photo is shown on its own, full width. For a true collage, make it as one picture (in Canva or Google Photos, for example) and add it as one photo.
-- **The photo library:** **Media** in the left menu of Pages CMS lists every stored photo. There you can upload photos without writing an article (they're then ready to pick for any article), and make folders to keep new photos organized. Don't rename, move or delete a photo that's already used in an article: the article would lose its picture.
+- **The photo library:** **Media** in the left menu of Pages CMS lists every stored photo. There you can upload photos without writing an article (they're then ready to pick for any article), and make folders to keep new photos organized.
+  - **Name photos before uploading** (on your computer), for example *town-hall.jpg*. Renaming or moving a photo inside Pages CMS gives a "server error" on our site, and would also take the picture out of any article that uses it. To change the name of a photo nobody uses yet, delete it and upload it again under the new name.
+  - **Large photos:** Pages CMS can't upload a photo bigger than about 3 MB, which many phone photos are. Make a smaller copy first (on a Mac, open it in Preview and choose **Tools → Adjust Size**, width 1600), or send it through the tracker sheet as a Drive link, which has no size limit. iPhone HEIC photos need to be saved as JPG first. Photos are shrunk automatically once uploaded.
+  - Don't delete a photo that's already used in an article: the article would lose its picture.
 - **Photos from Google Drive or Google Photos:** Pages CMS uploads from your computer, so download the photo first (in Drive or Photos, use **Download**), then upload it. With the tracker sheet import, Drive links are read automatically, so this step isn't needed there.
 
 ### Fixing a mistake
@@ -127,6 +132,8 @@ The **Submit an event or notice** page (linked from the Events page, the footer 
 ## Town meetings and the optional note
 
 The list of upcoming town meetings on the home page, the Events page and in the email comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain.
+
+Below the list, an **Agendas posted for …** link opens the town's Agenda Center showing the agendas posted for the Thursday before the issue through the Friday after it. The dates move forward by themselves at 6 a.m. each Friday, so there's no weekly link to paste. To hide it, untick **Show the weekly agendas link** in **Town meetings note**.
 
 When a meeting deserves a heads-up (a big vote, a public hearing), you can add a short note above that list. Most weeks, leave it off.
 

@@ -1,18 +1,13 @@
 ---
-title: "Boxborough Celebrates Veterans Day"
+title: Boxborough Celebrates Veterans Day
+section: features
 date: 2026-11-13
-section: "features"
-byline: ""
-summary: ""
-image: "/media/boxborough-celebrates-veterans-day.jpg"
-image_alt: ""
-image_caption: ""
-image_fit: "photo"
-image_credit: ""
+image: /media/boxborough-celebrates-veterans-day.jpg
+image_fit: photo
+image_focus: center
+image_credit: LCTV
 top_story: false
 draft: false
-import_source: "doc:1f2Bf2vsOxm42ExUeHRmwcsfx7c6iw8jUXkWJKD-A32A"
-import_hash: "ce5b258615f8d9c8"
 ---
 On November 11 at 11 a.m., on a beautiful crisp fall day, almost 90 people came together at the Veterans’ Tribute Memorial at the Sargent Memorial Library to honor veterans and their families. Included in the crowd were representatives of the Boxborough Fire and Police Departments, town employees, staff and officials, the Boxborough Minutemen, Acton-Boxborough Scouting Troop 32, and the Acton-Boxborough Madrigal singers.
 
@@ -22,7 +17,7 @@ Vogel noted that this was the sixth year the ceremony has been held in this loca
 
 After a musket salute fired by the Boxborough Minutemen, Major Rick Barrett, retired Army, then read the names of the three Boxborough veterans who had passed away since last Veterans Day and those of the six Boxborough men etched on the memorial wall who died in service. The Madrigals then sang “America the Beautiful,” after which Vogel introduced State Senator Jamie Eldridge and State Representative Dan Sena who read the Governor’s Veterans Day Proclamation for the Commonwealth of Massachusetts.
 
-Boxborough Historical Commission Chair Alan Rohwer outlined the history of Veterans’ Day, which started with a commemoration of the armistice that ended the fighting of World War I on the 11th hour of the 11th day of the 11th month of 1918\.
+Boxborough Historical Commission Chair Alan Rohwer outlined the history of Veterans’ Day, which started with a commemoration of the armistice that ended the fighting of World War I on the 11th hour of the 11th day of the 11th month of 1918
 
 Town Administrator Michael Johns, naval aviator and proud parent of multiple service members, had prepared thoughts for the ceremony but could not attend due to illness.  His remarks were presented by Boxborough Police Officer Ryan Ingerman, a staff sergeant in the Air National Guard.
 
@@ -34,4 +29,4 @@ Lastly, Army veterans and Boxborough residents Nancy Warren and Wayne Richardson
 
 Jennette Kollman ended the ceremony by thanking all who attended and especially Kevin Mahoney who organized the Veterans Day ceremony for the last five years.
 
-Information about Boxborough’s veterans’ services can be found at [https\://www\.boxborough-ma.gov/281/Veterans-Services](https://www.boxborough-ma.gov/281/Veterans-Services).  Boxborough Veterans’ Services Agent James MacRae (978-929-6614) has regular office hours at Boxborough Town Hall Tuesdays from 10 a.m. to 2 p.m., appointments preferred. Additionally, James is available to veterans, dependents, and veteran widows and widowers on additional days and times by appointment.
+Information about Boxborough’s veterans’ services can be found at [https//wwwboxborough-ma.gov/281/Veterans-Services](https://www.boxborough-ma.gov/281/Veterans-Services).  Boxborough Veterans’ Services Agent James MacRae (978-929-6614) has regular office hours at Boxborough Town Hall Tuesdays from 10 a.m. to 2 p.m., appointments preferred. Additionally, James is available to veterans, dependents, and veteran widows and widowers on additional days and times by appointment.

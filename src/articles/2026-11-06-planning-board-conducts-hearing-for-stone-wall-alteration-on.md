@@ -12,7 +12,7 @@ image_credit: ""
 top_story: false
 draft: false
 import_source: "doc:1NYA00ONoKFgrPk3V-k4HYtaLCCYF5iDKaMkGukMgYuw"
-import_hash: "b9c2cc34e52b80ed"
+import_hash: "739faedb6a267d91"
 ---
 At its meeting on Monday, November 2, the Boxborough Planning Board held a public hearing for a scenic road permit and stone wall alteration on Old Harvard Road.
 
@@ -28,4 +28,4 @@ After discussing a list of conditions that included limiting the opening to a 15
 
 In other business, the Planning Board discussed their strategic goals for the coming year, including future articles for consideration, master plan action items, and other objectives such as an overlay zoning district for village center.
 
-The Planning Board’s next meeting is Monday, November 23 to conduct the first of three public hearings for the new fire station. Subsequent hearings will be held on December 7 and December 21\.
+The Planning Board’s next meeting is Monday, November 23 to conduct the first of three public hearings for the new fire station. Subsequent hearings will be held on December 7 and December 21.

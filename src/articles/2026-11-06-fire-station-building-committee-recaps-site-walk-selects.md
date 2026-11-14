@@ -12,7 +12,7 @@ image_credit: ""
 top_story: false
 draft: false
 import_source: "doc:1TZGViIbk5z9KOX7fc9PMc7u363xub7yv7q1DeNQgjj8"
-import_hash: "382b259d4603f396"
+import_hash: "3120669e7e5e84aa"
 ---
 At its meeting on Thursday, November 5, the Boxborough Fire Station Building Committee (FSBC) recapped their site walk of the future fire station at 984 Mass Ave.
 
@@ -26,8 +26,8 @@ Turning to design, Chris Logan and Jeff Shaw of Context Architecture (Context) w
 
 Logan and Shaw placed design samples of the various materials on a table in the room and invited FSBC members to  “play with textures and colors.” The committee spent considerable time examining the materials before arriving at a color combination for each section of the building.
 
-The committee then addressed the schedule for site plan approval and the bidding process. The Planning Board will conduct three public hearings for site plan review, starting on November 23 and continuing to December 7 and December 21\.
+The committee then addressed the schedule for site plan approval and the bidding process. The Planning Board will conduct three public hearings for site plan review, starting on November 23 and continuing to December 7 and December 21.
 
-Owner’s Project Manager Steve Kirby of Vertex informed the committee that the cost estimation for the project is underway, and he expects to receive it before Thanksgiving and will present it to the committee at their meeting on December 3\. Another cost estimate will be complete by the end of January 2027, just before the bidding process begins. Kirby told the committee that the bidding process will take approximately two months. The bid set will be released on February 1, 2027 with bids due March 29, 2027\.
+Owner’s Project Manager Steve Kirby of Vertex informed the committee that the cost estimation for the project is underway, and he expects to receive it before Thanksgiving and will present it to the committee at their meeting on December 3. Another cost estimate will be complete by the end of January 2027, just before the bidding process begins. Kirby told the committee that the bidding process will take approximately two months. The bid set will be released on February 1, 2027 with bids due March 29, 2027.
 
 The FSBC’s next meeting is Thursday, November 19 at 7 p.m. in the Sargent Memorial Library Meeting Room.

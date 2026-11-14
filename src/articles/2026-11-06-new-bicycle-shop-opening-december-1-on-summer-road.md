@@ -12,7 +12,7 @@ image_credit: ""
 top_story: false
 draft: false
 import_source: "doc:1eIUta0nGloKCLp-RGVTpJ3OPN4Q3EErSAlVqTOgP_2k"
-import_hash: "28cc7070c5b8e91f"
+import_hash: "00471a835fa1d9dc"
 ---
 Boxborough is about to become an even more welcoming destination for cyclists. CKBikes LLC, a full-service bicycle shop founded by Craig Kilmer in 2010, will open its doors at 233 Summer Road on December 1, bringing more than 16 years of cycling industry experience, specialized repair services and hands-on education to the Boxborough community.
 
@@ -34,4 +34,4 @@ Courses will range from a four-hour introductory repair clinic for casual cyclis
 
 “We aren’t just selling bikes; we are here to support riders at every stage,” Kilmer said, “whether that means fine-tuning a high-end trail system, grabbing a quick snack mid-ride, or teaching a hobbyist how to master their own repairs.”
 
-CKBikes LLC will officially open to the public on December 1 at 233 Summer Road. Registration for winter maintenance and professional mechanics courses is open now. CK Bikes is currently located at 320 Great Road in Littleton, MA. For more information, visit [https\://ckbikes.com/](https://ckbikes.com/) or call or text 978-844-7539, or email [craig@ckbikes.com](mailto:craig@ckbikes.com).
+CKBikes LLC will officially open to the public on December 1 at 233 Summer Road. Registration for winter maintenance and professional mechanics courses is open now. CK Bikes is currently located at 320 Great Road in Littleton, MA. For more information, visit [https://ckbikes.com/](https://ckbikes.com/) or call or text 978-844-7539, or email [craig@ckbikes.com](mailto:craig@ckbikes.com).

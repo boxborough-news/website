@@ -12,13 +12,13 @@ image_credit: ""
 top_story: false
 draft: false
 import_source: "doc:1xqktbhGWSnBCpn5aGLfiKA3NQSB-UHvZVPW_536qgSQ"
-import_hash: "f54b10bec3dc2adc"
+import_hash: "b14212d5dcbcb1d7"
 ---
 In a lengthy meeting on October 20, the Boxborough Water Resources Committee (WRC) discussed the potential impact of neighboring towns’ efforts to connect to the Massachusetts Water Resource Authority (MWRA), the Littleton-Boxborough waterline project, and PFAS contamination in a private, residential well on Flagg Hill Road.
 
 The committee first heard a presentation from Town Planner Alec Wade  and Agricultural Commission Vice Chair John Neyland regarding [Fall Town Meeting Warrant Article 4](https://www.boxboroughnews.org/news#h.9nj1di89ypkd) about the proposed acquisition of 276 Middle Road, including the plan to maintain the property as a working farm.
 
-Wade reported that Sudbury Valley Trustees (SVT), who have pledged up to \$500,000 to offset the cost of the property, have indicated that at least part of their contribution is contingent on the negotiation of one of one or more “conservation restrictions” (CRs) on the three adjacent parcels already owned by the town.
+Wade reported that Sudbury Valley Trustees (SVT), who have pledged up to $500,000 to offset the cost of the property, have indicated that at least part of their contribution is contingent on the negotiation of one of one or more “conservation restrictions” (CRs) on the three adjacent parcels already owned by the town.
 
 Several WRC members expressed concerns that CRs on the four parcels could conflict with water-supply uses and that future access to water sources might be compromised. In 2002, a WRC consultant ranked one of the four parcels as the second highest in town for developing a high-yield water supply.
 
@@ -40,7 +40,7 @@ PFAS contamination was recently found in a private home well on Flagg Hill Road 
 
 PFAS (Per- and Polyfluoroalkyl Substances) are a group of chemical compounds designated as a contaminant. In 2020, Massachusetts Department of Environmental Protection (MassDEP) published its PFAS public drinking water standard of 20 nanograms per liter (ng/L) (or parts per trillion (ppt)). More information from the State can be found in their “[PFAS in Private Well Drinking Water Supplies FAQ](https://www.mass.gov/info-details/pfas-in-private-well-drinking-water-supplies-faq#what-are-the-levels-of-concern-for-pfas-chemicals).”
 
-According to Lynch’s report to the WRC, the PFAS level at the Flagg Hill Road home initially came in at 1100 ppt, which is well above the MassDEP threshold of 20 ppt. A second test was performed by the state and registered 1400 ppt according to the Board of Health minutes from September 16, 2026\.
+According to Lynch’s report to the WRC, the PFAS level at the Flagg Hill Road home initially came in at 1100 ppt, which is well above the MassDEP threshold of 20 ppt. A second test was performed by the state and registered 1400 ppt according to the Board of Health minutes from September 16, 2026.
 
 State officials “stepped in and requested the help of the town in writing to surrounding well owners to do free well testing for PFAS,” Lynch told the committee. They want “to understand where or maybe how impactful this finding is.”
 
@@ -54,6 +54,6 @@ Other WRC members recalled that elevated levels of PFAS were also found in a wel
 
 It’s going to be a while before we get the results from the state or if we’re going to be allowed to see them,” Lynch said. “We’re not out of the woods yet…the Town of Boxborough still has to face up that we have some water problems.”
 
-The recording of the WRC meeting is available at [https\://www\.dropbox.com/scl/fo/9xfnoq9bekir4hk8272oq/AEgMI\_o-wHykPCvokf3vTEo?rlkey=4n9h3m62z2tii9o6vmlvm2bav\&st=shjf5cpt\&dl=0](https://www.dropbox.com/scl/fo/9xfnoq9bekir4hk8272oq/AEgMI_o-wHykPCvokf3vTEo?rlkey=4n9h3m62z2tii9o6vmlvm2bav&st=shjf5cpt&dl=0)   
+The recording of the WRC meeting is available at [https://www.dropbox.com/scl/fo/9xfnoq9bekir4hk8272oq/AEgMI_o-wHykPCvokf3vTEo?rlkey=4n9h3m62z2tii9o6vmlvm2bav&st=shjf5cpt&dl=0](https://www.dropbox.com/scl/fo/9xfnoq9bekir4hk8272oq/AEgMI_o-wHykPCvokf3vTEo?rlkey=4n9h3m62z2tii9o6vmlvm2bav&st=shjf5cpt&dl=0)   
 The WRC’s next meeting is November 6 at 7 p.m. via Zoom.  
-Meeting link: [https\://us02web.zoom.us/j/87402159095?pwd=zauKX9r0URP2xdCV1cp0SCDUidtNaK.1](https://us02web.zoom.us/j/87402159095?pwd=zauKX9r0URP2xdCV1cp0SCDUidtNaK.1)
+Meeting link: [https://us02web.zoom.us/j/87402159095?pwd=zauKX9r0URP2xdCV1cp0SCDUidtNaK.1](https://us02web.zoom.us/j/87402159095?pwd=zauKX9r0URP2xdCV1cp0SCDUidtNaK.1)

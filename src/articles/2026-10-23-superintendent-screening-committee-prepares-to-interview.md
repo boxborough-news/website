@@ -12,13 +12,13 @@ image_credit: ""
 top_story: false
 draft: false
 import_source: "doc:11UuSpif_F6KyO__iiubZwH4ZuwjddHK3pxATn5QQB6M"
-import_hash: "6a6106c7a1a30fa3"
+import_hash: "e157b02fe2f5d265"
 ---
 The Superintendent Screening Committee established by the Acton-Boxborough School Committee is preparing to interview candidates for the role of ABRSD Superintendent in early November.
 
 In February 2026, Superintendent Peter Light announced that he had accepted a position  
 as Superintendent at the American Community School in Abu Dhabi starting in  
-July 2027\. He also announced that he intends to remain Superintendent of  
+July 2027. He also announced that he intends to remain Superintendent of  
 Acton-Boxborough for the 2026-2027 school year.
 
 In June, the School Committee voted to choose the Collins Center for Public Management as the district’s Superintendent search firm. Since June, a “superintendent search subcommittee” of three School Committee members – Vice Chair Adam Klein, Lisa Adil, and Jacob Fay – have been working to prepare for the superintendent search process.
@@ -35,7 +35,7 @@ According to the Screening Committee’s charge, “the names of people intervie
 
 Klein explained to Boxborough News that “applicants are kept in strict confidence until they are named publicly as finalists. This is to protect their information and privacy during the screening process. As many of them may be sitting principals and superintendents, we don't wish to put their current positions at risk should we not choose to move them forward as finalists. Once the screening committee completes its process and names the finalists, that's when they will be announced publicly.”
 
-The Screening Committee is expected to conduct its first round interviews in early November and vote on an “unranked slate” of two to five finalists. The finalists are expected to visit the district the week of November 16 to meet with administrators, staff, and community members. The finalists are expected to be interviewed by the full School Committee on December 3\.
+The Screening Committee is expected to conduct its first round interviews in early November and vote on an “unranked slate” of two to five finalists. The finalists are expected to visit the district the week of November 16 to meet with administrators, staff, and community members. The finalists are expected to be interviewed by the full School Committee on December 3.
 
 At the October 15 School Committee meeting, Vice Chair Klein emphasized the opportunities for the community to be involved in the superintendent search process. An initial round of community outreach, including a survey and live input sessions, was recently completed, and another survey is expected in late November. Klein also noted that community members are welcome to submit feedback via email to the School Committee at any time.
 

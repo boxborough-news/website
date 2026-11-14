@@ -36,6 +36,6 @@ On the state ballot questions, Boxborough residents voted as follows:
 
 Out of 4,106 registered voters in Boxborough, 2,566 voters (62.5%) cast ballots in this election. 
 
-“Turnout was on par with previous elections, but due to double the number of ballots and close to 2,400 ballot pages to process throughout the day while over 1,300 in-person voters were voting, the day felt a bit chaotic and busy,” Boxborough Town Clerk Rebecca Harris told Boxborough News. “I am extremely grateful for all of my election workers, many of whom stayed far longer than they had originally signed up for” 
+“Turnout was on par with previous elections, but due to double the number of ballots and close to 2,400 ballot pages to process throughout the day while over 1,300 in-person voters were voting, the day felt a bit chaotic and busy,” Boxborough Town Clerk Rebecca Harris told Boxborough News. “I am extremely grateful for all of my election workers, many of whom stayed far longer than they had originally signed up for!” 
 
-The Town Clerk’s complete “Preliminary Results” can be found on the town’s website at  [https//wwwboxborough-ma.gov/DocumentCenter/View/7264/Prelim-results-Boxborough-State-Election-NOV-3-2026?bidId=](https://www.boxborough-ma.gov/DocumentCenter/View/7264/Prelim-results-Boxborough-State-Election-NOV-3-2026?bidId=).
+The Town Clerk’s complete “Preliminary Results” can be found on the town’s website at  [https://www.boxborough-ma.gov/DocumentCenter/View/7264/Prelim-results-Boxborough-State-Election-NOV-3-2026?bidId=](https://www.boxborough-ma.gov/DocumentCenter/View/7264/Prelim-results-Boxborough-State-Election-NOV-3-2026?bidId=).

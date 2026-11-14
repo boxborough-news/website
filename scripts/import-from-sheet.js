@@ -27,7 +27,7 @@ import matter from "gray-matter";
 import sharp from "sharp";
 import mammoth from "mammoth";
 import TurndownService from "turndown";
-import { todayET, issueFriday, addDays, ymd, formatDate } from "../lib/content.js";
+import { todayET, issueFriday, addDays, ymd, formatDate, cleanEscapes } from "../lib/content.js";
 
 const S = JSON.parse(fs.readFileSync("src/_data/importer.json", "utf8"));
 const SHEET_ID = (S.sheet_url.match(/\/d\/([\w-]{20,})/) || [])[1];
@@ -176,7 +176,7 @@ async function readDocument(url) {
   if (isNativeDoc) {
     try {
       const { buf } = await get(`https://docs.google.com/document/d/${id}/export?format=md`);
-      if (sniff(buf) !== "html") return { markdown: buf.toString("utf8"), title: await docTitle(id) };
+      if (sniff(buf) !== "html") return { markdown: cleanEscapes(buf.toString("utf8")), title: await docTitle(id) };
     } catch (err) {
       if (!(err instanceof NotShared)) throw err;
     }
@@ -187,9 +187,9 @@ async function readDocument(url) {
   const title = (name || "").replace(/\.[a-z0-9]+$/i, "");
   if (kind === "docx") {
     const { value } = await mammoth.convertToHtml({ buffer: buf });
-    return { markdown: turndown.turndown(value), title };
+    return { markdown: cleanEscapes(turndown.turndown(value)), title };
   }
-  if (kind === "text") return { markdown: buf.toString("utf8"), title };
+  if (kind === "text") return { markdown: cleanEscapes(buf.toString("utf8")), title };
   return { file: { buf, kind }, title };
 }
 

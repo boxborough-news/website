@@ -1,4 +1,4 @@
-{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserWords, hideDate, isNew.
+{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserMin, teaserWords, hideDate, isNew.
     Without an editor's summary, the teaser is the story's opening, so it ends with "…" to show it continues. -#}
 {%- set d = item.data %}
 <article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% if d.image_fit == 'full' %} has-full-image{% endif %}{% endif %}">
@@ -17,7 +17,8 @@
     {%- endif %}
     <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
     {%- set isExcerpt = not (d.summary and (d.summary | trim)) %}
-    {%- set t = d.teaser if size == 'lead' else (d.teaser | sentences(teaserWords or 28)) %}
+    {#- Cards aim at about the same preview length (teaserMin–teaserWords words), so a row of stories lines up. #}
+    {%- set t = d.teaser if size == 'lead' else ((d.opening or d.teaser) | preview(teaserMin or 30, teaserWords or 45)) %}
     {%- if isExcerpt %}{% set t = t | continued %}{% endif %}
     {%- if size != 'small' %}<p class="story-teaser">{{ t }}</p>{% endif %}
     {%- if not hideDate or d.byline %}

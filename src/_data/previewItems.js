@@ -4,7 +4,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { isPublished, ymd, teaser, wordCount, issueFriday, cleanTitle } from "../../lib/content.js";
+import { isPublished, ymd, teaser, openingText, wordCount, issueFriday, cleanTitle } from "../../lib/content.js";
 import { shareImage } from "../../lib/share-image.js";
 
 function mdFiles(dir) {
@@ -50,6 +50,7 @@ export default async function () {
       data,
       body: parsed.content,
       teaser: teaser(data.summary, parsed.content, isAnn ? 36 : 48),
+      opening: openingText(data.summary, parsed.content),
       readMinutes: Math.max(1, Math.round(wordCount(parsed.content) / 230)),
       shareImage: await shareImage(data.image),
       url: `/preview/${where}/`,

@@ -327,6 +327,32 @@ async function fetchPicture(url, destNoExt) {
 }
 
 // "top photo (thumbnail…): URL  Nathan Soule: URL" → [{ label, url }]
+// A photo credit written in the sheet's photo cell, as "Photo credit to LCTV", "Photo credit:
+// Jane Smith", "Photo by Jane Smith", "Credit: LCTV" or "Courtesy of LCTV". Returns the credit as
+// the website shows it after "Photo:" (so "LCTV", or "Photo courtesy of LCTV" for a courtesy), and
+// the rest of the cell without it.
+function photoCredit(cellText) {
+  const text = String(cellText || "");
+  const lines = text.split(/\n+/);
+  const patterns = [
+    [/^(?:.*?\b)?(?:photos?|pictures?|images?)\s+credits?\s*(?:to|:|-|–|—)?\s*(.+)$/i, (x) => x],
+    [/^(?:.*?\b)?(?:photos?|pictures?)\s+by\s*:?\s*(.+)$/i, (x) => x],
+    [/^(?:.*?\b)?(?:photos?\s+)?courtesy\s+(?:of\s+)?(.+)$/i, (x) => `Photo courtesy of ${x}`],
+    [/^\s*credits?\s*(?:to|:|-|–|—)\s*(.+)$/i, (x) => x],
+  ];
+  for (const [i, raw] of lines.entries()) {
+    const line = raw.replace(/https?:\/\/[^\s,;]+/g, " ").trim();
+    for (const [re, shape] of patterns) {
+      const m = line.match(re);
+      if (!m) continue;
+      const who = m[1].replace(/^[\s:–—-]+|[\s.;,]+$/g, "").trim();
+      if (!who || who.split(/\s+/).length > 12) continue;
+      return { credit: shape(who), rest: lines.filter((_, k) => k !== i).join("\n") };
+    }
+  }
+  return { credit: "", rest: text };
+}
+
 function labeledLinks(cell) {
   const out = [];
   const re = /https?:\/\/[^\s,;]+/g;
@@ -436,8 +462,13 @@ function frontMatter(data) {
   return `---\n${lines.join("\n")}\n---\n`;
 }
 const fieldText = (v) => (v instanceof Date ? ymd(v) : typeof v === "boolean" ? String(v) : String(v ?? ""));
+// The photo credit counts only when there is one, so stories imported before credits were read keep
+// the same fingerprint.
 const hashOf = (data, body, fields) =>
-  crypto.createHash("sha1").update(JSON.stringify([fields.map((f) => fieldText(data[f])), String(body || "").trim()])).digest("hex").slice(0, 16);
+  crypto.createHash("sha1").update(JSON.stringify([
+    [...fields.map((f) => fieldText(data[f])), ...(data.image_credit ? [`credit:${data.image_credit}`] : [])],
+    String(body || "").trim(),
+  ])).digest("hex").slice(0, 16);
 
 function findExisting(dir, source, file) {
   for (const f of fs.readdirSync(dir)) {
@@ -513,7 +544,7 @@ async function importArticles() {
       const photos = labeledLinks(cell(c.photo));
       // A photo cell with words but no link (e.g. "use firestation"): say so on the Preview page
       // and suggest photos already on the site that match, so an editor can pick one.
-      const photoNote = cell(c.photo).trim();
+      const photoNote = photoCredit(cell(c.photo)).rest.replace(/https?:\/\/[^\s,;]+/g, "").trim();
       if (!photos.length && photoNote) {
         const matches = suggestPhotos(photoNote);
         problem(story.title, `the photo cell says "${photoNote}" but has no link, so the story came in without a photo. ` +
@@ -547,7 +578,7 @@ async function importArticles() {
           image_alt: "",
           image_caption: "",
           image_fit: /^y/i.test(cell(c.flyer)) ? "full" : "photo",
-          image_credit: "",
+          image_credit: image ? photoCredit(cell(c.photo)).credit : "",
           top_story: /^y/i.test(cell(c.top)),
           draft: false,
           import_source: `doc:${docId}`,

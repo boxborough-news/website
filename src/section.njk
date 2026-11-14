@@ -25,7 +25,7 @@ eleventyComputed:
       <h2 class="issue-head" id="issue-{{ iss }}">{% if iss | isUpcomingIssue %}New this week{% else %}{{ iss | date("long") }} issue{% endif %}</h2>
       {%- set lastIssue = iss %}
       {%- endif %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserWords = 40 %}{% set hideDate = not (iss | isUpcomingIssue) %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserMin = 30 %}{% set teaserWords = 45 %}{% set hideDate = not (iss | isUpcomingIssue) %}
       {% include "partials/story.njk" %}
       {%- else %}
       <p>Nothing here yet.</p>

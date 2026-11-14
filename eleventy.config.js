@@ -5,7 +5,7 @@ import rssPlugin from "@11ty/eleventy-plugin-rss";
 import { imageOptions } from "./lib/share-image.js";
 import {
   md, todayET, ymd, addDays, formatDate, formatRange, isPublished, teaser, stripHtml, smartQuotes, words, sentences,
-  weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel, continued,
+  preview, weekStart, issueFriday, parseTimeRange, icsCalendar, googleCalendarUrl, weekdayList, nextOnDays, daysLabel, continued,
   agendasLink,
 } from "./lib/content.js";
 
@@ -283,7 +283,7 @@ export default function (eleventyConfig) {
     const previewItems = (api.getAll()[0] && api.getAll()[0].data.previewItems) || [];
     const scheduled = previewItems
       .filter((p) => !p.isAnn && p.status === "scheduled" && p.date)
-      .map((p) => ({ url: p.url, preview: true, data: { ...p.data, date: p.date, teaser: p.teaser, shareImage: p.shareImage, top_story: p.data.top_story === true } }));
+      .map((p) => ({ url: p.url, preview: true, data: { ...p.data, date: p.date, teaser: p.teaser, opening: p.opening, shareImage: p.shareImage, top_story: p.data.top_story === true } }));
     const all = [...articles(api), ...scheduled].sort(byNewest);
     return buildHomeStories(all, issueFriday(todayET()));
   });
@@ -391,6 +391,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("smart", (s) => smartQuotes(s));
   eleventyConfig.addFilter("words", (s, n) => words(s, n));
   eleventyConfig.addFilter("sentences", (s, n) => sentences(s, n));
+  // A story card's preview, about the same length for every story (see preview in lib/content.js).
+  eleventyConfig.addFilter("preview", (s, min, max) => preview(s, min, max));
   eleventyConfig.addFilter("continued", (s) => continued(s));
   eleventyConfig.addFilter("plain", (s) => stripHtml(s));
   eleventyConfig.addFilter("limit", (arr, n) => (arr || []).slice(0, n));

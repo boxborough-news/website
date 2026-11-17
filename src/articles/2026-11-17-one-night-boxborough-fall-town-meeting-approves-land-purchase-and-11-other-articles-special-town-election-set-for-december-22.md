@@ -6,7 +6,7 @@ date: 2026-11-17
 image: /media/some standards and logos/townmeetingback.jpeg
 image_fit: photo
 image_focus: center
-top_story: false
+top_story: true
 draft: false
 ---
 The Town of Boxborough’s Fall Town Meeting was called to order by moderator Dennis Reip at 7:02 pm on Monday November 16 in the Blanchard Memorial School Gymnasium. Peak attendance totaled almost 310 during the discussion of the most controversial issue, acquisition of a local farm for $1.8 million, which ultimately passed by the required two-thirds vote.

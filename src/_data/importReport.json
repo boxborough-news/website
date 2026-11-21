@@ -1,18 +1,29 @@
 {
-  "ran_at": "2026-11-13T20:21:59.116Z",
-  "ran_at_text": "Fri., Nov. 13, 3:21 p.m.",
-  "issue": "2026-11-13",
+  "ran_at": "2026-11-21T20:43:09.290Z",
+  "ran_at_text": "Sat., Nov. 21, 3:43 p.m.",
+  "issue": "2026-11-27",
   "added": [
-    "Boxborough’s 93rd Annual Merrie Christmas Fair Returns November 21",
-    "Local Business Helps Families “Make Space for What Matters Most”",
-    "Water Resources Committee Votes to Recommend Middle Road Land Purchase",
-    "Select Board Discusses Town Policy on Plowing Private Ways",
-    "Expecting “Interest” in Article 4, Boxborough Leadership Prepares for Fall Town Meeting on Monday",
-    "Boxborough Celebrates Veterans Day",
-    "Boxborough Police K9 Koda Recovering From Tickborne Disease"
+    "One-Night Boxborough Fall Town Meeting Approves Land Purchase and 11 Other Articles; Special Town Election Set for December 22",
+    "Sargent Memorial Library Launches “Junior Librarian” Program for Young Book Lovers",
+    "Standard & Poor’s Assigns ‘AAA’ Rating to Town of Boxborough",
+    "Boxborough Community Services Coordinator Launches 2026 Holiday Support Program",
+    "Town To Celebrate the Holiday Season with Menorah Lighting December 4-11 and Tree Lighting on December 5.",
+    "Sustainability Committee Explores ‘Pay-As-You-Throw’ Options for Transfer Station",
+    "Recreation Commission Briefs",
+    "Town Receives State Grant for “Phase 1” of Liberty Square Road Redesign Project",
+    "FSBC Authorizes Funding for Geotech Testing, Prepares for Planning Board Hearing on November 23"
   ],
   "updated": [],
   "unchanged": [],
   "kept": [],
-  "problems": []
+  "problems": [
+    {
+      "title": "One-Night Boxborough Fall Town Meeting Approves Land Purchase and 11 Other Articles; Special Town Election Set for December 22",
+      "message": "the photo cell says \"town meeting photo\" but has no link, so the story came in without a photo. Choose one in Pages CMS (open the article, click Main photo and pick it from the photo library). Photos already on the site that may match: some standards and logos/townmeetingback.jpeg (used with \"One-Night Boxborough Fall Town Meeting Approves Land Purchase and 11 Other Articles; Special Town Election Set for December 22\", Nov. 17, 2026); expecting-interest-in-article-4-boxborough-leadership.jpg (used with \"Expecting “Interest” in Article 4, Boxborough Leadership Prepares for Fall Town Meeting on Monday\", Nov. 13, 2026); archive/2026/03-all-three-firehouse-articles-pass-at-boxborough-special.jpg (used with \"Town to Host Info Session on November 9 to Help Voters Prepare for Fall Town Meeting\", Nov. 6, 2026)."
+    },
+    {
+      "title": "Standard & Poor’s Assigns ‘AAA’ Rating to Town of Boxborough",
+      "message": "the photo cell says \"town hall\" but has no link, so the story came in without a photo. Choose one in Pages CMS (open the article, click Main photo and pick it from the photo library). Photos already on the site that may match: free-cash-oct16.jpg (used with \"Finance Committee Discusses Preliminary Five-Year Budget Forecast for Fiscal 2028\", Nov. 6, 2026); announcements/11-senate-candidate-forum-01.jpg (used with \"Middlesex and Worcester Senate District Candidate Forum\", Sept. 25, 2026); archive/2026/08-finance-committee-proposes-policy-to-prevent-deficit.jpg (used with \"Finance Committee Proposes Policy to Prevent Deficit Spending\", Aug. 6, 2026)."
+    }
+  ]
 }

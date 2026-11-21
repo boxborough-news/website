@@ -1,18 +1,12 @@
 ---
-title: "Standard & Poor’s Assigns ‘AAA’ Rating to Town of Boxborough"
+title: Standard & Poor’s Assigns ‘AAA’ Rating to Town of Boxborough
+section: news
 date: 2026-11-20
-section: "news"
-byline: ""
-summary: ""
-image: ""
-image_alt: ""
-image_caption: ""
-image_fit: "photo"
-image_credit: ""
+image: /media/some standards and logos/townhall2.jpg
+image_fit: photo
+image_focus: center
 top_story: false
 draft: false
-import_source: "doc:1F-8RHh_Wq2Lwcg7BY3kyqQGocwv1RQKG"
-import_hash: "ac5c0d247829d6bf"
 ---
 At their meeting on November 17, the Finance Committee (FinCom) discussed the town’s bond rating, financial dashboard, and revolving accounts, and briefly touched on the upcoming budget.
 
@@ -22,7 +16,7 @@ Treasurer/Collector Emily Roux said “a ‘AAA’ bond rating is indicative of 
 
 FinCom also discussed the financial dashboard that tracks expenses, revenues, reserves, debt, outstanding taxes, and staffing on a quarterly basis. All items were in line with fiscal year 2027 projections. The dashboard is available on the Finance Committee page on the Town website ([https://www.boxborough-ma.gov/334/Finance-Committee](https://www.boxborough-ma.gov/334/Finance-Committee)) after FinCom reviews the results.
 
-In other financial matters, the committee turned to “revolving funds.” According to the Massachusetts Division of Local Services (DLS) Financial Management Research Bureau (FMRB), in Massachusetts, all revenue is considered general fund revenue that must be appropriated by the legislative body (Town Meeting) unless another law provides for alternate treatment ([**M.G.L. c. 44, §53**](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter44/Section53)).
+In other financial matters, the committee turned to “revolving funds.” According to the Massachusetts Division of Local Services (DLS) Financial Management Research Bureau (FMRB), in Massachusetts, all revenue is considered general fund revenue that must be appropriated by the legislative body (Town Meeting) unless another law provides for alternate treatment (**[M.G.L. c. 44, §53](https://malegislature.gov/Laws/GeneralLaws/PartI/TitleVII/Chapter44/Section53)**).
 
 “Revolving funds are an example of an alternative revenue source. These receipts are segregated from the general fund, earmarked for expenditure without appropriation for specified purposes by statute to support the activity, program, or service that generated the revenue, and spent from the actual collections on hand.” For example, Town Meeting approved a revolving fund for recreation programs that are self-funded.
 

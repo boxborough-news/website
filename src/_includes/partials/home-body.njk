@@ -79,8 +79,8 @@
 {% include "partials/subscribe-box.njk" %}
 
 {#- Desktop finishing touches, done after the browser has laid out the page:
-    1. if a section's last row isn't full: two stories in a row of three share it equally; otherwise
-       the last story widens to fill the row (picture beside text);
+    1. stories below This week are balanced into rows of three and pairs (halves), so no story is
+       left alone in a row; a story alone beside This week fills both places (picture beside text);
     2. stories in the same row get the same height, so the lines under them meet. #}
 <script>
 (function () {
@@ -105,15 +105,21 @@
     flows.forEach(function (f) {
       var cards = [].slice.call(f.children);
       if (!cards.length) return;
-      var all = rows(cards), last = all[all.length - 1];
-      // Two places in a row beside This week, three below it.
+      // Beside This week there are two places in a row; below it, three. Stories below it are
+      // balanced so every card is a third or a half and no story is left alone in a row:
+      // 3 → 3, 2 → 2 halves, 4 → 2 + 2 halves, 5 → 3 + 2, 7 → 3 + 2 + 2, 1 → a half on its own.
       var railEnd = rail.getBoundingClientRect().bottom + parseFloat(getComputedStyle(rail).marginBottom);
-      var slots = last.y < railEnd - 1 ? 2 : 3;
-      var spare = slots - last.cards.length;
-      // Two stories in a row of three share it equally, photos on top like the other cards;
-      // otherwise the last story widens to fill the row, its photo beside the text.
-      if (slots === 3 && last.cards.length === 2) last.cards.forEach(function (c) { c.classList.add("half"); });
-      else if (spare > 0) last.cards[last.cards.length - 1].classList.add("span-" + (spare + 1));
+      var below = cards.filter(function (c) { return c.getBoundingClientRect().top >= railEnd - 1; });
+      var n = below.length;
+      if (n) {
+        var halves = n === 1 ? 1 : n % 3 === 2 ? 2 : n % 3 === 1 ? 4 : 0;
+        below.slice(n - halves).forEach(function (c) { c.classList.add("half"); });
+      } else {
+        // The section ends beside This week: a story alone in its row there fills both places,
+        // its photo beside the text.
+        var all = rows(cards), last = all[all.length - 1];
+        if (last.cards.length === 1) last.cards[0].classList.add("span-2");
+      }
       rows(cards).forEach(function (r) {
         if (r.cards.length < 2) return;
         var h = Math.max.apply(null, r.cards.map(function (c) { return c.getBoundingClientRect().height; }));

@@ -42,7 +42,7 @@ function nowText() {
   const t = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", hour12: true }).format(now);
   return `${formatDate(todayET(), "eventday")}, ${t.replace(/\s?AM$/i, " a.m.").replace(/\s?PM$/i, " p.m.").replace(/:00 /, " ")}`;
 }
-const report = { ran_at: new Date().toISOString(), ran_at_text: nowText(), issue: ISSUE || issueFriday(today), added: [], updated: [], unchanged: [], kept: [], problems: [] };
+const report = { ran_at: new Date().toISOString(), ran_at_text: nowText(), issue: ISSUE || issueFriday(today), added: [], updated: [], unchanged: [], kept: [], already: [], problems: [] };
 const problem = (title, message) => {
   report.problems.push({ title, message });
   console.warn(`PROBLEM ${title}: ${message}`);
@@ -235,6 +235,28 @@ function paragraphsFromLineBreaks(markdown) {
   }).join("\n\n");
 }
 
+// Google's export loses the indent of a second paragraph inside a bullet ("- Winterfest: …" then
+// a paragraph that belongs to the same bullet), so the paragraph comes in as ordinary text and
+// ends the list. A paragraph (or several) sitting between two bullets of the same list is put
+// back inside the bullet above it. A paragraph after the last bullet is left as ordinary text,
+// since that is usually where the story carries on.
+function keepParagraphsInBullets(markdown) {
+  const blocks = String(markdown || "").split(/\n{2,}/);
+  const marker = (b) => (b.match(/^(\s*)([-*+]|\d+[.)])(\s+)/) || null);
+  const kind = (m) => (m ? (/\d/.test(m[2]) ? "ol" : "ul") : "");
+  for (let i = 0; i < blocks.length; i++) {
+    const m = marker(blocks[i].split("\n").pop()) || marker(blocks[i]);
+    if (!m || m[1]) continue;
+    let j = i + 1;
+    while (j < blocks.length && !marker(blocks[j]) && blocks[j].trim() && !/^\s*(#|!\[|\||>|```)/.test(blocks[j])) j++;
+    if (j === i + 1 || j >= blocks.length || kind(marker(blocks[j])) !== kind(m) || marker(blocks[j])[1]) continue;
+    const pad = " ".repeat(m[2].length + m[3].length);
+    for (let k = i + 1; k < j; k++) blocks[k] = blocks[k].split("\n").map((l) => pad + l.trimStart()).join("\n");
+    i = j - 1;
+  }
+  return blocks.join("\n\n");
+}
+
 function splitStory(markdown, docTitleText, fallbackTitle) {
   const blocks = blocksOf(paragraphsFromLineBreaks(markdown));
   const dateLine = /^\(?\s*\d{1,2}[-\s][a-z]{3,9}\.?[-\s]\d{2,4}\s*\)?$/i;
@@ -277,7 +299,7 @@ function splitStory(markdown, docTitleText, fallbackTitle) {
   let byline = "";
   if (blocks.length && isByline(blocks[0])) byline = plain(blocks.shift()).replace(/^(?:(?:written|story|article|reported)\s+)?by\s+/i, "By ");
   if (blocks.length) blocks[0] = blocks[0].replace(/^\(\s*\d{1,2}-[a-z]{3}-\d{2}\s*\)\s*/i, "");
-  return { title, byline, body: blocks.join("\n\n") };
+  return { title, byline, body: keepParagraphsInBullets(blocks.join("\n\n")) };
 }
 
 function slugify(t) {
@@ -480,10 +502,30 @@ function findExisting(dir, source, file) {
   return null;
 }
 
-// Writes an item, unless an earlier import of it has since been edited in Pages CMS.
+// A story someone already put on the site another way, most often typed into Pages CMS by hand
+// (possibly with a different date): same headline, or the same opening words. The import leaves
+// it alone instead of adding a second copy.
+function findSameStory(dir, data, body) {
+  const opening = (s) => norm(String(s || "").replace(/!\[[^\]]*\]\([^)]*\)/g, " ")).split(" ").slice(0, 25).join(" ");
+  const title = norm(data.title);
+  const start = opening(body);
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith(".md")) continue;
+    const p = path.join(dir, f);
+    let other;
+    try { other = matter(fs.readFileSync(p, "utf8")); } catch { continue; }
+    if (other.data.import_source === data.import_source) continue;
+    if ((title && norm(other.data.title) === title) || (start.split(" ").length >= 20 && opening(other.content) === start)) return p;
+  }
+  return null;
+}
+
+// Writes an item, unless an earlier import of it has since been edited in Pages CMS, or the same
+// story is already on the site (entered by hand).
 function save({ dir, file, data, body, fields, label }) {
   const source = data.import_source;
   const existing = findExisting(dir, source, file);
+  if (!existing && findSameStory(dir, data, body)) return report.already.push(label);
   data.import_hash = hashOf(data, body, fields);
   if (existing) {
     const old = matter(fs.readFileSync(existing, "utf8"));
@@ -709,10 +751,11 @@ try {
 fs.writeFileSync("src/_data/importReport.json", JSON.stringify(report, null, 2) + "\n");
 const lines = [
   `## Story import for ${report.issue}`,
-  `New: ${report.added.length} · Updated: ${report.updated.length} · Unchanged: ${report.unchanged.length} · Kept as edited in Pages CMS: ${report.kept.length} · Problems: ${report.problems.length}`,
+  `New: ${report.added.length} · Updated: ${report.updated.length} · Unchanged: ${report.unchanged.length} · Kept as edited in Pages CMS: ${report.kept.length} · Already on the site: ${report.already.length} · Problems: ${report.problems.length}`,
   ...report.added.map((t) => `- New: ${t}`),
   ...report.updated.map((t) => `- Updated: ${t}`),
   ...report.kept.map((t) => `- Kept as edited in Pages CMS: ${t}`),
+  ...report.already.map((t) => `- Already on the site (entered by hand), not imported again: ${t}`),
   ...report.problems.map((p) => `- Problem with "${p.title}": ${p.message}`),
 ];
 console.log(lines.join("\n"));

@@ -1,0 +1,90 @@
+/* The printable one-page weekly flyer (src/print/this-week.njk).
+   Letter size, half-inch margins, black-and-white friendly (no dark backgrounds or photos),
+   large type for reading from a step back. On screen the sheet sits on a grey desk. */
+
+@font-face { font-family: "Newsreader"; src: url("../fonts/newsreader-latin-opsz-normal.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("../fonts/newsreader-latin-opsz-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Public Sans"; src: url("../fonts/public-sans-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+:root {
+  --ink: #1b2547;
+  --text: #262b36;
+  --muted: #4a4f60;
+  --rule: #c9cbd6;
+  --navy: #1e2a4d;
+  --red: #a23a45;
+  --tint: #eeeff6;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+@page { size: letter; margin: 0.5in; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+.print-body { background: #d9dae0; color: var(--text); font-family: var(--serif); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+/* On screen: tools above a letter-size sheet. */
+.print-tools { max-width: 8.5in; margin: 24px auto 12px; padding: 0 16px; font-family: var(--sans); font-size: 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.print-tools p { margin: 0; }
+.print-tools a { color: var(--navy); }
+.print-tools button { font: 700 15px var(--sans); color: #fff; background: var(--navy); border: 0; border-radius: 6px; padding: 9px 18px; cursor: pointer; }
+.print-tools .print-tip { flex-basis: 100%; color: var(--muted); font-size: 14px; }
+.sheet { width: 8.5in; height: 11in; margin: 0 auto 40px; padding: 0.5in; background: #fff; box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18); overflow: hidden; display: flex; flex-direction: column; }
+@media screen and (max-width: 8.8in) {
+  .sheet { transform-origin: top left; zoom: 0.45; }
+}
+
+@media print {
+  .print-body { background: #fff; }
+  .print-tools { display: none; }
+  .sheet { width: auto; height: 10in; margin: 0; padding: 0; box-shadow: none; }
+}
+
+.sheet a { color: inherit; text-decoration: none; }
+.sheet h1, .sheet h2, .sheet h3, .sheet p, .sheet ul, .sheet ol { margin: 0; }
+.qr svg { display: block; width: 100%; height: auto; }
+
+/* ---------- Masthead ---------- */
+.p-masthead { display: flex; align-items: center; justify-content: center; gap: 0.18in; }
+.p-masthead .p-logo { width: 1.15in; height: auto; }
+.p-masthead .p-wordmark { width: 4.6in; height: auto; }
+
+/* ---------- Weekly sheet ---------- */
+.weekly .p-masthead { justify-content: flex-start; }
+.weekly .p-masthead .p-logo { width: 0.85in; }
+.weekly .p-masthead .p-wordmark { width: 3.4in; }
+.weekly-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.12in; border-bottom: 3px solid var(--navy); }
+.weekly-issue { text-align: right; font-family: var(--sans); }
+.weekly-issue .kicker { font-size: 10pt; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); }
+.weekly-issue .date { font-size: 14pt; font-weight: 700; color: var(--ink); margin-top: 0.02in; }
+.label { font-family: var(--sans); font-size: 10.5pt; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); padding-bottom: 0.04in; border-bottom: 1.5px solid var(--navy); margin-bottom: 0.08in; }
+.w-lead { margin-top: 0.2in; }
+.w-lead h1 { font-family: var(--serif); font-weight: 700; font-size: 18pt; line-height: 1.15; color: var(--ink); }
+.w-lead p { font-size: 11pt; line-height: 1.4; margin-top: 0.06in; }
+.w-more { margin-top: 0.18in; }
+.w-more-cols { columns: 2; column-gap: 0.35in; }
+.w-sec { font-family: var(--sans); font-size: 9pt; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin: 0.04in 0 0.02in; break-after: avoid; }
+.w-more-cols ul + .w-sec { margin-top: 0.1in; }
+.w-more ul { list-style: none; padding: 0; }
+.w-more li { break-inside: avoid; font-family: var(--serif); font-size: 12pt; line-height: 1.2; font-weight: 600; color: var(--ink); padding: 0.04in 0 0.05in; border-bottom: 1px solid var(--rule); }
+.w-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35in; margin-top: 0.18in; }
+.w-meetings dl { margin: 0; font-family: var(--sans); font-size: 9.5pt; line-height: 1.28; }
+.w-meetings dt { font-weight: 800; color: var(--ink); margin-top: 0.04in; }
+.w-meetings dd { margin: 0.01in 0 0; }
+.w-meetings .t { font-weight: 800; color: var(--red); }
+.w-meetings .note { font-family: var(--serif); font-size: 10.5pt; line-height: 1.35; background: var(--tint); padding: 0.06in 0.1in; margin-bottom: 0.06in; }
+.w-meetings .note p { margin: 0; }
+.w-events ul { list-style: none; padding: 0; }
+.w-events li { padding: 0.03in 0 0.04in; border-bottom: 1px solid var(--rule); }
+.w-events .when { font-family: var(--sans); font-size: 8.5pt; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--red); }
+.w-events .what { font-family: var(--serif); font-size: 11pt; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.w-events .where { font-family: var(--sans); font-size: 8.5pt; color: var(--muted); }
+.w-foot { font-family: var(--sans); font-size: 9.5pt; color: var(--muted); margin-top: 0.06in; }
+.w-empty { font-family: var(--sans); font-size: 10.5pt; color: var(--muted); }
+.w-subscribe { margin-top: auto; display: grid; grid-template-columns: 1.25in 1fr; gap: 0.25in; align-items: center; border: 2px solid var(--navy); border-radius: 8px; padding: 0.14in 0.2in; }
+.w-subscribe .qr { width: 1.25in; }
+.w-subscribe .pitch { font-family: var(--serif); font-size: 17pt; font-weight: 700; line-height: 1.15; color: var(--ink); }
+.w-subscribe .how { font-family: var(--sans); font-size: 12pt; line-height: 1.35; margin-top: 0.06in; }
+.w-subscribe .how strong { color: var(--navy); }
+.w-subscribe .tips { font-family: var(--sans); font-size: 10pt; color: var(--muted); margin-top: 0.05in; }

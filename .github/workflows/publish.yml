@@ -47,6 +47,13 @@ jobs:
       - run: npm run build
         env:
           SITE_URL: ${{ vars.SITE_URL }}
+      # PDF copy of the printable weekly flyer (src/print/), made with the Chrome already on GitHub's
+      # machines. If this step has trouble, the site still publishes without a fresh PDF.
+      - name: Make the printable weekly flyer PDF
+        run: node scripts/print-pdf.js
+        continue-on-error: true
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

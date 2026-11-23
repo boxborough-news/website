@@ -10,7 +10,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 |---|---|
 | Monday to Thursday | Add articles as they're ready, with **Friday's date** as the publication date so they appear together at 6 a.m. Friday. Add events and notices as they arrive. You can keep working late Thursday night: nothing dated Friday goes live before 6 a.m. |
 | Thursday | When the week's stories are approved on the tracker sheet, click **Import stories from the tracker sheet** in Pages CMS (see below), then check them on the **Preview** page. Tick one **Top story** for the week. Optional: write the **Editors' note** for the email (see *The Friday email*), and add a **Town meetings note** if a meeting next week deserves a heads-up. |
-| **Friday morning** | Shortly after 6 a.m., the articles go live and an email draft appears in **Kit**. Review it and click **Send**. |
+| **Friday morning** | Shortly after 6 a.m., the articles go live and an email draft appears in **Kit**. Review it and click **Send**. Optional: print this week's one-page flyer for bulletin boards (see *The printed weekly flyer*). |
 
 ---
 
@@ -163,6 +163,16 @@ To send it:
 **Added or fixed an article after the draft was made?** (For example, the stories were imported on Friday evening or the weekend, after the 6:20 a.m. draft.) In Pages CMS, click the action button labeled **Create this week's email draft now**, about five minutes after your last change. From Friday through Tuesday it rebuilds the email for the issue on the home page, with everything in it now, and replaces that issue's draft in Kit (unless it has already been sent); events and meetings that are already over are left out. Any changes you made to the draft in Kit are replaced, so click the button first and edit in Kit afterwards. If you don't see the button, just edit the draft directly in Kit.
 
 **To add the editors' note at the top of an issue** (a few friendly lines pointing readers to the week's stories, like the note in the old newsletter): open **Weekly email settings**, write it in **Editors' note**, set **The note is for the issue dated** to that Friday, and save before Friday morning. To link to a story, select the words, click the link button and paste the story's web address: open the story on the new website and copy the address from your browser's address bar. (Don't copy links out of an old newsletter; those go through the old email service.) The note is signed with the name in **Signed by**. Because it's tied to that Friday, it won't appear again the following week, so there's nothing to clear. If you add or change the note after the draft has been made, click **Create this week's email draft now** to refresh the draft.
+
+---
+
+## The printed weekly flyer
+
+**This Week in Boxborough News** is a one-page flyer to print and post on bulletin boards (shops, the library, Town Hall). It shows the top story with its opening sentences, the headlines of every other News and Features story in the issue, Next Week at Town Hall, a few upcoming events, and a QR code to subscribe. It prints on one letter-size page and looks fine in black and white.
+
+It makes itself from the current issue, so there's nothing to edit: whatever is on the home page is on the flyer. A fresh PDF is made every morning, including Friday at 6 a.m. when the new issue goes live, at **/print/this-week.pdf** on the website. Open it and print, or open **/print/this-week/** and click **Print**. Both are also linked from the **Preview** page. If a week is too full to fit, the flyer lists fewer town meetings and events by itself, so all the headlines fit; the subscribe box always stays.
+
+The QR code and printed address point to **boxboroughnews.org**, so **don't post the flyer until the website has moved to that address**. Until then the QR code won't reach the new Subscribe page.
 
 ---
 

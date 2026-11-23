@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{#- A one-page printable flyer (letter size): src/print/this-week.njk.
+    On screen the sheet is shown on a grey desk with a Print button; printed, only the sheet. -#}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>{{ title }} · {{ site.title }}</title>
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="stylesheet" href="/assets/css/print.css?v={{ assetVersion.print }}">
+</head>
+<body class="print-body">
+  <div class="print-tools">
+    <p><strong>{{ title }}</strong>{% if pdfName %} · <a href="/print/{{ pdfName }}">Download the PDF</a>{% endif %} · <a href="/">Back to the website</a></p>
+    <button type="button" onclick="window.print()">Print</button>
+    <p class="print-tip">Prints on one letter-size page. Black-and-white printing is fine.</p>
+  </div>
+  <main class="sheet {{ sheetClass }}">
+    {{ content | safe }}
+  </main>
+</body>
+</html>

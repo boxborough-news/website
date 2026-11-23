@@ -1,0 +1,154 @@
+---
+permalink: /print/this-week/
+layout: layouts/print.njk
+title: This Week in Boxborough News
+sheetClass: weekly
+pdfName: this-week.pdf
+eleventyExcludeFromCollections: true
+---
+{#- A one-page summary of the current issue to print and post: the top story, more headlines,
+    next week at Town Hall, upcoming events and how to subscribe. It's rebuilt with the site, so it
+    always shows the current issue; a PDF copy is made at /print/this-week.pdf (scripts/print-pdf.js).
+    Items marked data-trim are dropped, lowest number first, if the page overflows: later meetings
+    and events first, then the Town Hall note, the top story's opening, the first two meetings and
+    events, and only then headlines (from the end). -#}
+{%- set hs = collections.homeStories %}
+{%- set lead = hs.lead %}
+<header class="weekly-head">
+  <div class="p-masthead">
+    <img class="p-logo" src="/assets/brand/logo.png" width="360" height="360" alt="" eleventy:ignore>
+    <img class="p-wordmark" src="/assets/brand/wordmark.png" width="1303" height="271" alt="{{ site.title }}: {{ site.tagline }}" eleventy:ignore>
+  </div>
+  <div class="weekly-issue">
+    <p class="kicker">This week’s issue</p>
+    {%- if hs.issue %}<p class="date">{{ hs.issue | date("weekday") }}</p>{% endif %}
+  </div>
+</header>
+
+{%- if lead %}
+{%- set d = lead.data %}
+{%- set t = (d.opening or d.teaser) | preview(35, 55) %}
+{%- if not (d.summary and (d.summary | trim)) %}{% set t = t | continued %}{% endif %}
+<section class="w-lead">
+  <h1>{{ d.title | smart }}</h1>
+  <p data-trim="65">{{ t }}</p>
+</section>
+{%- endif %}
+
+{#- Every other News and Features story in the issue, grouped by section. (When there are no new
+    features this week, the home page shows recent ones; those are left out here.) -#}
+{%- set groups = [{ name: "News", items: hs.news }, { name: "Features", items: hs.features if hs.featuresAreCurrent else [] }] %}
+{%- set n = 0 %}
+<section class="w-more">
+  <h2 class="label">Also in this issue</h2>
+  <div class="w-more-cols">
+    {%- for g in groups %}{% if g.items.length %}
+    <h3 class="w-sec">{{ g.name }}</h3>
+    <ul>
+      {%- for i in g.items %}{% set n = n + 1 %}
+      <li data-trim="{{ 100 - n }}">{{ i.data.title | smart }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}{% endfor %}
+  </div>
+</section>
+
+<div class="w-cols">
+  <section class="w-meetings">
+    <h2 class="label">Next Week at Town Hall</h2>
+    {%- if townhall.show and townhall.body and (townhall.hide_after | afterToday) %}
+    <div class="note" data-trim="50">{{ townhall.body | markdown | safe }}</div>
+    {%- endif %}
+    {%- if townCalendar.ok and townCalendar.all.length %}
+    {%- set mt = townCalendar.all | meetingsWithin(7, 9) %}
+    {%- if mt.rows.length %}
+    <dl>
+      {%- set lastDate = "" %}
+      {%- for e in mt.rows %}
+      {%- if e.date != lastDate %}<dt data-trim="{{ (75 - loop.index) if loop.index <= 2 else ((45 - loop.index) if loop.index <= 5 else (20 - loop.index)) }}" data-day="{{ e.date }}">{{ e.date | date("eventday") }}</dt>{% set lastDate = e.date %}{% endif %}
+      <dd data-trim="{{ (75 - loop.index) if loop.index <= 2 else ((45 - loop.index) if loop.index <= 5 else (20 - loop.index)) }}" data-day="{{ e.date }}">{% if e.closure %}{{ e.title }}{% else %}<span class="t">{{ e.time }}</span> {{ e.title }}{% endif %}</dd>
+      {%- endfor %}
+    </dl>
+    {%- else %}
+    <p class="w-empty">No town meetings are listed for the coming week.</p>
+    {%- endif %}
+    {%- endif %}
+    <p class="w-foot">Agendas and the full calendar: boxborough-ma.gov</p>
+  </section>
+
+  {%- set ev = collections.eventsThisWeek %}
+  {%- set events = ev.boxborough.concat(ev.nearby).slice(0, 6) %}
+  <section class="w-events">
+    <h2 class="label">Upcoming Events</h2>
+    {%- if events.length %}
+    <ul>
+      {%- for r in events %}
+      {%- if r.first != r.last %}{% set when = r.first | range(r.last) %}
+      {%- elif r.runsThrough %}{% set when = (r.first | date("eventday")) + " · through " + (r.runsThrough | date("short")) %}
+      {%- else %}{% set when = r.first | date("eventday") %}{% endif %}
+      <li data-trim="{{ (75 - loop.index) if loop.index <= 2 else ((45 - loop.index) if loop.index <= 4 else (20 - loop.index)) }}">
+        <p class="when">{{ when }}{% if r.time and not r.runsThrough %} · {{ r.time }}{% endif %}</p>
+        <p class="what">{{ r.title | smart }}</p>
+        {%- if r.venue %}<p class="where">{{ r.venue }}</p>{% endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    <p class="w-empty">No community events are listed for the coming week.</p>
+    {%- endif %}
+    <p class="w-foot">More events at {{ print.address }}/events</p>
+  </section>
+</div>
+
+<section class="w-subscribe">
+  <div class="qr">{% qr print.subscribe_url, "QR code: subscribe to Boxborough News" %}</div>
+  <div>
+    <p class="pitch">Read every story at {{ print.address }}</p>
+    <p class="how"><strong>Scan to get Boxborough News free in your inbox every Friday.</strong></p>
+    <p class="tips">Got a story or an event? Email {{ site.tips_email }}</p>
+  </div>
+</section>
+
+<script>
+  // Keep it to one page: drop the lowest-priority items (smallest data-trim) until the sheet fits,
+  // then put back, highest priority first, any that fit after all (dropping from one column of
+  // the Town Hall / Events pair doesn't help when the other one is the taller).
+  function trim() {
+    var sheet = document.querySelector(".sheet");
+    var fits = function () { return sheet.scrollHeight <= sheet.clientHeight + 1; };
+    var dayHead = function (el) { return el.dataset.day ? sheet.querySelector('dt[data-day="' + el.dataset.day + '"]') : null; };
+    var removed = [];
+    var drop = function (el) { var mark = document.createComment(""); el.replaceWith(mark); removed.push({ el: el, mark: mark, out: true }); };
+    var items = [].slice.call(sheet.querySelectorAll("[data-trim]")).filter(function (x) { return x.tagName !== "DT"; })
+      .sort(function (a, b) { return a.dataset.trim - b.dataset.trim; });
+    while (!fits() && items.length) {
+      var el = items.shift();
+      drop(el);
+      // A day heading with no meetings left goes too.
+      if (el.dataset.day && !sheet.querySelector('dd[data-day="' + el.dataset.day + '"]')) drop(dayHead(el));
+    }
+    var stuck = [];
+    for (var i = removed.length - 1; i >= 0; i--) {
+      var r = removed[i];
+      if (r.el.tagName === "DT") continue; // comes back with its first meeting
+      var section = r.mark.parentNode.closest("section");
+      if (stuck.indexOf(section) >= 0) continue; // keep each list in order: no gaps
+      var head = null;
+      if (r.el.dataset.day && !dayHead(r.el)) {
+        head = removed.filter(function (x) { return x.el.tagName === "DT" && x.el.dataset.day === r.el.dataset.day; })[0];
+        if (head) head.mark.replaceWith(head.el);
+      }
+      r.mark.replaceWith(r.el);
+      if (!fits()) {
+        r.el.replaceWith(r.mark);
+        if (head) head.el.replaceWith(head.mark);
+        stuck.push(section);
+      }
+    }
+    document.body.setAttribute("data-fitted", "");
+  }
+  // Measure once the fonts are in, since the fallback fonts are a different size.
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+    if (document.readyState === "complete") trim(); else window.addEventListener("load", trim);
+  });
+</script>

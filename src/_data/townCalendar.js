@@ -59,6 +59,7 @@ function cleanTitle(raw) {
     .replace(/\bBoxbrorough\b/gi, "Boxborough")
     .replace(/\s*[-\u2013]\s*Boxborough,?\s*MA\s*\d{5}\s*$/i, "")
     .replace(/\s*[-\u2013]\s*$/, "")
+    .replace(/\s+[-\u2013]\s+/g, " \u2014 ") // "closed - Indigenous People Day" -> a proper dash
     .trim();
   // Shouted titles ("TOWN OFFICES ARE CLOSED") -> sentence case; short acronyms like FSBC stay.
   const shouted = t.split(/\s+/).filter((w) => /^[A-Z]{3,}$/.test(w));

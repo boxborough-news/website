@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import QRCode from "qrcode";
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
@@ -412,6 +413,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("absolute", (url) => (/^https?:/.test(url) ? url : siteUrl + String(url).replace(pathPrefix, "/")));
   eleventyConfig.addFilter("encode", (s) => encodeURIComponent(String(s)));
   eleventyConfig.addFilter("afterToday", (v) => !v || ymd(v) >= todayET());
+  // A QR code as inline SVG, for the printed flyers (src/print/). {% qr "https://…" %}
+  eleventyConfig.addNunjucksAsyncShortcode("qr", async (url, label) =>
+    (await QRCode.toString(String(url), { type: "svg", margin: 0, errorCorrectionLevel: "M", color: { dark: "#000000", light: "#ffffff" } }))
+      .replace("<svg ", `<svg role="img" aria-label="${String(label || "QR code for " + url).replace(/"/g, "&quot;")}" `));
   // { url, label } for the weekly agendas link; issue = the issue Friday (defaults to the current one).
   eleventyConfig.addFilter("agendasLink", (searchUrl, issue) => agendasLink(searchUrl, issue));
   eleventyConfig.addFilter("teaser", (data, body) => teaser(data.summary, body));

@@ -1,8 +1,10 @@
-{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, showSection, teaserMin, teaserWords, hideDate, isNew.
+{#- A story teaser. Set: item, size ("lead" | "medium" | "small"), showImage, hideFlyer, showSection, teaserMin, teaserWords, hideDate, isNew.
+    hideFlyer: no picture when it's a flyer, chart or logo (image_fit: full), as on the home page.
     Without an editor's summary, the teaser is the story's opening, so it ends with "…" to show it continues. -#}
 {%- set d = item.data %}
-<article class="story story-{{ size or 'medium' }}{% if showImage and d.image %} has-image{% if d.image_fit == 'full' %} has-full-image{% endif %}{% endif %}">
-  {%- if showImage and d.image %}
+{%- set pic = showImage and d.image and not (hideFlyer and d.image_fit == 'full') %}
+<article class="story story-{{ size or 'medium' }}{% if pic %} has-image{% if d.image_fit == 'full' %} has-full-image{% endif %}{% else %} no-image{% endif %}">
+  {%- if pic %}
   <a class="story-image{% if d.image_fit == 'full' %} is-full{% endif %}{% if d.image_focus and d.image_focus != 'center' %} focus-{{ d.image_focus }}{% endif %}" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
     {%- if size == 'lead' %}
     <img src="{{ d.image }}" alt="{{ d.image_alt }}" sizes="(min-width: 1000px) 760px, 100vw" loading="eager" fetchpriority="high">
@@ -18,7 +20,8 @@
     <h3 class="story-title"><a href="{{ item.url }}">{{ d.title | smart }}</a></h3>
     {%- set isExcerpt = not (d.summary and (d.summary | trim)) %}
     {#- Cards aim at about the same preview length (teaserMin–teaserWords words), so a row of stories lines up. #}
-    {%- set t = d.teaser if size == 'lead' else ((d.opening or d.teaser) | preview(teaserMin or 30, teaserWords or 45)) %}
+    {#- Text-only cards get a little more of the story (about 45–65 words), so they don't look thin. #}
+    {%- set t = d.teaser if size == 'lead' else ((d.opening or d.teaser) | preview(((teaserMin or 30) + 15) if not pic else (teaserMin or 30), ((teaserWords or 45) + 20) if not pic else (teaserWords or 45))) %}
     {%- if isExcerpt %}{% set t = t | continued %}{% endif %}
     {%- if size != 'small' %}<p class="story-teaser">{{ t }}</p>{% endif %}
     {%- if not hideDate or d.byline %}

@@ -23,7 +23,7 @@ layout: layouts/base.njk
   <header class="article-head">
     <p class="kicker" data-pagefind-ignore>
       {%- if isEvent %}<a href="/events/">Events</a>
-      {%- elif isAnn %}<a href="/notices/">Community notices</a>
+      {%- elif isAnn %}<a href="/notices/">Notices</a>
       {%- else %}<a href="{{ sec.path }}">{{ sec.name }}</a>{% endif %}
     </p>
     <h1 class="article-title" data-pagefind-meta="title">{{ title | smart }}</h1>
@@ -121,7 +121,7 @@ layout: layouts/base.njk
   {%- set more = collections.notices | exclude(page.url) | limit(4) %}
   {%- if more.length %}
   <section class="more-from">
-    <h2 class="label">More community notices</h2>
+    <h2 class="label">More notices</h2>
     <ul class="headline-list">
       {%- for item in more %}<li><a href="{{ item.url }}">{{ item.data.title | smart }}</a> <span class="meta">{{ item.data.date | date }}</span></li>{% endfor %}
     </ul>

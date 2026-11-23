@@ -45,7 +45,8 @@
           {%- for s in sections %}
           <li><a href="{{ s.path }}" {% if page.url.startsWith(s.path) or section == s.key %}aria-current="page"{% endif %}>{{ s.name }}</a></li>
           {%- endfor %}
-          <li><a href="/events/" {% if page.url.startsWith("/events/") or page.url.startsWith("/notices/") or page.url.startsWith("/submit/") or section == "announcements" %}aria-current="page"{% endif %}>Events</a></li>
+          <li><a href="/events/" {% if page.url.startsWith("/events/") or page.url.startsWith("/submit/") or (section == "announcements" and type != "notice") %}aria-current="page"{% endif %}>Events</a></li>
+          <li><a href="/notices/" {% if page.url.startsWith("/notices/") or (section == "announcements" and type == "notice") %}aria-current="page"{% endif %}>Notices</a></li>
           <li><a href="/archive/" {% if page.url.startsWith("/archive/") %}aria-current="page"{% endif %}>Archive</a></li>
           {%- for p in collections.menuPages %}
           <li><a href="{{ p.url }}" {% if page.url == p.url %}aria-current="page"{% endif %}>{{ p.data.title }}</a></li>
@@ -80,7 +81,7 @@
         <ul>
           {%- for s in sections %}<li><a href="{{ s.path }}">{{ s.name }}</a></li>{% endfor %}
           <li><a href="/events/">Events</a></li>
-          <li><a href="/notices/">Community notices</a></li>
+          <li><a href="/notices/">Notices</a></li>
           <li><a href="/archive/">Archive</a></li>
         </ul>
       </div>

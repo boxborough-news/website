@@ -42,19 +42,24 @@ export function makeIssue(data, mode = "next") {
   const latest = mode === "latest" ? collections.latestIssue : null;
   const week = latest ? { end: latest.date, news: latest.news, features: latest.features, announcements: latest.announcements } : collections.thisWeek;
   // The lead story, as on the home page: the one ticked "Top story", otherwise the first
-  // News story with a photo. It opens the email with a large picture.
+  // News story with a photo. It opens the email with a large picture. As on the home page, a
+  // flyer, chart or logo (image_fit: full) isn't shown with the story and doesn't count as a photo.
   const stories = [...week.news, ...week.features];
+  const photo = (i) => i.data.image && i.data.image_fit !== "full";
+  const storyItem = (i) => ({ ...toItem(i), image: photo(i) ? toItem(i).image : "" });
   const lead =
     stories.find((i) => i.data.top_story === true) ||
-    week.news.find((i) => i.data.image) ||
-    stories.find((i) => i.data.image) ||
+    week.news.find(photo) ||
+    stories.find(photo) ||
     null;
   const news = week.news.filter((i) => i !== lead);
   const features = week.features.filter((i) => i !== lead);
 
   // The coming week's events (the seven days from the issue date), Boxborough first.
   const weekEnd = addDays(week.end, 6);
-  const eventRows = latest ? latest.events : collections.upcomingEvents;
+  // For an issue that has already come out (an email made after Friday, e.g. on the weekend),
+  // events and meetings that are already over are left out.
+  const eventRows = latest ? latest.events.filter((r) => (r.end || r.date) >= todayET()) : collections.upcomingEvents;
   const thisWeekEvents = eventRows.filter((r) => r.sort <= weekEnd).map(toEvent);
   const isBox = (ev) => /boxborough/i.test(ev.town);
   const shownEvents = new Set(thisWeekEvents.map((ev) => ev.url));
@@ -69,9 +74,9 @@ export function makeIssue(data, mode = "next") {
 
   return buildNewsletter({
     issueDate: week.end,
-    lead: lead ? toItem(lead) : null,
-    news: news.map(toItem),
-    features: features.map(toItem),
+    lead: lead ? storyItem(lead) : null,
+    news: news.map(storyItem),
+    features: features.map(storyItem),
     announcements: newItems,
     notices,
     events: newsletter.include_events
@@ -86,7 +91,7 @@ export function makeIssue(data, mode = "next") {
     townhall: showTownhall ? townhall : null,
     meetings: newsletter.include_townhall && townCalendar && townCalendar.ok
       ? latest
-        ? (townCalendar.lastIssue === latest.date ? townCalendar.sinceIssue : [])
+        ? (townCalendar.lastIssue === latest.date ? townCalendar.sinceIssue.filter((d) => d.date >= todayET()) : [])
         : townCalendar.days.filter((d) => d.date <= addDays(week.end, 7))
       : [],
     calendarLink: townCalendar ? townCalendar.link : "",

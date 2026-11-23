@@ -1,20 +1,16 @@
 ---
 layout: layouts/base.njk
 permalink: /notices/
-title: Community notices
+title: Notices
 ---
 <div class="events-page narrow-wide">
   <header class="section-head section-head-row">
     <div>
-      <h1>Community notices</h1>
+      <h1>Notices</h1>
       <p>{{ announcements_page.notices_intro }}</p>
     </div>
     <a class="button" href="/submit/">Submit a notice</a>
   </header>
-  <nav class="tabs" aria-label="Events and notices">
-    <a href="/events/">Events</a>
-    <a href="/notices/" aria-current="page">Community notices</a>
-  </nav>
   <p class="disclaimer small">{{ announcements_page.disclaimer }}</p>
   <ul class="headline-list notice-list">
     {%- for item in collections.notices %}

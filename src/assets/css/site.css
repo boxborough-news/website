@@ -182,6 +182,12 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
   .story-flow > .story.span-2 { width: calc((100% - 96px) * 2 / 3 + 32px - 0.1px); }
   .story-flow > .story.span-3 { width: calc(100% - 32px - 0.1px); }
   .story-flow > .story.half { width: calc((100% - 64px) / 2 - 0.1px); }
+  /* A single photo story in a row of three: photo in the left half, text in the right half. */
+  .story-flow > .story.wide { width: calc(100% - 32px - 0.1px); }
+  .story-flow > .story.has-image.wide { display: inline-grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .story-flow > .story.has-image.wide .story-image { margin-bottom: 0; }
+  /* A half card alone in its row keeps the rest of the row empty, so the next group starts below. */
+  .story-flow > .story.half.alone { margin-right: calc((100% + 64px) / 2 - 0.2px); }
 }
 @media (max-width: 980px) {
   .home-top { display: flex; flex-direction: column; }
@@ -264,7 +270,8 @@ main.wrap { padding-top: 28px; padding-bottom: 64px; min-height: 60vh; }
 
 .this-week .label { margin-bottom: 14px; }
 .this-week .event-list a { font-size: 17px; }
-.this-week .more { margin-bottom: 30px; }
+.this-week .more { margin-bottom: 0; }
+.this-week .meetings { margin-bottom: 30px; }
 
 /* Town meetings panel (home rail and Events page) */
 .meetings { background: var(--tint); border-left: 4px solid var(--tint-edge); padding: 16px 18px 14px; }

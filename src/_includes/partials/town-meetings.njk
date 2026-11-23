@@ -3,7 +3,8 @@
 {#- The week's agendas on the town website: Thursday before the issue to the Friday after. -#}
 {%- set agendas = (townhall.agendas_url | agendasLink(hs.issue if hs else "")) if (townhall.agendas_link != false and townhall.agendas_url) else null %}
 <section class="meetings" aria-labelledby="meetings-head">
-  <h2 class="label" id="meetings-head">Town meetings</h2>
+  {#- "Town Hall", not "Town meetings", so it isn't confused with the annual Town Meeting. #}
+  <h2 class="label" id="meetings-head">Next Week at Town Hall</h2>
   {%- if thNote %}
   <div class="meetings-note">{{ townhall.body | markdown | safe }}</div>
   {%- endif %}

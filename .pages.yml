@@ -385,10 +385,6 @@ content:
         label: Show a note above the town meetings list
         type: boolean
         description: "Optional. Use it when a meeting deserves a heads-up (a big vote, a public hearing). Most weeks, leave it off. The meetings list itself appears automatically either way."
-      - name: heading
-        label: Note heading (shown in the weekly email)
-        type: string
-        default: This week at Town Hall
       - name: body
         label: Note
         type: rich-text

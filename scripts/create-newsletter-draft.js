@@ -7,7 +7,14 @@
 //   --dry-run                      print what would be sent without contacting Kit
 //   NEWSLETTER_TEST=1              make a test draft ("TEST – …") from the most recent published
 //                                  issue instead of the coming Friday's (for trying it out)
+//   SCHEDULED_RUN=1                the Friday 6:20 a.m. run: the issue that has just gone live.
+// Run by hand (the Pages CMS button), it makes the draft for the coming Friday if anything for
+// it is already live (a mid-week story); otherwise, from Friday through Tuesday, for the issue
+// on the home page, so stories added or fixed late (Friday evening, the weekend) go into that
+// Friday's email. Later in the week, with nothing live for the coming Friday, it makes no draft:
+// that Friday's draft is made automatically at 6:20 a.m.
 import fs from "node:fs";
+import { todayET, addDays } from "../lib/content.js";
 
 const API = process.env.KIT_API_BASE || "https://api.kit.com/v4";
 const KEY = process.env.KIT_API_KEY;
@@ -21,7 +28,16 @@ function report(lines) {
 }
 
 const TEST = Boolean(process.env.NEWSLETTER_TEST);
-const issuePath = TEST ? "_site/newsletter/latest.json" : "_site/newsletter/this-week.json";
+const SCHEDULED = Boolean(process.env.SCHEDULED_RUN);
+const readJson = (p) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : { count: 0 });
+let useLatest = TEST;
+if (!TEST && !SCHEDULED) {
+  const coming = readJson("_site/newsletter/this-week.json");
+  const latest = readJson("_site/newsletter/latest.json");
+  const today = todayET();
+  useLatest = !coming.count && latest.count && latest.issueDate && latest.issueDate >= addDays(today, -4) && latest.issueDate <= today;
+}
+const issuePath = useLatest ? "_site/newsletter/latest.json" : "_site/newsletter/this-week.json";
 if (!fs.existsSync(issuePath)) {
   console.error(`Couldn't find ${issuePath}. Build the site first (npx eleventy).`);
   process.exit(1);
@@ -29,7 +45,7 @@ if (!fs.existsSync(issuePath)) {
 const issue = JSON.parse(fs.readFileSync(issuePath, "utf8"));
 const settings = JSON.parse(fs.readFileSync("src/_data/newsletter.json", "utf8"));
 const site = JSON.parse(fs.readFileSync("src/_data/site.json", "utf8"));
-const previewUrl = (process.env.SITE_URL || site.url).replace(/\/$/, "") + (TEST ? "/newsletter/latest/" : "/newsletter/this-week/");
+const previewUrl = (process.env.SITE_URL || site.url).replace(/\/$/, "") + (useLatest ? "/newsletter/latest/" : "/newsletter/this-week/");
 
 if (!issue.count && TEST) {
   report(["## No test draft", "There is no published issue yet to make a test draft from."]);
@@ -39,6 +55,7 @@ if (!issue.count) {
   report([
     "## No newsletter draft this week",
     `Nothing was published in the 7 days up to ${issue.issueDate}, so no draft was created.`,
+    ...(SCHEDULED || TEST ? [] : [`(This Friday's draft is made automatically at 6:20 a.m., once the issue goes live.)`]),
   ]);
   process.exit(0);
 }
@@ -98,7 +115,7 @@ try {
   }
   // The second Friday-morning run leaves an existing draft alone, so it never overwrites
   // changes an editor has already made in Kit. (The Pages CMS button still refreshes it.)
-  if (existing && process.env.SCHEDULED_RUN) {
+  if (existing && SCHEDULED) {
     report([`## Draft already in Kit`, `**${payload.subject}** was already created this morning; it was left as is.`]);
     process.exit(0);
   }

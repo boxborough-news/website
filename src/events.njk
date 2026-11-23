@@ -12,10 +12,6 @@ oldPath: /announcements-and-events
     </div>
     <a class="button" href="/submit/">Submit an event</a>
   </header>
-  <nav class="tabs" aria-label="Events and notices">
-    <a href="/events/" aria-current="page">Events</a>
-    <a href="/notices/">Community notices</a>
-  </nav>
 
   <div class="events-grid">
     <div class="events-main">
@@ -41,7 +37,6 @@ oldPath: /announcements-and-events
       <p class="disclaimer small">{{ announcements_page.disclaimer }}</p>
       <ul class="page-links">
         <li><a href="/events/past/">Past events</a></li>
-        <li><a href="/notices/">Community notices</a></li>
         <li><a href="{{ '/events.ics' | absolute | replace('https://', 'webcal://') | replace('http://', 'webcal://') }}">Add these events to your calendar app</a> <span class="small">(updates automatically)</span></li>
       </ul>
     </div>

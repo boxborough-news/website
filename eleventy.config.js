@@ -253,12 +253,18 @@ export default function (eleventyConfig) {
     const issue = currentIssue(all, last);
     const inIssue = all.filter((i) => issueFriday(i.data.date) === issue);
     const fresh = all.filter((i) => issueFriday(i.data.date) > issue);
+    // On the home page a flyer, chart or logo (image_fit: full) isn't shown, so only real photos count.
+    const photo = (i) => i.data.image && i.data.image_fit !== "full";
     const lead =
       fresh.find((i) => i.data.top_story === true) ||
       inIssue.find((i) => i.data.top_story === true) ||
-      inIssue.find((i) => i.data.section === "news" && i.data.image) ||
-      inIssue.find((i) => i.data.image) || inIssue[0] || fresh[0];
-    const pick = (sec) => [...fresh, ...inIssue].filter((i) => i !== lead && i.data.section === sec);
+      inIssue.find((i) => i.data.section === "news" && photo(i)) ||
+      inIssue.find(photo) || inIssue[0] || fresh[0];
+    // Stories with photos first, then those without, so a row never mixes the two.
+    const pick = (sec) => {
+      const list = [...fresh, ...inIssue].filter((i) => i !== lead && i.data.section === sec);
+      return [...list.filter(photo), ...list.filter((i) => !photo(i))];
+    };
     const news = pick("news");
     let features = pick("features");
     const featuresAreCurrent = features.length > 0;

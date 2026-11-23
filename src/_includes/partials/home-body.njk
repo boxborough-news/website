@@ -11,12 +11,12 @@
 <div class="home-top">
   {%- if hs.lead %}
   <div class="home-lead">
-    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set showSection = true %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
+    {%- set item = hs.lead %}{% set size = "lead" %}{% set showImage = true %}{% set hideFlyer = true %}{% set showSection = true %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
     {% include "partials/story.njk" %}
   </div>
   {%- endif %}
 
-  {#- On desktop, This week is one of three equal columns on the right. The stories after it
+  {#- On desktop, the right-hand column (town meetings and events) is one of three equal columns on the right. The stories after it
       run two across beside it and three across once it ends (see "Home page layout" in
       site.css), so the page has no blank column however many stories there are. On phones
       and tablets it comes after Features. #}
@@ -32,7 +32,7 @@
     </div>
     <div class="story-grid story-flow{% if hs.news.length is odd %} is-odd{% endif %}">
       {%- for item in hs.news %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserMin = 30 %}{% set teaserWords = 45 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set hideFlyer = true %}{% set showSection = false %}{% set teaserMin = 30 %}{% set teaserWords = 45 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = not isNew %}
       {% include "partials/story.njk" %}
       {%- endfor %}
     </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="story-grid story-flow{% if fc == 1 %} story-grid-1{% elif fc is odd %} is-odd{% endif %}">
       {%- for item in hs.features %}
-      {%- set size = "medium" %}{% set showImage = true %}{% set showSection = false %}{% set teaserMin = 30 %}{% set teaserWords = 45 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = hs.featuresAreCurrent and not isNew %}
+      {%- set size = "medium" %}{% set showImage = true %}{% set hideFlyer = true %}{% set showSection = false %}{% set teaserMin = 30 %}{% set teaserWords = 45 %}{% set isNew = item.url in hs.fresh %}{% set hideDate = hs.featuresAreCurrent and not isNew %}
       {% include "partials/story.njk" %}
       {%- endfor %}
     </div>
@@ -79,8 +79,8 @@
 {% include "partials/subscribe-box.njk" %}
 
 {#- Desktop finishing touches, done after the browser has laid out the page:
-    1. stories below This week are balanced into rows of three and pairs (halves), so no story is
-       left alone in a row; a story alone beside This week fills both places (picture beside text);
+    1. stories below the right-hand column are balanced into rows of three and pairs (halves), so no story is
+       left alone in a row; a story alone beside the right-hand column fills both places (picture beside text);
     2. stories in the same row get the same height, so the lines under them meet. #}
 <script>
 (function () {
@@ -99,27 +99,35 @@
   function arrange() {
     var flows = [].slice.call(top.querySelectorAll(".story-flow"));
     flows.forEach(function (f) {
-      [].forEach.call(f.children, function (c) { c.classList.remove("span-2", "span-3", "half"); c.style.minHeight = ""; });
+      [].forEach.call(f.children, function (c) { c.classList.remove("span-2", "span-3", "half", "alone", "wide"); c.style.minHeight = ""; });
     });
     if (getComputedStyle(rail).float === "none") return;
     flows.forEach(function (f) {
       var cards = [].slice.call(f.children);
       if (!cards.length) return;
-      // Beside This week there are two places in a row; below it, three. Stories below it are
-      // balanced so every card is a third or a half and no story is left alone in a row:
-      // 3 → 3, 2 → 2 halves, 4 → 2 + 2 halves, 5 → 3 + 2, 7 → 3 + 2 + 2, 1 → a half on its own.
-      var railEnd = rail.getBoundingClientRect().bottom + parseFloat(getComputedStyle(rail).marginBottom);
-      var below = cards.filter(function (c) { return c.getBoundingClientRect().top >= railEnd - 1; });
-      var n = below.length;
-      if (n) {
+      // Stories with photos come first, then any without (the template orders them so); each
+      // group is laid out on its own rows, so a row never mixes the two.
+      var groups = [cards.filter(function (c) { return !c.classList.contains("no-image"); }),
+                    cards.filter(function (c) { return c.classList.contains("no-image"); })];
+      groups.forEach(function (g) {
+        if (!g.length) return;
+        // Beside the right-hand column there are two places in a row; below it, three. Stories
+        // below it are balanced so every card is a third or a half and none is left alone:
+        // 3 → 3, 2 → 2 halves, 4 → 2 + 2 halves, 5 → 3 + 2, 7 → 3 + 2 + 2.
+        var railEnd = rail.getBoundingClientRect().bottom + parseFloat(getComputedStyle(rail).marginBottom);
+        var below = g.filter(function (c) { return c.getBoundingClientRect().top >= railEnd - 1; });
+        var beside = g.filter(function (c) { return below.indexOf(c) < 0; });
+        // A story alone in its row beside the right-hand column fills both places.
+        if (beside.length % 2 === 1) beside[beside.length - 1].classList.add("span-2");
+        if (beside.length % 2 === 1) below = g.filter(function (c) { return c.getBoundingClientRect().top >= railEnd - 1; });
+        var n = below.length;
+        // A single photo story here spans the row, photo in the left half and text in the right;
+        // a single text-only story is a half card with the rest of its row left empty.
+        if (n === 1 && !below[0].classList.contains("no-image")) { below[0].classList.add("wide"); return; }
         var halves = n === 1 ? 1 : n % 3 === 2 ? 2 : n % 3 === 1 ? 4 : 0;
         below.slice(n - halves).forEach(function (c) { c.classList.add("half"); });
-      } else {
-        // The section ends beside This week: a story alone in its row there fills both places,
-        // its photo beside the text.
-        var all = rows(cards), last = all[all.length - 1];
-        if (last.cards.length === 1) last.cards[0].classList.add("span-2");
-      }
+        if (n === 1) below[0].classList.add("alone");
+      });
       rows(cards).forEach(function (r) {
         if (r.cards.length < 2) return;
         var h = Math.max.apply(null, r.cards.map(function (c) { return c.getBoundingClientRect().height; }));

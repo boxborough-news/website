@@ -28,7 +28,7 @@ This guide covers everything an editor needs to publish Boxborough News. You don
 
 Instead of typing each article into Pages CMS, you can bring the week's News and Features stories in from the editors' tracker sheet (BoxNews Content Tracker), where each story's Google Doc and photos are already linked.
 
-1. On the tracker sheet's articles tab, make sure each story's row has its **Content type** (News or Feature), its **Publication date(s)** (the Friday), a link in **Link to document**, any photos in **Link to photo, if applicable**, and initials in **Abby/ Cassie review**. Only rows with the review filled in are imported. Optional: "Yes" in **Top story?**, and "Yes" in **Flyer, chart, or logo? (no trimming of photo)** for a picture that must be shown whole.
+1. On the tracker sheet's articles tab, make sure each story's row has its **Content type** (News or Feature), its **Publication date(s)** (the Friday), a link in **Link to document**, any photos in **Link to photo, if applicable**, and initials in **Abby/ Cassie review**. Only rows with the review filled in are imported. Optional: "Yes" in **Top story?**, and "Yes" in **Flyer, chart, or logo? (no trimming of photo)** for a picture that must be shown whole. A story marked as a flyer, chart or logo shows **no picture on the home page** (only on its own page), since graphics with text look busy there; the home page lists stories with photos first and text-only stories together after them.
 2. In Pages CMS, click **Import stories from the tracker sheet** (under Actions) and confirm.
 3. About five minutes later (up to ten when there are many new photos), check that all the stories came in. One way is to reload the Pages CMS window and look at **Articles**: the new stories are listed there, and you can open them to look them over. Or just open the **Preview** page. A box at the top lists what was imported and anything that needs attention, such as a Doc that isn't shared. (If a page still looks unchanged, reload it: your browser can keep showing its saved copy of a page for up to 10 minutes.)
 4. Look over each imported story: the **headline**, the **byline** (if the story has one), that the headline isn't repeated at the top of the story text, the paragraph breaks, and the photos. (If a writer ended paragraphs with Shift+Return instead of a new paragraph, the import turns those line breaks back into paragraphs; short lines such as an address keep their line breaks.)
@@ -63,7 +63,7 @@ Events and notices are still entered in Pages CMS as before. Imported stories ar
 | **Summary** | Optional. One or two sentences shown on the home page and in the email. If you leave it blank, the first couple of sentences of the article are used, which usually works well. (Those opening sentences end with "…" so readers know the story continues.) |
 | **Main photo** | Optional. Click to upload (see *Photos* below). |
 | **Photo description** | A few words describing the photo for readers who use screen readers. |
-| **How to show the main image** | Leave as **Photo** for ordinary photos. Choose **Flyer, chart or logo** for anything with text in it, so it's always shown whole instead of trimmed to fit. |
+| **How to show the main image** | Leave as **Photo** for ordinary photos. Choose **Flyer, chart or logo** for anything with text in it, so it's always shown whole instead of trimmed to fit. A flyer, chart or logo appears only on the story's own page, not on the home page. |
 | **Keep in view when trimmed** | Leave as **Center** for most photos. The home page and section pages trim photos to a standard shape; for a portrait or a tall subject, choose **Top** so heads aren't cut off. |
 | **Photo caption / credit** | Optional. Shown under the photo. |
 | **Top story** | Tick **one** story each week. It becomes the large lead story at the top of the home page and leads the email. If nothing is ticked, the issue's first News story with a photo is used. The rest of the issue's News and Features follow it; stories from earlier issues move to a short "Earlier issues" list. |
@@ -106,8 +106,8 @@ Open it and tick **Draft**, then **Save**. It disappears from the website but is
 
 Use **Events & Notices** in the left menu for everything submitted by community groups. Each entry is one of two kinds:
 
-- **Event**: something people can attend on a date. Events are listed on the **Events** page by date (this week, next week, later), in the "This week" box on the home page and in the Friday email. They drop off by themselves once their last day has passed, and move to **Past events**.
-- **Community notice**: a news release, a message from an organization, a call for volunteers. Notices are listed on the **Community notices** page, newest first.
+- **Event**: something people can attend on a date. Events are listed on the **Events** page by date (this week, next week, later), in the "Upcoming Events" box on the home page and in the Friday email. They drop off by themselves once their last day has passed, and move to **Past events**.
+- **Community notice**: a news release, a message from an organization, a call for volunteers. Notices are listed on the **Notices** page (in the menu bar), newest first.
 
 | Field | What to put |
 |---|---|
@@ -133,9 +133,9 @@ The **Submit an event or notice** page (linked from the Events page, the footer 
 
 ---
 
-## Town meetings and the optional note
+## Next Week at Town Hall, and the optional note
 
-The list of upcoming town meetings on the home page, the Events page and in the email comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain.
+The list of upcoming town meetings ("Next Week at Town Hall", at the top of the home page's right-hand column and on the Events page, and in the email) comes straight from the Town of Boxborough's online calendar and updates itself twice a day, so there's nothing to maintain.
 
 Below the list, an **Agendas posted for …** link opens the town's Agenda Center showing the agendas posted for the Thursday before the issue through the Friday after it. The dates move forward by themselves at 6 a.m. each Friday, so there's no weekly link to paste. To hide it, untick **Show the weekly agendas link** in **Town meetings note**.
 
@@ -150,7 +150,7 @@ When a meeting deserves a heads-up (a big vote, a public hearing), you can add a
 
 ## The Friday email
 
-**Every Friday shortly after 6 a.m.** (once the issue has gone live), the system gathers everything published in the past seven days into a formatted email, in the same order as the home page: the **Top story** with a large photo, then the week's News and Features (headline, photo, opening sentences and a "Read more" link), then a short list of the coming week's events (Boxborough first, then nearby towns, plus events newly announced for later dates), the headlines of new community notices, and finally the town meetings note (if any) and upcoming town meetings. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
+**Every Friday shortly after 6 a.m.** (once the issue has gone live), the system gathers everything published in the past seven days into a formatted email, in the same order as the home page: the **Top story** with a large photo, then the week's News and Features (headline, photo, opening sentences and a "Read more" link; stories marked as a flyer, chart or logo appear without their picture), then **Next Week at Town Hall** (the Town Hall note, if any, and the coming town meetings), **Upcoming Events** (Boxborough first, then nearby towns, plus events newly announced for later dates), and the headlines of new **Notices**. It saves the email as a **draft in Kit**, our email service. **Nothing is sent until an editor sends it.**
 
 To send it:
 1. Log in to **Kit** (https://app.kit.com) with the Boxborough News account. (Ask the site administrator for the login.)
@@ -160,7 +160,7 @@ To send it:
 
 **Want to preview the email before Friday?** Open the **Preview** page (see *Previewing before it goes live*) and click **Preview the coming Friday's email**. It shows the coming issue as it stands, including the stories scheduled for Friday. (The Subscribe page links to a different page, **/newsletter/latest/**, which shows the most recent email already sent, so new readers always see a complete issue.)
 
-**Added or fixed an article after the draft was made?** In Pages CMS, look for the action button labeled **Create this week's email draft now** and click it. This refreshes the existing draft rather than making a second one. If you don't see the button, just edit the draft directly in Kit.
+**Added or fixed an article after the draft was made?** (For example, the stories were imported on Friday evening or the weekend, after the 6:20 a.m. draft.) In Pages CMS, click the action button labeled **Create this week's email draft now**, about five minutes after your last change. From Friday through Tuesday it rebuilds the email for the issue on the home page, with everything in it now, and replaces that issue's draft in Kit (unless it has already been sent); events and meetings that are already over are left out. Any changes you made to the draft in Kit are replaced, so click the button first and edit in Kit afterwards. If you don't see the button, just edit the draft directly in Kit.
 
 **To add the editors' note at the top of an issue** (a few friendly lines pointing readers to the week's stories, like the note in the old newsletter): open **Weekly email settings**, write it in **Editors' note**, set **The note is for the issue dated** to that Friday, and save before Friday morning. To link to a story, select the words, click the link button and paste the story's web address: open the story on the new website and copy the address from your browser's address bar. (Don't copy links out of an old newsletter; those go through the old email service.) The note is signed with the name in **Signed by**. Because it's tied to that Friday, it won't appear again the following week, so there's nothing to clear. If you add or change the note after the draft has been made, click **Create this week's email draft now** to refresh the draft.
 

@@ -1,7 +1,8 @@
 # Every Friday morning (about 6:20 a.m.): build this week's newsletter and save it as a DRAFT in Kit.
 # An editor then reviews it in Kit and presses Send. Nothing is sent automatically.
 # Editors can also run this any time with the "Create this week's email draft now"
-# button in Pages CMS. To try the whole email before a real Friday, run it from the
+# button in Pages CMS: it makes (or refreshes) the draft for the issue on the home page now, so
+# stories imported or fixed after Friday morning get into that Friday's email. To try the whole email before a real Friday, run it from the
 # GitHub Actions tab with "Test with the most recent issue" ticked.
 name: Weekly newsletter draft
 

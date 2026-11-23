@@ -1,8 +1,12 @@
-{#- Home page rail: the coming week's events (Boxborough first), then town meetings. -#}
+{#- Home page rail: next week's official town meetings first, then the community events people
+    have submitted for the coming week (Boxborough first). -#}
 {%- set ev = collections.eventsThisWeek %}
-<section class="this-week" aria-labelledby="this-week-head">
+<div class="this-week">
+  {%- set tmDays = 7 %}{% set tmMax = 6 %}
+  {% include "partials/town-meetings.njk" %}
+  <section class="upcoming-events" aria-labelledby="this-week-head">
   <div class="label-row">
-    <h2 class="label" id="this-week-head"><a href="/events/">This week</a></h2>
+    <h2 class="label" id="this-week-head"><a href="/events/">Upcoming Events</a></h2>
     <a class="label-more" href="/events/">All events →</a>
   </div>
   {%- if ev.boxborough.length %}
@@ -17,6 +21,5 @@
   <p class="small">No community events are listed for the coming week.</p>
   {%- endif %}
   <p class="more"><a class="more-secondary" href="/submit/">Submit an event</a></p>
-  {%- set tmDays = 7 %}{% set tmMax = 6 %}
-  {% include "partials/town-meetings.njk" %}
-</section>
+  </section>
+</div>
